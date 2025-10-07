@@ -1,6 +1,6 @@
 # Features
 
-### `[CORE]` Zapis
+### `[CORE]` [Zapis](features/Zapis.md)
 
 Jako student se potrebuji zapsat na zvoleny predmet a jeho prislusne rozvrhove listky.
 
