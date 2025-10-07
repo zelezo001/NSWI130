@@ -14,4 +14,18 @@
 9. Pokud fronty nejsou, student dostane hlaseni o uspesnem zapisu. V opacnem pripade je student zarazen do cekaci fronty.
     - System nabidne alternativni rozvrhove listky (s volnou kapacitou) pro tento predmet - v pripade ze cviceni je nutne s prednaskou, student si z alternativ **musi** vybrat, do te doby neni potvrzen zapis.
 
+---
+
+### Data collection responsibility
+
+Kroky 3,6
+
+Potrebujeme spravne ziskat data o rozvrhu z prislusneho modulu.
+
+### Validation responsibility
+
+Kroky 8,9 
+
+Cast systemu, ktera bude mit velky napor v dobe otevreni zapisu, je nutne drzet pevne poradi.
+
 
