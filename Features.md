@@ -26,3 +26,11 @@ Studijni oddeleni/ Admin potrebuje mit moznost nastavit rozmezi predbezneho/voln
 ### Omezni poctu zapisu
 
 Studentovi u urcitych predmetu musi byt zakazano zapsat predmet, ktery jiz splnil/pokusil se x-krat o splneni a neuspel.
+
+### Statistika zapisovani predmetu
+
+Studenti by meli videt udaje o poctu zapisovani rozpinajici se nekolik let do minulosti u predmetu, ktery mini zapsat.
+
+### Vynucene zapsani z fronty
+
+Ucitel/studijni oddeleni by meli mit moznost vzit studenta z fronty pro dany rozvrhovy listek a zapsat ho. V tomto procesu zaroven maji moznost rozsirit kapacitu studentu pro listek.
