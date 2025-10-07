@@ -1,8 +1,8 @@
-# Zapis
+# Zapis studentu do predmetu
 
 1. Student se prihlasi do informacniho systemu  
 2. Student otevre modul zapisu
-3. Vyhleda predmet, ktery si mini zapsat podle kodu, nazvu, atd. 
+3. Studentovi se zobrazi rozhrani ve kterem vyhleda predmet, ktery si mini zapsat podle kodu, nazvu, atd. 
     - System se pta rozvrhoveho modulu na informace o predmetech
 4. Zapisovy modul zobrazi seznam predmetu, ktere odpovidaji popisu
 5. Student vybere pozadovany predmet
