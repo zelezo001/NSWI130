@@ -4,7 +4,7 @@
 
 Jako student se potrebuji zapsat na zvoleny predmet a jeho prislusne rozvrhove listky.
 
-### Zruseni zapisu
+### [Zruseni a uprava zapisu](features/Zruseni_zapisu.md)
 
 Studijni oddeleni potrebuje mit moznost libovolnemu studentovi v libovolny cas zrusit zapis specifickeho predmetu. Student potrebuje moznost zruseni zapisu pouze v limitovanem casovem okne.
 
@@ -24,11 +24,11 @@ Studentovi u urcitych predmetu musi byt zakazano zapsat predmet, ktery jiz splni
 
 ### Kontrola zapisu
 
-Studijni oddeleni musi zkontrolovat validitu zapisu studentu (splneny prerekvizity apod.). System by mel automaticky upozornit na problematicke pripady. 
+Studijni oddeleni musi zkontrolovat validitu zapisu studentu (splneny prerekvizity apod.). System by mel automaticky upozornit na problematicke pripady.
 
 ### Kosik
 
-Jako student potrebuji mit moznost pridavat si predmety ktere si v nasledujicim semestru planuji zapsat do prehledneho kosiku. 
+Jako student potrebuji mit moznost pridavat si predmety ktere si v nasledujicim semestru planuji zapsat do prehledneho kosiku.
 
 ### Statistika zapisovani predmetu
 
