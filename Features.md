@@ -1,4 +1,4 @@
-## Core Features
+# Core Features
 
 ### [Zapis studentu do predmetu](features/Zapis.md)
 
@@ -20,7 +20,7 @@ Studijni oddeleni/ Admin potrebuje mit moznost nastavit rozmezi predbezneho/voln
 
 Studentovi u urcitych predmetu musi byt zakazano zapsat predmet, ktery jiz splnil/pokusil se x-krat o splneni a neuspel.
 
-## Additional Features
+# Additional Features
 
 ### Kontrola zapisu
 
