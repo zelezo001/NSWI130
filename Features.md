@@ -4,7 +4,7 @@
 
 Jako student se potrebuji zapsat na zvoleny predmet a jeho prislusne rozvrhove listky.
 
-### [Zruseni a uprava zapisu](features/Zruseni_zapisu.md)
+### [Zruseni a uprava zapisu](features/Zruseni_a_uprava_zapisu.md)
 
 Studijni oddeleni potrebuje mit moznost libovolnemu studentovi v libovolny cas zrusit zapis specifickeho predmetu. Student potrebuje moznost zruseni zapisu pouze v limitovanem casovem okne.
 
