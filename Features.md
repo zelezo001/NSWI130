@@ -12,7 +12,7 @@ Studijni oddeleni potrebuje mit moznost libovolnemu studentovi v libovolny cas z
 
 Ucitele i studenti potrebuji vedet kolik studentu (a kdo pro ucitele) ceka ve fronte na plny rozvrhovy listek.
 
-### Povoleni zapisoveho obdobi
+### [Povoleni zapisoveho obdobi](features/Povoleni_zapisoveho_obdobi.md)
 
 Studijni oddeleni/ Admin potrebuje mit moznost nastavit rozmezi predbezneho/volneho zapisu, ve kterem studenti maji moznost zapsat si predmet
 
