@@ -8,7 +8,7 @@ Jako student se potrebuji zapsat na zvoleny predmet a jeho prislusne rozvrhove l
 
 Studijni oddeleni potrebuje mit moznost libovolnemu studentovi v libovolny cas zrusit zapis specifickeho predmetu. Student potrebuje moznost zruseni zapisu pouze v limitovanem casovem okne.
 
-### Fronta (Cekaci listina)
+### [Fronta (Cekaci listina)](features/Fronta.md)
 
 Ucitele i studenti potrebuji vedet kolik studentu (a kdo pro ucitele) ceka ve fronte na plny rozvrhovy listek.
 
