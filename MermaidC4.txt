@@ -1,0 +1,6 @@
+﻿C4Context
+    title Enrollments 2
+    Enterprise_Boundary(b0, "a") {
+        System(SystemA, "Banking System A")
+    }
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

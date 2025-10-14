@@ -16,7 +16,7 @@ Ucitele i studenti potrebuji vedet kolik studentu (a kdo pro ucitele) ceka ve fr
 
 Studijni oddeleni/ Admin potrebuje mit moznost nastavit rozmezi predbezneho/volneho zapisu, ve kterem studenti maji moznost zapsat si predmet
 
-### Omezeni poctu zapisu
+### [Omezeni poctu zapisu](features/Omezeni_poctu_zapisu.md)
 
 Studentovi u urcitych predmetu musi byt zakazano zapsat predmet, ktery jiz splnil/pokusil se x-krat o splneni a neuspel.
 
