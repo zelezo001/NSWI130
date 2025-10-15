@@ -1,5 +1,7 @@
 ### Fronta (čekací listina)
 
+#### Feature breakdown
+
 1. Student/učitel se přihlásí do informačního systému
 2. Student/učitel si otevře modul Zápis
 3. Student/učitel si otevře podmodul Čekací listina
@@ -12,38 +14,38 @@
 
 Pozn.: učitel může být i student, takže uvidí dvě tabulky
 
-## Responsibilities
+### Responsibilities
 
-### Authentication and authorization
+#### Authentication and authorization
 
 - Podmodul si může zobrazit student/učitel, pro které potřebuji vědět, jaké mají zapsané/učí předměty
 
-### Data persistence responsibility
+#### Data persistence responsibility
 
 - Provedení zápisu studenta na předmět při uvolnění kapacity
 - Přidání studenta do fronty při zápisu na čekací listinu
 
-### Notification responsibility
+#### Notification responsibility
 
 - notifikace studenta, když se pro něj uvolní místo
 
-### Validation responsibility
+#### Validation responsibility
 
 - limit maximálního počtu čekajících
 
-### Activation/deactivation responsibility
+#### Activation/deactivation responsibility
 
 - aktivace čekací listiny pouze u předmětů s omezenou kapacitou
 - deaktivace po ukončení zápisového období nebo naplnění všech kapacit
 
-### Error handling responsibility
+#### Error handling responsibility
 
 - zobrazení správné chybové hlášky v možných scénářích (nedostupná databáze, server)
 
-### User interface responsibility
+#### User interface responsibility
 
 - přehledné zobrazení tabulek se studenty
 
-### Logging responsibility
+#### Logging responsibility
 
 - zaznamenání chybových hlášek do logu

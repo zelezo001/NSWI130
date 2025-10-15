@@ -68,7 +68,7 @@
 - Nutnost seradit si je podle potreb
 - Prehlednost pro studenta
 
-###### Queue responsibility
+##### Queue responsibility
 
 - Pri naplneni kapacity listku
 - Automaticke zarazeni na cekaci listinu

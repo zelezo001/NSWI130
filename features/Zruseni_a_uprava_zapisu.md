@@ -1,5 +1,6 @@
-# Zruseni a uprava zapisu
+### Zruseni a uprava zapisu
 
+#### Feature breakdown
 1. Student/studijni se prihlasi do informacniho systemu
 2. Student/studijni otevre modul zapisu, ktery obsahuje prehled predmetu
 3. System zobraci seznam aktualne zapsanych predmetu
@@ -25,45 +26,45 @@
 11. System zaznamena zruseni/upravu zapisu do logu/historie/whatever
 12. System zobrazi potvrzeni o uspesnem zruseni/uprave zapisu
 
-## Responsibilities
+### Responsibilities
 
-### Authorization and validation responsibility
+#### Authorization and validation responsibility
 
 - Overit identitu a opravneni uzivatele
 - Kontrola casoveho okna (pro studenty)
 - Validace existence predmetu a zapisu
 
-### Data retrieval responsibility
+#### Data retrieval responsibility
 
 - Nacteni seznamu zapsanych predmetu (modul Predmety?)
 - Ziskat informace o rozvrhovych listcich (a kapacitach) daneho predmetu
 - Ziskat informace o fronte (pokud existuje)
 
-### Capacity management responsibility
+#### Capacity management responsibility
 
 - Uvolnit kapacitu v rozvrhovych listcich
 - Aktualizovat pocet volnych mist na listku
 - Spravne aktualizovat frontu (pokud je)
 
-### Queue processing responsibility
+#### Queue processing responsibility
 
 - Exituje u listku fronta?
 - Vzit prvniho studenta z fronty
 - Automaticky zapsat studenta z fronty (pokud je misto) a odepsat z ekvivalentniho listku
 - Odebrat studenta z fronty po uspesnem zapisu
 
-### Notification responsibility
+#### Notification responsibility
 
 - Notifikovat studenta o uspesnem zruseni zapisu
 - Notifikovat studenta z fronty, ktery byl prepsan
 - Logging
 
-### Data persistence responsibilities
+#### Data persistence responsibilities
 
 - Odstranit zaznam o zapisu studenta na predmet z DB
 - Ulozit historii o zruseni zapisu
 
-### User interface responsibility
+#### User interface responsibility
 
 - Zobrazit seznam zapsanych predmetu (pokud mozno prehledne, ehm ehm)
 - Vyber zapisu predmetu/vice predmetu pro zruseni
@@ -71,18 +72,18 @@
 - Chybove hlasky
 - Aktualizace UI po zruseni zapisu
 
-### Error handling responsibility
+#### Error handling responsibility
 
 - Kdyz predmet neni zapsany, vyhod chybu
 - Kdyz neni kapacita, kric
 - Chyby pri zpracovani fronty
 - Potencialni rollback? (asi ne, ale kdo vi)
 
-### Data consistency responsibility
+#### Data consistency responsibility
 
 - Pokud se chce student odepsat ze cvika, musi se odepsat i z prednasky
 
-### Alternative offer responsibility
+#### Alternative offer responsibility
 
 - Pri plne kapacite listku nabidnout alternativy (pokud existuji)
 - Seradit podle vhodnosti (cas, kolize, apod.)
