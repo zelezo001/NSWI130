@@ -1,0 +1,51 @@
+@startuml
+
+component "Zobrazení/Listování předmětů" as courseListing #pink
+component "Formuláře pro tvorbu/editaci/mazání předmětů" as courseEditForms #pink
+
+component "Poskytovatel předmětů" as courseProvider
+
+component "Správa předmětů" as courseManager
+
+component "Uložení/Historizace předmětů" as courseRepository #grey
+
+courseListing --> courseProvider : "Zobrazuje poskytnuté předměty"
+courseProvider --> courseRepository : "Načítá záznamy s historií"
+courseEditForms --> courseManager : "Odesílá požadavky uživatele"
+courseManager --> courseRepository : "Ukládá validní změny"
+
+component "Zobrazení rozvrhu" as scheduleListing #pink
+
+component "Poskytovatel rozvrhů" as scheduleProvider
+
+component "Formulář pro tvorbu lístků" as scheduleEditForms #pink
+
+component "Správa rozvrhových lístků" as scheduleManager
+
+component "Uložení/Historizace rozvrhových lístků" as scheduleRepository #grey
+
+component "Notifikace o změně rozvrhových lístků" as scheduleNotifications #grey
+
+component "Adresář místností/časových slotů" as timeslotRepository #grey
+
+scheduleEditForms --> scheduleManager : "Žadá o vytvoření lístků"
+scheduleManager --> scheduleRepository : "Ukládá validní změny"
+scheduleManager --> timeslotRepository : "Získává dostupné sloty"
+scheduleManager --> scheduleNotifications : rozesílá notifikace v případě změny
+scheduleListing --> scheduleProvider : "Zobrazuje rozv. lístky"
+scheduleProvider --> courseProvider : "Agreguje rozv. lístky přes"
+scheduleProvider --> timeslotRepository : "Filtruje podle"
+scheduleProvider --> scheduleRepository : "Načítá záznamy s historií"
+
+cloud "Notifikační služba" as notifications
+
+scheduleNotifications --> notifications
+
+database courseDB
+database scheduleDB
+database timeslotDB
+courseRepository --> courseDB
+scheduleRepository --> scheduleDB
+timeslotRepository --> timeslotDB
+
+@enduml

@@ -53,3 +53,7 @@
 - [Editace předmětu](features/garant_predmet_uprava.md)
 - [Smazání předmětu](features/garant_predmet_smazani.md)
 - [Zobrazení rozvrhu](features/uzivatel_zobrazeni_rozvrhu_predmetu.md)
+
+## Architektura
+
+![architektura](architecture.svg)
