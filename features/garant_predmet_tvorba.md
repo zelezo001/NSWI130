@@ -7,7 +7,6 @@
     - vybere vyrobit předmět
     - systém ukáže formulář
         - zodpovědnost zobrazování dat
-            - %
     - vyplní formulář
     - odešle formulář
         - komunikační zodpovědnost
@@ -19,5 +18,3 @@
     - zapíše do databáze
         - zodpovědnost ukladání dat
             - číst data
-            -
-
