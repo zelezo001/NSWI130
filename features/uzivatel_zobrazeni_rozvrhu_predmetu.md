@@ -44,3 +44,68 @@
 
 - Kvalitativní:
     - Systém musí umět zvládnout očekávanou zátěž v období zápisu.
+
+## Dekompozice architektury:
+
+- Prezentační úroveň:
+    - Základní UI:
+        - Zobrazit formulář
+        - Zobrazit seznam nalezených předmětů
+    - Služba na zobrazení předmětu:
+        - Zobrazit detaily předmětu
+    - Služba na zobrazení rozvrhu:
+        - Zobrazit rozvrh
+
+- Aplikační úroveň:
+    - Služba na načtení formuláře:
+        - Z databáze získá nutná data pro jednotlivé položky formuláře
+    - Služba na ověření formuláře:
+        - Validace datových položek
+        - Sanitizace inputů
+    - Služba na hledání předmětů:
+        - Přijmout formulář
+        - Efektivně najít odpovídající předměty
+        - Vrátit nalezené předměty
+    - Služba pro správu práv:
+        - Jaké akce smí uživatel vykonat
+        - Jaká data smí uživatel vidět
+    - Služba pro export rozvrhu:
+        - Exportuje rozvrh v daném formátu
+
+- Perzistenční úroveň:
+    - Univerzitní databáze:
+        - Repozitář informací k vyhledávání předmětů
+    - Předmětová databáze:
+        - Repozitář předmětů
+    - Rozvrhová databáze:
+        - Načíst aktuální rozvrh
+        - Načíst historické rozvrhy
+    - Cache v období očekávaného vytížení:
+        - Uchovávat si pouze předměty vypsané v aktuálním semestru
+
+## Závislosti:
+
+- `Uživatel` interaguje se:
+    - `základním UI`, kde hledá předmět
+
+- `Základní UI` interaguje se:
+    - `službou pro načtení formuláře`, kde požádá o jeho načtení pro následné vyhledávání
+    - `službou pro ověření formuláře`, kde ověří formulář na hledání předmětu
+    - `službou na hledání předmětů`, kam podá ověřený formulář na vyhledání předmětu a která odpovídající předměty vrátí
+    - `službou pro export rozvrhu`, kam podá požadavek na export do daného formátu
+    - `službou na zobrazení předmětu`, kde si nechá zobrazit daný předmět
+    - `službou na zobrazení rozvrhu`, kde si nechá zobrazit rovzrh daného předmětu
+
+- `Služba na zobrazení předmětu` interaguje s:
+    - `předmětovou databází`, kde získá potřebné datové položky
+    - `službou pro správu práv`, kde se dozví, co smí uživateli zobrazit
+
+- `Služba na zobrazení rozvrhu` interaguje s:
+    - `rozvrhovou databází`, kde získá potřebné datové položky
+    - `službou pro správu práv`, kde se dozví, co smí uživateli zobrazit
+
+- `Služba pro načtení formuláře` interaguje s:
+    - `univerzitní databází`, kde získává možná data pro datové položky
+
+- `Služba na hledání předmětů` interaguje s:
+    - `předmětovou databází`, kde získává předměty odpovídající danému vyhledávání
