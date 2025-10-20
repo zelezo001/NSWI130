@@ -47,9 +47,9 @@
 
 ## Detailní Features
 
-- [Definování požadavků a preferencí k rozvrhu](features/garant_kriteria_predmetu.md)  
 - [Detekce kolizí předmětu](features/rozvrhar_detekce_kolizi.md)  
 - [Tvorba rozvrhu](features/rozvrhar_tvorba_rozvrhu.md)  
-- [Tvorba předmětu](features/ucitel_tvorba_predmetu.md)  
-- [Smazání předmětu](features/ucitel_predmet_smazani.md)
+- [Tvorba předmětu](features/garant_predmet_uprava.md)  
+- [Editace předmětu](features/garant_predmet_uprava.md)
+- [Smazání předmětu](features/garant_predmet_smazani.md)
 - [Zobrazení rozvrhu](features/uzivatel_zobrazeni_rozvrhu_predmetu.md)

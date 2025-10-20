@@ -20,7 +20,7 @@
     2. Systém ověří, že slot je opravdu volný. V případě, že se lístek překrývá vyžádá si od uživatele potvrzení.
     3. Systém uloží do databáze vytvořené rozvrhové lístky.
 
-## Requirements:
+## Požadavky:
 
 - Systém musí umět vyhledávat mezi cvičeními/přednáškami podle jejich kódu
   a podle vlastností předmětu (kód, název, katedra, fakulta).

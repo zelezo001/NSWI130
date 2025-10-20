@@ -1,4 +1,4 @@
-### garant chce vyrobit předět PROTOŽE nechce přednášet prázdné místnosti
+### garant chce vyrobit předmět PROTOŽE nechce přednášet prázdné místnosti
 
 #### Detailně:
 

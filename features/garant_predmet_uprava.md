@@ -1,4 +1,4 @@
-# garant chce upravit předět PROTOŽE něco napsal špatně
+# garant chce upravit předmět PROTOŽE něco napsal špatně
 
 ## Detailně:
 

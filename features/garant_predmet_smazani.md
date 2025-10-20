@@ -1,4 +1,4 @@
-# učitel chce smazat předmět PROTOŽE už nemá čas ho přednášet
+# garant chce smazat předmět PROTOŽE už nemá čas ho přednášet
 
 ## Detailně:
 
@@ -15,7 +15,7 @@
 - systém vyrobí novou revizi s vypnoutou existencí
 - systém pošle zpátky ack
 
-## Requirements:
+## Požadavky:
 
 - Systém musí umět vyhledávat mezi předměty podle jejich kódu, názvu a podle relace k vyhledávajícímu ("předmět, co garantuju").
 - Systém musí umět uložit zmizení předmětu, odepsat studenty.
