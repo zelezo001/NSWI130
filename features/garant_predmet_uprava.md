@@ -5,7 +5,7 @@
 - učitel si otevře sis
 - vybere 'předměty'
 - vybere konkrétní předmět
-- systém ukáže vyplnění formulář
+- systém ukáže vyplněný formulář
 - učitel upraví formulář
 - odešle formulář nebo odešle sudo formulář
 - systém zkontroluje údaje
@@ -15,3 +15,10 @@
 - zapíše do předmětu referenci na předchodí revizi
 - zapíše novou revizi předmětu do databáze
 - notifikuje zapsané studenty a možná další?
+
+## Požadavky
+
+- Systém musí umět zobrazovat předvyplněný formuláře
+- Systém musí umět komunikovat s uživatelem
+- Systém musí umět validovat údaje
+- Systém musí umět číst perzistentně uložená data
