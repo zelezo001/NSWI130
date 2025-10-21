@@ -37,6 +37,8 @@ scheduleProvider --> courseProvider : "Agreguje rozv. lístky přes"
 scheduleProvider --> timeslotRepository : "Filtruje podle"
 scheduleProvider --> scheduleRepository : "Načítá záznamy s historií"
 
+courseManager ---> scheduleManager : "Maže rozvrhové lístky smazaného předmětu"
+
 cloud "Notifikační služba" as notifications
 
 scheduleNotifications --> notifications
