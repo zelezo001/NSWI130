@@ -23,9 +23,13 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             studentsInQueueHTML = container "Queueud Students HTML" "Displays a table of students which are in queue for a given ticket." "HTML+Javascript" "Web Front-End"
 
             enrollmentManager = container "TODO: Zápis manager" "TODO: Manages enrollments and cancellations"
-            enrollmentConfigurationManager = container "Enrollment Configuration Manager" "Manages enrollment configuration"
+            enrollmentConfigurationManager = container "Enrollment Configuration Manager" "Manages enrollment configuration" {
+                currentEnrollmentDatesManager = component "Current Enrollment Dates Manager" "Manages the enrollment dates for the current period"
+                pastEnrollmentDatesGetter = component "Past Enrollment Dates Getter" "Gets the enrollment dates for past enrollment periods"
+                enrollmentConfigurationRepository = component "Enrollment Configuration Repository" "Stores configurations for all study periods"
+            }
 
-            enrollmentConfigurationHTML = container "Enrollment Configuration HTML" "Allows viewing and changing the current enrollment parameters" "HTML+Javascript" "Web Front-End"
+            enrollmentConfigurationHTML = container "Enrollment Configuration HTML" "Allows viewing parameters for enrollment periods and changing them for the current one" "HTML+Javascript" "Web Front-End"
 
             notificationManager = container "Notification Manager" "Sends notifications to users"
 
@@ -53,6 +57,13 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         ### relationships of Subject Analyzer components
 
+
+        ### relationships of Enrollment Configuration Manager components
+        currentEnrollmentDatesManager -> enrollmentConfigurationRepository "Reads and writes enrollment dates for the current period"
+        currentEnrollmentDatesManager -> enrollmentManager "Provides current enrollmentDates"
+        pastEnrollmentDatesGetter -> enrollmentConfigurationRepository "Asks for the dates for past enrollments"
+        enrollmentConfigurationRepository -> enrollmentDB "Reads and writes information about enrollment configuration"
+
         # relationships between external systems and Enrollment System
         enrollmentSystem -> scheduleModule "Retrieves course schedules, time conflicts, and room availability from"
         scheduleModule -> enrollmentSystem "Notifies about schedule changes to"
@@ -71,7 +82,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentManager -> enrollmentConfigurationManager "Checks if enrollments are allowed"
         enrollmentConfigurationHTML -> enrollmentConfigurationManager "Makes API calls to"
         enrollmentConfigurationManager -> enrollmentConfigurationHTML "Gives current enrollment dates"
-        enrollmentConfigurationManager -> enrollmentDB "Reads and writes enrollment dates for the current period"
+        enrollmentConfigurationManager -> enrollmentDB "Reads and writes enrollment configuration"
         
         enrollmentManager -> queueManager "Sends requests to add to queue/remove to queue"
         enrollmentConfigurationManager -> queueManager "Turns on/off based on changes"
