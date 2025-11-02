@@ -18,6 +18,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             enrollmentDB = container "Enrollment Database" "Stores enrollments of students to tickets and queue" "" "Database"
             # tohle je ale externí
             subjectsDB = container "Subjects Database" "Stores information about each subject and tickets" "" "Database"
+            studentsDB = container "Students Database" "Stores information about students" "" "Database"
         }
 
         # actors
@@ -39,6 +40,10 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         queueItemsHTML -> queueManager "Makes API calls to"
         queueManager -> queueItemsHTML "Gives data about items in queue"
         queueManager -> notificationManager "Makes requests upon removing and adding to queue"
+
+        studentsInQueueHTML -> queueManager "Makes API calls to"
+        queueManager -> studentsInQueueHTML "Provides students in queue"
+        queueManager -> studentsDB "Reads information about students"
 
         queueManager -> subjectsDB "Reads information about tickets"
         queueManager -> enrollmentDB "Reads and writes info about students' in-queue tickets"
