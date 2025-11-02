@@ -42,8 +42,6 @@ workspace "HealthTracker Workspace" "This workspace documents the architecture o
             patientDB = container "Patient Database" "Stores registrations of patients" "" "Database"
             deviceDB = container "Device Database" "Stores registrations of devices." "" "Database"
             auditLogDB = container "Audit Log Database" "Stores audit log records." "" "Database"
-
-            !docs docs
         }
 
         measuringDevice = softwareSystem "Measuring Device" "Continuously measures a specific health indicator using a small HW device attached to the patients body." "Existing System"
