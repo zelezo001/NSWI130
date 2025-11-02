@@ -5,8 +5,11 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentSystem = softwareSystem "Enrollment System" "Manages course enrollments, class capacities, prerequisites validation, and enrollment periods for students and teachers." {
 
             subjectAnalyzer = container "Subject Analyzer" "Filters subjects and provides subject/time slot recommendations." {
-                
+
             }
+
+            subjectDB = container "Subject Capacity Database" "Stores students enrolled to specific subjects." "" "Database"
+            logDB = container "Enrollment Event Log Database" "Stores logs of changes in enrollment." "" "Database"
         }
         scheduleModule = softwareSystem "Schedule Module" "Manages course schedules, classroom assignments, time slots, and academic calendar." "Existing System"
         
