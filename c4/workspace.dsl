@@ -23,13 +23,13 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             studentsInQueueHTML = container "Queueud Students HTML" "Displays a table of students which are in queue for a given ticket." "HTML+Javascript" "Web Front-End"
 
             enrollmentManager = container "TODO: Zápis manager" "TODO: Manages enrollments and cancellations"
-            zapisoveObdobiManager = container "TODO: Zápisové období manager" "TODO: Manages zápisové období"
+            enrollmentConfigurationManager = container "Enrollment Configuration Manager" "Manages enrollment configuration"
+
+            enrollmentConfigurationHTML = container "Enrollment Configuration HTML" "Allows viewing and changing the current enrollment parameters" "HTML+Javascript" "Web Front-End"
 
             notificationManager = container "Notification Manager" "Sends notifications to users"
 
-            # databases
             enrollmentDB = container "Enrollment Database" "Stores enrollments of students to tickets and queue" "" "Database"
-            # tohle je ale externí
             subjectsDB = container "Subjects Database" "Stores information about each subject and tickets" "" "Database"
             studentsDB = container "Students Database" "Stores information about students" "" "Database"
         }
@@ -53,7 +53,6 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         ### relationships of Subject Analyzer components
 
-
         # relationships between external systems and Enrollment System
         enrollmentSystem -> scheduleModule "Retrieves course schedules, time conflicts, and room availability from"
         scheduleModule -> enrollmentSystem "Notifies about schedule changes to"
@@ -68,12 +67,18 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         queueManager -> subjectsDB "Reads information about tickets"
         queueManager -> enrollmentDB "Reads and writes info about students' in-queue tickets"
+
+        enrollmentManager -> enrollmentConfigurationManager "Checks if enrollments are allowed"
+        enrollmentConfigurationHTML -> enrollmentConfigurationManager "Makes API calls to"
+        enrollmentConfigurationManager -> enrollmentConfigurationHTML "Gives current enrollment dates"
+        enrollmentConfigurationManager -> enrollmentDB "Reads and writes enrollment dates for the current period"
         
         enrollmentManager -> queueManager "Sends requests to add to queue/remove to queue"
-        zapisoveObdobiManager -> queueManager "Turns on/off based on changes"
+        enrollmentConfigurationManager -> queueManager "Turns on/off based on changes"
         # relationship between users and presentation layers
         student -> queueItemsHTML "Views their items in the queue."
         teacher -> studentsInQueueHTML "Views students in the queue."
+        administrator -> enrollmentConfigurationHTML "Sets enrollment period dates."
     }
     
     views {
@@ -93,6 +98,11 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         }
 
         component scheduleDbCommunicator "scheduleDbCommunicatorDiagram" {
+            include *
+            autoLayout
+        }
+
+        component enrollmentConfigurationManager "enrollmentPeriodanager" {
             include *
             autoLayout
         }
