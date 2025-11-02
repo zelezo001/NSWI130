@@ -96,11 +96,6 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             include *
             autoLayout
         }
-
-        container enrollmentSystem "enrollmentSystemContainerDiagram" {
-            include *
-        }
-
         
         theme default
         
