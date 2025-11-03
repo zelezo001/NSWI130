@@ -18,11 +18,26 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             subjectDB = container "Subject Capacity Database" "Stores students enrolled to specific subjects." "" "Database"
             logDB = container "Enrollment Event Log Database" "Stores logs of changes in enrollment." "" "Database"
 
-            queueManager = container "Queue Manager" "Manages operations related to the queue."
+            queueManager = container "Queue Manager" "Manages operations related to the queue." {
+                queuePositionManager = component "Queue Position Manager" "Manages student positions in the queue and maintains queue order."
+                queueProcessor = component "Queue Processor" "Processes queue operations like adding, removing, and validating queue entries."
+                automaticEnrollmentHandler = component "Automatic Enrollment Handler" "Automatically enrolls the first student from queue when capacity becomes available."
+                queueNotificationCoordinator = component "Queue Notification Coordinator" "Coordinates notifications for queue-related events."
+                queueCapacityValidator = component "Queue Capacity Validator" "Validates queue capacity limits and enforces maximum waiting students."
+                manualEnrollmentHandler = component "Manual Enrollment Handler" "Handles teacher-initiated enrollment from queue with capacity expansion."
+            }
             queueItemsHTML = container "Queue Items HTML" "Displays a table of subjects for which the user is registered in a queue." "HTML+Javascript" "Web Front-End"
             studentsInQueueHTML = container "Queueud Students HTML" "Displays a table of students which are in queue for a given ticket." "HTML+Javascript" "Web Front-End"
 
-            enrollmentManager = container "TODO: Zápis manager" "TODO: Manages enrollments and cancellations"
+            enrollmentManager = container "Enrollment Manager" "Manages enrollments and cancellations" {
+                enrollmentRequestProcessor = component "Enrollment Request Processor" "Processes student enrollment requests and coordinates the enrollment flow."
+                cancellationHandler = component "Cancellation Handler" "Handles enrollment cancellations and modifications."
+                capacityValidator = component "Capacity Validator" "Validates ticket capacity before allowing enrollment."
+                prerequisitesChecker = component "Prerequisites Checker" "Checks if student meets prerequisites for a subject."
+                ruleEnforcer = component "Rule Enforcer" "Enforces enrollment rules like mandatory lecture-exercise pairing and enrollment attempt limits."
+                enrollmentHistoryTracker = component "Enrollment History Tracker" "Tracks and stores enrollment history for students."
+                alternativeOfferService = component "Alternative Offer Service" "Provides alternative ticket options when primary choice is full."
+            }
             enrollmentConfigurationManager = container "Enrollment Configuration Manager" "Manages enrollment configuration" {
                 currentEnrollmentDatesManager = component "Current Enrollment Dates Manager" "Manages the enrollment dates for the current period"
                 pastEnrollmentDatesGetter = component "Past Enrollment Dates Getter" "Gets the enrollment dates for past enrollment periods"
@@ -70,6 +85,39 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         ### relationships of Subject Analyzer components
 
 
+        ### relationships of Queue Manager components
+        queueProcessor -> queuePositionManager "Manages queue positions through"
+        queueProcessor -> queueCapacityValidator "Validates capacity before adding to queue"
+        queueProcessor -> enrollmentDB "Reads and writes queue entries"
+        queuePositionManager -> enrollmentDB "Updates student positions in queue"
+        automaticEnrollmentHandler -> queuePositionManager "Gets first student from queue"
+        automaticEnrollmentHandler -> enrollmentManager "Requests enrollment for student"
+        automaticEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for enrolled student"
+        manualEnrollmentHandler -> queuePositionManager "Gets selected student from queue"
+        manualEnrollmentHandler -> enrollmentManager "Requests enrollment with capacity expansion"
+        manualEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for manually enrolled student"
+        queueNotificationCoordinator -> notificationManager "Sends queue-related notifications"
+        queueCapacityValidator -> subjectsDB "Checks maximum queue capacity settings"
+
+        ### relationships of Enrollment Manager components
+        enrollmentRequestProcessor -> capacityValidator "Validates ticket capacity"
+        enrollmentRequestProcessor -> prerequisitesChecker "Checks prerequisites"
+        enrollmentRequestProcessor -> ruleEnforcer "Enforces enrollment rules"
+        enrollmentRequestProcessor -> enrollmentConfigurationManager "Checks if enrollment period is active"
+        enrollmentRequestProcessor -> enrollmentDB "Records successful enrollment"
+        enrollmentRequestProcessor -> enrollmentHistoryTracker "Logs enrollment action"
+        enrollmentRequestProcessor -> queueManager "Adds student to queue if capacity full"
+        capacityValidator -> subjectsDB "Checks current ticket capacity"
+        prerequisitesChecker -> studentsDB "Gets student's completed subjects"
+        prerequisitesChecker -> subjectsDB "Gets subject prerequisites"
+        ruleEnforcer -> subjectsDB "Gets subject-specific rules"
+        ruleEnforcer -> studentsDB "Gets student enrollment history"
+        cancellationHandler -> enrollmentDB "Removes enrollment record"
+        cancellationHandler -> enrollmentHistoryTracker "Logs cancellation action"
+        cancellationHandler -> queueManager "Triggers automatic enrollment from queue"
+        cancellationHandler -> alternativeOfferService "Gets alternative tickets for modification"
+        alternativeOfferService -> subjectAnalyzer "Gets available alternative tickets"
+        enrollmentHistoryTracker -> logDB "Writes enrollment events to log"
         ### relationships of Enrollment Configuration Manager components
         currentEnrollmentDatesManager -> enrollmentConfigurationRepository "Reads and writes enrollment dates for the current period"
         currentEnrollmentDatesManager -> enrollmentManager "Provides current enrollmentDates"
@@ -153,6 +201,11 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         }
 
         component dashboard "dashboardComponentDiagram" {
+            include *
+            autoLayout
+        }
+
+        component queueManager "queueManagerComponentDiagram" {
             include *
             autoLayout
         }
