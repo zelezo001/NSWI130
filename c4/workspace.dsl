@@ -1,5 +1,5 @@
 workspace "School Enrollment System" "This workspace documents the architecture of the Enrollment System which manages student course enrollments, teacher assignments, and administrative oversight." {
-    
+
     model {
         scheduleModule = softwareSystem "Schedule Module" "Manages course schedules, classroom assignments, time slots, and academic calendar." "Existing System"
         enrollmentSystem = softwareSystem "Enrollment System" "Manages course enrollments, class capacities, prerequisites validation, and enrollment periods for students and teachers." {
@@ -36,13 +36,25 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             enrollmentDB = container "Enrollment Database" "Stores enrollments of students to tickets and queue" "" "Database"
             subjectsDB = container "Subjects Database" "Stores information about each subject and tickets" "" "Database"
             studentsDB = container "Students Database" "Stores information about students" "" "Database"
+
+            logger = container "Logger" "Manages writing all enrollment event logs." {
+                changeLog = component "Change Log" "Records all modification events across the enrollment system (e.g., capacity updates, enrollment period changes)."
+                enrollmentHistory = component "Subject enrollment History" "Tracks and manages records of all student subject (un)enrollments."
+
+            }
+            dashboard = container "Dashboard" "Provides an administrative overview of the enrollment system status and activities." "HTML+Javascript" "Web Front-End" {
+                logViewer = component "Change History Viewer" "Displays the history of system changes and enrollment events (read from Logger)."
+                enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in."
+                alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots."
+            }
+
         }
 
         # actors
         student = person "Student" "Enrolls in courses, views enrollment status, and manages their class schedule."
         teacher = person "Teacher" "Views class rosters, manages course capacities, and approves special enrollment requests."
         administrator = person "Administrator" "Configures enrollment periods, manages course offerings, and handles enrollment exceptions."
-        
+
         # relationships between Enrollment System and the outside
         student -> enrollmentSystem "Enrolls in courses, drops classes, and views enrollment history"
         teacher -> enrollmentSystem "Views enrolled students, sets enrollment limits, and approves waitlist requests"
@@ -53,7 +65,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         ## relationships of Enrollment System containers
 
         scheduleDbCommunicator -> scheduleModule "Reads from schedule database"
-        subjectAnalyzer -> scheduleDbCommunicator "Processes raw schedule data" 
+        subjectAnalyzer -> scheduleDbCommunicator "Processes raw schedule data"
 
         ### relationships of Subject Analyzer components
 
@@ -83,15 +95,32 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentConfigurationHTML -> enrollmentConfigurationManager "Makes API calls to"
         enrollmentConfigurationManager -> enrollmentConfigurationHTML "Gives current enrollment dates"
         enrollmentConfigurationManager -> enrollmentDB "Reads and writes enrollment configuration"
-        
+
         enrollmentManager -> queueManager "Sends requests to add to queue/remove to queue"
         enrollmentConfigurationManager -> queueManager "Turns on/off based on changes"
         # relationship between users and presentation layers
         student -> queueItemsHTML "Views their items in the queue."
         teacher -> studentsInQueueHTML "Views students in the queue."
         administrator -> enrollmentConfigurationHTML "Sets enrollment period dates."
+
+        # logger relationships
+        enrollmentManager -> logger "Writes general enrollment event logs (successful enrollment/cancellation)"
+        queueManager -> logger "Writes queue-related event logs"
+        changeLog -> logDB "Writes general events"
+        enrollmentHistory -> logDB "Writes enrollment events"
+
+        # dashboard relationships
+        student -> dashboard "Views their current list of enrolled subjects"
+        student -> dashboard "Views suggested alternative subjects for time conflicts"
+
+        administrator -> dashboard "Configures enrollment period dates"
+        administrator -> dashboard "Views system status and change logs"
+
+        enrolledSubjectsViewer -> enrollmentManager "Reads currently enrolled subjects"
+        alternativeViewer -> alternativeSuggestor "Reads suggested alternative subjects"
+        logViewer -> changeLog "Reads event logs for display"
     }
-    
+
     views {
         systemContext enrollmentSystem "enrollmentSystemContextDiagram" {
             include *
@@ -117,9 +146,24 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             include *
             autoLayout
         }
-        
+
+        component logger "loggerComponentDiagram" {
+            include *
+            autoLayout
+        }
+
+        component dashboard "dashboardComponentDiagram" {
+            include *
+            autoLayout
+        }
+
+        component enrollmentManager "enrollmentManagerComponentDiagram" {
+            include *
+            autoLayout
+        }
+
         theme default
-        
+
         styles {
             element "Existing System" {
                 background #999999
@@ -135,5 +179,5 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             }
         }
     }
-    
+
 }
