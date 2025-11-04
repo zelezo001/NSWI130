@@ -15,7 +15,6 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             }
 
             # Enrollment system databases
-            subjectDB = container "Subject Capacity Database" "Stores students enrolled to specific subjects." "" "Database"
             logDB = container "Enrollment Event Log Database" "Stores logs of changes in enrollment." "" "Database"
 
             queueManager = container "Queue Manager" "Manages operations related to the queue." {
@@ -49,8 +48,6 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             notificationManager = container "Notification Manager" "Sends notifications to users"
             
             enrollmentDB = container "Enrollment Database" "Stores enrollments of students to tickets and queue" "" "Database"
-            subjectsDB = container "Subjects Database" "Stores information about each subject and tickets" "" "Database"
-            studentsDB = container "Students Database" "Stores information about students" "" "Database"
 
             logger = container "Logger" "Manages writing all enrollment event logs." {
                 changeLog = component "Change Log" "Records all modification events across the enrollment system (e.g., capacity updates, enrollment period changes)."
@@ -65,6 +62,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         }
         accessControl = softwareSystem "Authentication and authorization API" "Manages user authentication and authorization." "Existing System"
+        studentsDB = softwareSystem "Students Database" "Stores information about students" "Existing System"
+
         # actors
         student = person "Student" "Enrolls in courses, views enrollment status, and manages their class schedule."
         teacher = person "Teacher" "Views class rosters, manages course capacities, and approves special enrollment requests."
@@ -97,7 +96,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         manualEnrollmentHandler -> enrollmentManager "Requests enrollment with capacity expansion"
         manualEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for manually enrolled student"
         queueNotificationCoordinator -> notificationManager "Sends queue-related notifications"
-        queueCapacityValidator -> subjectsDB "Checks maximum queue capacity settings"
+        queueCapacityValidator -> scheduleDbCommunicator "Checks maximum queue capacity settings"
 
         ### relationships of Enrollment Manager components
         enrollmentRequestProcessor -> capacityValidator "Validates ticket capacity"
@@ -107,10 +106,10 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentRequestProcessor -> enrollmentDB "Records successful enrollment"
         enrollmentRequestProcessor -> enrollmentHistoryTracker "Logs enrollment action"
         enrollmentRequestProcessor -> queueManager "Adds student to queue if capacity full"
-        capacityValidator -> subjectsDB "Checks current ticket capacity"
+        capacityValidator -> scheduleDbCommunicator "Checks current ticket capacity"
         prerequisitesChecker -> studentsDB "Gets student's completed subjects"
-        prerequisitesChecker -> subjectsDB "Gets subject prerequisites"
-        ruleEnforcer -> subjectsDB "Gets subject-specific rules"
+        prerequisitesChecker -> scheduleDbCommunicator "Gets subject prerequisites"
+        ruleEnforcer -> scheduleDbCommunicator "Gets subject-specific rules"
         ruleEnforcer -> studentsDB "Gets student enrollment history"
         cancellationHandler -> enrollmentDB "Removes enrollment record"
         cancellationHandler -> enrollmentHistoryTracker "Logs cancellation action"
@@ -136,7 +135,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         queueManager -> studentsInQueueHTML "Provides students in queue"
         queueManager -> studentsDB "Reads information about students"
 
-        queueManager -> subjectsDB "Reads information about tickets"
+        queueManager -> scheduleDbCommunicator "Reads information about tickets"
         queueManager -> enrollmentDB "Reads and writes info about students' in-queue tickets"
 
         enrollmentConfigurationHTML -> currentEnrollmentDatesManager "Makes API calls to"
