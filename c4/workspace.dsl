@@ -103,7 +103,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentRequestProcessor -> capacityValidator "Validates ticket capacity"
         enrollmentRequestProcessor -> prerequisitesChecker "Checks prerequisites"
         enrollmentRequestProcessor -> ruleEnforcer "Enforces enrollment rules"
-        enrollmentRequestProcessor -> enrollmentConfigurationManager "Checks if enrollment period is active"
+        enrollmentRequestProcessor -> currentEnrollmentDatesManager "Checks if enrollment period is active"
         enrollmentRequestProcessor -> enrollmentDB "Records successful enrollment"
         enrollmentRequestProcessor -> enrollmentHistoryTracker "Logs enrollment action"
         enrollmentRequestProcessor -> queueManager "Adds student to queue if capacity full"
@@ -139,8 +139,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         queueManager -> subjectsDB "Reads information about tickets"
         queueManager -> enrollmentDB "Reads and writes info about students' in-queue tickets"
 
-        enrollmentManager -> enrollmentConfigurationManager "Checks if enrollments are allowed"
-        enrollmentConfigurationHTML -> enrollmentConfigurationManager "Makes API calls to"
+        enrollmentConfigurationHTML -> currentEnrollmentDatesManager "Makes API calls to"
         enrollmentConfigurationManager -> enrollmentConfigurationHTML "Gives current enrollment dates"
         enrollmentConfigurationManager -> enrollmentDB "Reads and writes enrollment configuration"
 
@@ -161,7 +160,6 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         student -> dashboard "Views their current list of enrolled subjects"
         student -> dashboard "Views suggested alternative subjects for time conflicts"
 
-        administrator -> dashboard "Configures enrollment period dates"
         administrator -> dashboard "Views system status and change logs"
 
         enrolledSubjectsViewer -> enrollmentManager "Reads currently enrolled subjects"
