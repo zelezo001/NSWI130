@@ -47,7 +47,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             enrollmentConfigurationHTML = container "Enrollment Configuration HTML" "Allows viewing parameters for enrollment periods and changing them for the current one" "HTML+Javascript" "Web Front-End"
 
             notificationManager = container "Notification Manager" "Sends notifications to users"
-
+            
             enrollmentDB = container "Enrollment Database" "Stores enrollments of students to tickets and queue" "" "Database"
             subjectsDB = container "Subjects Database" "Stores information about each subject and tickets" "" "Database"
             studentsDB = container "Students Database" "Stores information about students" "" "Database"
@@ -64,7 +64,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             }
 
         }
-
+        accessControl = softwareSystem "Authentication and authorization API" "Manages user authentication and authorization." "Existing System"
         # actors
         student = person "Student" "Enrolls in courses, views enrollment status, and manages their class schedule."
         teacher = person "Teacher" "Views class rosters, manages course capacities, and approves special enrollment requests."
@@ -165,6 +165,25 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrolledSubjectsViewer -> enrollmentManager "Reads currently enrolled subjects"
         alternativeViewer -> alternativeSuggestor "Reads suggested alternative subjects"
         logViewer -> changeLog "Reads event logs for display"
+        
+        # notification manager relationships
+        notificationManager -> student "Sends enrollment and waitlist notifications"
+        
+        notificationManager -> teacher "Sends notifications about enrollment changes"
+        notificationManager -> teacher "Sends notifications about class capacity limits"
+    
+        notificationManager -> administrator "Sends critical system alerts"
+        
+        notificationManager -> queueManager "Receives queue-related notification requests"
+        notificationManager -> enrollmentManager "Receives enrollment confirmation notifications"
+        notificationManager -> enrollmentConfigurationManager "Sends enrollment period change alerts"
+        notificationManager -> logger "Logs notification events"
+        
+        notificationManager -> dashboard "Sends system status updates"
+        
+        # authentication and authorization relationships
+        enrollmentSystem -> accessControl "Authenticates and authorizes users"
+        accessControl -> enrollmentSystem "Provides authentication and authorization services"
     }
 
     views {
