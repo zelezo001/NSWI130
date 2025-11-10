@@ -85,6 +85,41 @@ workspace "NSWI130" {
             autoLayout
         }
         
+        //split "Příslušník univerzity si chce zobrazit rozvrh předmětu" into two - search_course & view_course_schedule, otherwise unreadeable
+        dynamic sch "search_course" {
+            description "Uživatel hledá a vybírá předmět"
+            autoLayout lr
+    
+            student -> course_provider_front "Otevře 'Předměty'"
+            course_provider_front -> course_provider "Požádá o seznam"
+            course_provider -> course_history_man "Načte data"
+            course_history_man -> courseDB "Čte databázi"
+            courseDB -> course_history_man "Vrátí data"
+            course_history_man -> course_provider "Vrátí seznam"
+            course_provider -> course_provider_front "Vrátí výsledky"
+            course_provider_front -> student "Zobrazí seznam předmětů"
+        }
+    
+        dynamic sch "view_course_schedule" {
+            description "Uživatel má vybraný předmět a chce vidět jeho rozvrh"
+            autoLayout lr
+    
+            student -> timetable_front "Klikne 'Zobrazit rozvrh'"
+            timetable_front -> timetable_provider "Požádá o rozvrh (pomocí courseID)"
+            timetable_provider -> ticket_history_man "Načte rozvrhové lístky"
+            ticket_history_man -> scheduleDB "Čte rozvrh z databáze"
+            scheduleDB -> ticket_history_man "Vrátí data"
+            timetable_provider -> timeslot_repo "Načte časoprostor"
+            timeslot_repo -> timeslotDB "Čte místnosti/časy"
+            timeslotDB -> timeslot_repo "Vrátí data"
+            timetable_provider -> course_provider "Načte metadata předmětu"
+            course_provider -> course_history_man "Načte historii"
+            course_history_man -> courseDB "Čte podrobnosti"
+            courseDB -> course_history_man "Vrátí data"
+            timetable_provider -> timetable_front "Vrátí agregovaný rozvrh"
+            timetable_front -> student "Zobrazí rozvrh uživateli"
+        }
+
         styles {
             element Person {
                 shape person
