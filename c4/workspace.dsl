@@ -192,6 +192,11 @@ workspace "School Enrollment System" "This workspace documents the architecture 
     }
 
     views {
+        dynamic * {
+            student -> enrollmentSystem "blobst"
+            autoLayout
+        }
+
         systemContext enrollmentSystem "enrollmentSystemContextDiagram" {
             include *
             autoLayout
