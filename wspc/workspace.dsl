@@ -283,20 +283,18 @@ workspace "NSWI130" {
             description "Učitel vytváří nový předmět"
             autoLayout lr
 
-            teacher -> course_provider_front "Otevře 'Vytvořit předmět'"
+            teacher -> course_manager_front "Otevře 'Vytvořit předmět'"
             course_manager_front -> teacher "Zobrazí formulář"
 
-            teacher -> course_provider_front "Odešle vyplněný formulář"
+            teacher -> course_manager_front "Odešle vyplněný formulář"
             course_manager_front -> course_manager "Odesílá data"
-            course_manager -> course_manager "Validuje údaje"
-            course_manager -> course_manager "Generuje UID"
             course_manager -> course_repository "Ukládá předmět"
             course_repository -> courseDB "Zapisuje data"
 
             courseDB -> course_repository "Potvrzuje zápis"
             course_repository -> course_manager "Potvrzuje uložení"
             course_manager -> course_manager_front "Potvrzuje vytvoření"
-            course_manager_front -> teacher "Zobrazí potvrzení"``
+            course_manager_front -> teacher "Zobrazí potvrzení"
         }
 
         styles {
