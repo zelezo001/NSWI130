@@ -325,13 +325,15 @@ workspace "NSWI130" {
             course_manager_front -> teacher "Zobrazí formulář"
 
             teacher -> course_manager_front "Odešle vyplněný formulář"
-            course_manager_front -> course_manager "Odesílá data"
+            course_manager_front -> course_admin_controller "Odesílá data přes API"
+            course_admin_controller -> course_manager "Předává požadavek"
             course_manager -> course_repository "Ukládá předmět"
             course_repository -> courseDB "Zapisuje data"
 
             courseDB -> course_repository "Potvrzuje zápis"
             course_repository -> course_manager "Potvrzuje uložení"
-            course_manager -> course_manager_front "Potvrzuje vytvoření"
+            course_manager -> course_admin_controller "Potvrzuje uložení"
+            course_admin_controller -> course_manager_front "Odesílá API odpověď"
             course_manager_front -> teacher "Zobrazí potvrzení"
         }
         
@@ -349,23 +351,27 @@ workspace "NSWI130" {
             course_provider_front -> teacher "Zobrazí seznam předmětů"
             
             teacher -> course_manager_front "Otevře úpravu předmětu"
-            course_manager_front -> course_manager "Požádá o data"
+            course_manager_front -> course_admin_controller "Požádá o data"
+            course_admin_controller -> course_manager "Požádá o data"
             course_manager -> course_repository "Načte data"
             course_repository -> courseDB "Čte databázi"
 
             courseDB -> course_repository "Vrací data"
             course_repository -> course_manager "Vrací data"
-            course_manager -> course_manager_front "Vrací data"
+            course_manager -> course_admin_controller "Vrací data"
+            course_admin_controller -> course_manager_front "Předává požadavek"
             course_manager_front -> teacher "Zobrazí vyplněný formulář"
             
             teacher -> course_manager_front "Odešle vyplněný formulář"
-            course_manager_front -> course_manager "Odesílá data"
+            course_manager_front -> course_admin_controller "Odesílá data přes API"
+            course_admin_controller -> course_manager "Předává požadavek"
             course_manager -> course_repository "Ukládá předmět"
             course_repository -> courseDB "Zapisuje data"
 
             courseDB -> course_repository "Potvrzuje zápis"
             course_repository -> course_manager "Potvrzuje uložení"
-            course_manager -> course_manager_front "Potvrzuje vytvoření"
+            course_manager -> course_admin_controller "Potvrzuje vytvoření"
+            course_admin_controller -> course_manager_front "Odpovídá kladně na API dotaz"
             course_manager_front -> teacher "Zobrazí potvrzení"
         }
 
