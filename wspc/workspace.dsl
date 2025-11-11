@@ -106,6 +106,7 @@ workspace "NSWI130" {
             ticket_manager -> timeslot_repository "Získává dostupné sloty"
             ticket_manager -> ticket_repository "Ukládá změny"
             ticket_manager -> timetable_notifications "Posílá eventy o změně"
+            ticket_manager -> enrollments "Žádá o odepsání studentů při mazání lístku"
 
             timetable_notifications -> enrollments "Ȟledá, koho se notifikace o změně rozvrhu týká"
             timetable_notifications -> notifications "Posílá notifikaci o změně rozvrhu"
@@ -330,6 +331,27 @@ workspace "NSWI130" {
             course_manager -> course_manager_front "Potvrzuje vytvoření"
             course_manager_front -> teacher "Zobrazí potvrzení"
 
+        }
+
+        dynamic sis_admin_be "course_deletion" {
+            description "Učitel maže předmět, protože mu na něj nikdo nechodí"
+            autolayout lr
+            
+            teacher -> course_manager_front "Klikne na Smazat Předmět (a potvrdí)"
+            
+            course_manager -> ticket_manager "Požádá o smazání všech paralelek předmětu"
+            ticket_manager -> enrollments "Požádá o odepsání všech studentů z předmětu"
+            enrollments -> ticket_manager "Vrátí, že odepsáno"
+            ticket_manager -> ticket_repository "Žádá o smazání lístku"
+            ticket_repository -> scheduleDB "Smaže lístek"
+            scheduleDB -> ticket_repository "Vrátí, že smazáno"
+            ticket_repository -> ticket_manager "Vrátí, že smazáno"
+            ticket_manager -> course_manager "Vrátí, že smazáno"
+            course_manager -> course_manager_front "Vrátí, že smazáno"
+            course_manager_front -> teacher "Ozmámí učiteli, že je předmět smazán"
+            
+            enrollments -> timetable_notifications "Pošle event o odepsání studentů"
+            timetable_notifications -> notifications "Pošle žádosti o rozeslání notifikací"
         }
 
         styles {
