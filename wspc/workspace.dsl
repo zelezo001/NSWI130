@@ -57,7 +57,7 @@ workspace "NSWI130" {
 
                 course_repository = component "Uložení/Historizace předmětů"
 
-                timeslot_repo = component "Adresář místností/časových slotů"
+                timeslot_repository = component "Adresář místností/časových slotů"
 
                 timetable_notifications = component "Správce notifikací o rozvrhu"
             }
@@ -79,8 +79,10 @@ workspace "NSWI130" {
             timetable_front -> timetable_provider "Čte rozvrhové lístky"
 
             course_provider -> simple_course_repository "Čte předměty"
+
             timetable_provider -> simple_ticket_repository "Čte rozvrhové lístky"
             timetable_provider -> simple_timeslot_repository "Čte časoprostor"
+            timetable_provider -> simple_course_repository "Načte metadata předmětu"
 
             simple_ticket_repository -> scheduleDB "Čte data z"
             simple_course_repository -> courseDB "Čte data z"
@@ -101,7 +103,7 @@ workspace "NSWI130" {
             course_manager -> ticket_manager "Maže předmět"
 
             ticket_manager_front -> ticket_manager "Odesílá požadavky uživatele"
-            ticket_manager -> timeslot_repo "Získává dostupné sloty"
+            ticket_manager -> timeslot_repository "Získává dostupné sloty"
             ticket_manager -> ticket_repository "Ukládá změny"
             ticket_manager -> timetable_notifications "Posílá eventy o změně"
 
@@ -110,9 +112,7 @@ workspace "NSWI130" {
 
             ticket_repository -> scheduleDB "Čte data z"
             course_repository -> courseDB "Čte data z"
-            timeslot_repo -> timeslotDB "Čte data z"
-
-            //            timetable_provider -> course_provider "Čte předměty"
+            timeslot_repository -> timeslotDB "Čte data z"
 
         }
 
@@ -123,7 +123,7 @@ workspace "NSWI130" {
             }
 
             deploymentNode "Prohlížeč rozvrháře" {
-                containerInstance sis_admin_fe
+                containerInstance scheduler_front
             }
 
             deploymentNode "Prohlížeč uživatele" {
@@ -220,6 +220,63 @@ workspace "NSWI130" {
         deployment sch production {
             include *
             autoLayout
+        }
+
+        //split "Příslušník univerzity si chce zobrazit rozvrh předmětu" into two - search_course & view_course_schedule, otherwise unreadeable
+        dynamic sis_be "search_course" {
+            description "Uživatel hledá a vybírá předmět"
+            autoLayout lr
+
+            student -> course_provider_front "Otevře 'Předměty'"
+            course_provider_front -> course_provider "Požádá o seznam"
+            course_provider -> simple_course_repository "Načte data"
+            simple_course_repository -> courseDB "Čte databázi"
+            courseDB -> simple_course_repository "Vrátí data"
+            simple_course_repository -> course_provider "Vrátí seznam"
+            course_provider -> course_provider_front "Vrátí výsledky"
+            course_provider_front -> student "Zobrazí seznam předmětů"
+        }
+
+        dynamic sis_be "view_course_schedule" {
+            description "Uživatel má vybraný předmět a chce vidět jeho rozvrh"
+            autoLayout lr
+
+            student -> timetable_front "Klikne 'Zobrazit rozvrh'"
+            timetable_front -> student "Zobrazí rozvrh uživateli"
+
+            timetable_front -> timetable_provider "Požádá o rozvrh (pomocí courseID)"
+            timetable_provider -> timetable_front "Vrátí agregovaný rozvrh"
+
+            timetable_provider -> simple_ticket_repository "Načte rozvrhové lístky"
+            timetable_provider -> simple_timeslot_repository "Načte časoprostor"
+            timetable_provider -> simple_course_repository "Načte metadata předmětu"
+
+            simple_timeslot_repository -> timeslotDB "Čte místnosti/časy"
+            timeslotDB -> simple_timeslot_repository "Vrátí data"
+
+            simple_course_repository -> courseDB "Čte podrobnosti"
+            courseDB -> simple_course_repository "Vrátí data"
+
+            simple_ticket_repository -> scheduleDB "Čte rozvrh z databáze"
+            scheduleDB -> simple_ticket_repository "Vrátí data"
+        }
+
+        dynamic sis_admin_be "collisision_detection" {
+            description "Rozvrhář se pokouší umístit novou přednášku do času a místnosti, které jsou již obsazené"
+            autoLayout lr
+
+            scheduler -> scheduler_front "Zadává údaje o nové rozvrhové akci (učitel, místnost, čas)"
+            scheduler_front -> ticket_manager "Požadavek na vytvoření rozvrhového lístku"
+            ticket_manager -> timeslot_repository "Ověřuje platnost místnosti a časového slotu"
+            timeslot_repository -> timeslotDB "Čte místnosti/časy"
+            timeslotDB -> timeslot_repository "Vrátí data"
+            timeslot_repository -> ticket_manager "Vrací výsledek validace slotu"
+            ticket_manager -> ticket_repository "Vyžádá existující lístky pro daného učitele NEBO místnost v daném čase"
+            ticket_repository -> scheduleDB "Dotaz na existující záznamy"
+            scheduleDB -> ticket_repository "Vrací nalezené (kolidující) lístky"
+            ticket_repository -> ticket_manager "Předává nalezené lístky"
+            ticket_manager -> scheduler_front "Vrací varování o kolizi (akce nebyla uložena)"
+            scheduler_front -> scheduler "Zobrazí varování o kolizi"
         }
 
         styles {
