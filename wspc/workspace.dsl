@@ -296,6 +296,41 @@ workspace "NSWI130" {
             course_manager -> course_manager_front "Potvrzuje vytvoření"
             course_manager_front -> teacher "Zobrazí potvrzení"
         }
+        
+        dynamic sis_admin_be "edit_course" {
+            description "Učitel upravuje existující předmět"
+            autoLayout lr
+
+            teacher -> course_provider_front "Otevře 'Předměty'"
+            course_provider_front -> course_provider "Požádá o seznam"
+            course_provider -> simple_course_repository "Načte data"
+            simple_course_repository -> courseDB "Čte databázi"
+            courseDB -> simple_course_repository "Vrátí data"
+            simple_course_repository -> course_provider "Vrátí seznam"
+            course_provider -> course_provider_front "Vrátí výsledky"
+            course_provider_front -> teacher "Zobrazí seznam předmětů"
+            
+            teacher -> course_manager_front "Otevře úpravu předmětu"
+            course_manager_front -> course_manager "Požádá o data"
+            course_manager -> course_repository "Načte data"
+            course_repository -> courseDB "Čte databázi"
+
+            courseDB -> course_repository "Vrací data"
+            course_repository -> course_manager "Vrací data"
+            course_manager -> course_manager_front "Vrací data"
+            course_manager_front -> teacher "Zobrazí vyplněný formulář"
+            
+            teacher -> course_manager_front "Odešle vyplněný formulář"
+            course_manager_front -> course_manager "Odesílá data"
+            course_manager -> course_repository "Ukládá předmět"
+            course_repository -> courseDB "Zapisuje data"
+
+            courseDB -> course_repository "Potvrzuje zápis"
+            course_repository -> course_manager "Potvrzuje uložení"
+            course_manager -> course_manager_front "Potvrzuje vytvoření"
+            course_manager_front -> teacher "Zobrazí potvrzení"
+
+        }
 
         styles {
             element Person {
