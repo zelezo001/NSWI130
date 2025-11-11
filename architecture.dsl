@@ -45,6 +45,8 @@ workspace "NSWI130" {
             scheduler_front = container "Rozvrhovadlo" "" "Delphi probably" "app"
             scheduler_front -> ticket_man "Upravuje rozvrh"
             
+            scheduler -> scheduler_front "Používá"
+
             course_man_front -> course_man "Odesílá požadavky uživatele"
             course_man -> course_history_man "Ukládá změny"
             
@@ -120,6 +122,24 @@ workspace "NSWI130" {
             timetable_front -> student "Zobrazí rozvrh uživateli"
         }
 
+        dynamic sch "collisision_detection" {
+            description "Rozvrhář se pokouší umístit novou přednášku do času a místnosti, které jsou již obsazené"
+            autoLayout lr 
+
+            scheduler -> scheduler_front "Zadává údaje o nové rozvrhové akci (učitel, místnost, čas)"
+            scheduler_front -> ticket_man "Požadavek na vytvoření rozvrhového lístku"
+            ticket_man -> timeslot_repo "Ověřuje platnost místnosti a časového slotu"
+            timeslot_repo -> timeslotDB "Čte místnosti/časy"
+            timeslotDB -> timeslot_repo "Vrátí data"
+            timeslot_repo -> ticket_man "Vrací výsledek validace slotu"
+            ticket_man -> ticket_history_man "Vyžádá existující lístky pro daného učitele NEBO místnost v daném čase"
+            ticket_history_man -> scheduleDB "Dotaz na existující záznamy"
+            scheduleDB -> ticket_history_man "Vrací nalezené (kolidující) lístky"
+            ticket_history_man -> ticket_man "Předává nalezené lístky"
+            ticket_man -> scheduler_front "Vrací varování o kolizi (akce nebyla uložena)"
+            scheduler_front -> scheduler "Zobrazí varování o kolizi"
+        }
+
         styles {
             element Person {
                 shape person
@@ -147,5 +167,4 @@ workspace "NSWI130" {
             }
         }
     }
-    
 }
