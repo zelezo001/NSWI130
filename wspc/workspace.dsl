@@ -72,7 +72,7 @@ workspace "NSWI130" {
             courseDB = db courseDB
             timeslotDB = db timeslotDB
 
-            scheduler_front = container "Rozvrhovadlo" "" "HTML+JS"
+            scheduler_front = web "Rozvrhovadlo" "" "HTML+JS"
 
             # SIS
 
@@ -390,7 +390,9 @@ workspace "NSWI130" {
             scheduleDB -> ticket_repository "Vrátí, že smazáno"
             ticket_repository -> ticket_manager "Vrátí, že smazáno"
             ticket_manager -> course_manager "Vrátí, že smazáno"
-            course_manager -> course_manager_front "Vrátí, že smazáno"
+
+            course_manager -> course_admin_controller "Potvrzuje smazání"
+            course_admin_controller -> course_manager_front "Vrátí přes api, že smazáno"
             course_manager_front -> teacher "Ozmámí učiteli, že je předmět smazán"
             
             enrollments -> timetable_notifications "Pošle event o odepsání studentů"
