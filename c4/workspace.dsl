@@ -246,6 +246,33 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             autoLayout
         }
 
+        dynamic enrollmentSystem "StudentCancelsEnrollment_ContainerView" "Dynamic diagram showing container flow for a student cancelling an enrollment." {
+            student -> dashboard "Open dashboard, selects cancel enrollment and submits request"
+            dashboard -> enrollmentManager "Sends cancellation request"
+
+            enrollmentManager -> enrollmentDB "Validates and removes enrollment record, updates capacity"
+            enrollmentManager -> logger "Logs cancellation event"
+
+            enrollmentManager -> enrollmentDB "Checks for students in queue for the ticket"
+
+            enrollmentManager -> notificationManager "Notifies student of successful cancellation, notifies queued student he was enrolled"
+            notificationManager -> student "Delivers confirmations"
+            enrollmentManager -> dashboard "Updates dashboard view"
+            dashboard -> student "Displays updated enrolled subjects"
+
+            autoLayout
+        }
+
+        deployment enrollmentSystem "Development" "DevelopmentDeployment" {
+            include *
+            autoLayout
+        }
+
+        deployment enrollmentSystem "Production" "ProductionDeployment" {
+            include *
+            autoLayout
+        }
+
         systemContext enrollmentSystem "enrollmentSystemContextDiagram" {
             include *
             autoLayout
