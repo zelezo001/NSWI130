@@ -64,12 +64,18 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                 enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in."
                 alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots."
             }
-            enrollmentArchiver = container "Enrollment Archiver" "Archives past enrollment data for long-term storage and compliance." 
+            enrollmentArchiver = container "Enrollment Archiver" "Archives past enrollment data for long-term storage and compliance."
             enrollmentArchiveDB = container "Enrollment archive" "Stores past enrollments" "" "Database"
         }
         accessControl = softwareSystem "Authentication and authorization API" "Manages user authentication and authorization." "Existing System"
         studentsDB = softwareSystem "Students Database" "Stores information about students" "Existing System"
-        
+
+        # archiver
+
+        enrollmentArchiver -> enrollmentDB "Periodically reads current enrollment data"
+        enrollmentArchiver -> logDB "Periodically reads all logs"
+        enrollmentArchiver -> enrollmentArchiveDB "Writes archived enrollment data"
+
         # actors
         student = person "Student" "Enrolls in courses, views enrollment status, and manages their class schedule."
         teacher = person "Teacher" "Views class rosters, manages course capacities, and approves special enrollment requests."
