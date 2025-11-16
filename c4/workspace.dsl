@@ -195,6 +195,49 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         # authentication and authorization relationships
         enrollmentSystem -> accessControl "Authenticates and authorizes users"
         accessControl -> enrollmentSystem "Provides authentication and authorization services"
+
+        deploymentEnvironment "Development" {
+            deploymentNode "Developer Computer" "" "" {
+                deploymentNode "Docker" "" "" {
+                    containerInstance dashboard
+                    containerInstance enrollmentManager
+                    containerInstance notificationManager
+                    containerInstance logger
+                    containerInstance enrollmentArchiver
+                    containerInstance enrollmentDB
+                    containerInstance logDB
+                    containerInstance enrollmentArchiveDB
+                }
+            }
+        }
+
+        deploymentEnvironment "Production" {
+            deploymentNode "Web Application" "" "Server" {
+                containerInstance dashboard
+            }
+
+            deploymentNode "Application" "" "Server" {
+                containerInstance enrollmentManager
+            }
+
+            deploymentNode "Notifications" "" "Server" {
+                containerInstance notificationManager
+            }
+
+            deploymentNode "Background Jobs" "" "Server" {
+                containerInstance logger
+                containerInstance enrollmentArchiver
+            }
+
+            deploymentNode "Database Tier" "" {
+                containerInstance enrollmentDB
+                containerInstance logDB
+            }
+
+            deploymentNode "Archive Storage" "" "Object storage" {
+                containerInstance enrollmentArchiveDB
+            }
+        }
     }
 
     views {
