@@ -95,19 +95,19 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         subjectSuggestor -> enrollmentDB "Requests student's current enrollment schedule to evaluate free slots."
         alternativeSuggestor -> scheduleDbCommunicator "Requests subject schedules to find an alternative free slot."
        
-        //        ### relationships of Queue Manager components
-        //        queueProcessor -> queuePositionManager "Manages queue positions through"
-        //        queueProcessor -> queueCapacityValidator "Validates capacity before adding to queue"
-        //        queueProcessor -> enrollmentDB "Reads and writes queue entries"
-        //        queuePositionManager -> enrollmentDB "Updates student positions in queue"
-        //        automaticEnrollmentHandler -> queuePositionManager "Gets first student from queue"
-        //        automaticEnrollmentHandler -> enrollmentManager "Requests enrollment for student"
-        //        automaticEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for enrolled student"
-        //        manualEnrollmentHandler -> queuePositionManager "Gets selected student from queue"
-        //        manualEnrollmentHandler -> enrollmentManager "Requests enrollment with capacity expansion"
-        //        manualEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for manually enrolled student"
-        //        queueNotificationCoordinator -> notificationManager "Sends queue-related notifications"
-        //        queueCapacityValidator -> scheduleDbCommunicator "Checks maximum queue capacity settings"
+        ### relationships of Queue Manager components
+        queueProcessor -> queuePositionManager "Manages queue positions through"
+        queueProcessor -> queueCapacityValidator "Validates capacity before adding to queue"
+        queueProcessor -> enrollmentDB "Reads and writes queue entries"
+        queuePositionManager -> enrollmentDB "Updates student positions in queue"
+        automaticEnrollmentHandler -> queuePositionManager "Gets first student from queue"
+        # automaticEnrollmentHandler -> enrollmentManager "Requests enrollment for student"
+        automaticEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for enrolled student"
+        manualEnrollmentHandler -> queuePositionManager "Gets selected student from queue"
+        # manualEnrollmentHandler -> enrollmentManager "Requests enrollment with capacity expansion"
+        manualEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for manually enrolled student"
+        queueNotificationCoordinator -> notificationManager "Sends queue-related notifications"
+        queueCapacityValidator -> scheduleDbCommunicator "Checks maximum queue capacity settings"
 
         ### relationships of Enrollment Manager components
         enrollmentRequestProcessor -> capacityValidator "Validates ticket capacity"
@@ -139,7 +139,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentSystem -> scheduleModule "Retrieves course schedules, time conflicts, and room availability from"
         scheduleModule -> enrollmentSystem "Notifies about schedule changes to"
 
-        //queueItemsHTML -> queueManager "Makes API calls to"
+        queueItemsHTML -> enrollmentManager "Makes API calls to"
+        studentsInQueueHTML -> enrollmentManager "Makes API calls to"
         //queueManager -> queueItemsHTML "Gives data about items in queue"
         //queueManager -> notificationManager "Makes requests upon removing and adding to queue"
 
@@ -173,7 +174,9 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         administrator -> dashboard "Views system status and change logs"
 
+        student -> enrolledSubjectsViewer "Views currently enrolled subjects"
         enrolledSubjectsViewer -> enrollmentManager "Reads currently enrolled subjects"
+        student -> alternativeViewer "Views suggested alternative subjects"
         alternativeViewer -> alternativeSuggestor "Reads suggested alternative subjects"
         logViewer -> changeLog "Reads event logs for display"
 
@@ -251,16 +254,17 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             student -> dashboard "Selects desired subject."
             dashboard -> enrollmentManager "Requests time-slot data for given subject."
             enrollmentManager -> scheduleModule "Requests up-to-date information for given subject."
+            enrollmentManager -> dashboard "Provides available time slots for given subject."
+            dashboard -> student "Displays available time slots."
             
             student -> dashboard "Selects lecture at a time frame they want to attend."
-            dashboard -> enrollmentManager "Asks for valdiation of request."
+            dashboard -> enrollmentManager "Asks for validation of request."
             enrollmentManager -> enrollmentDB "Writes successful enrollment to the module database."
             enrollmentManager -> logger "Logs enrollment attempt."
 
             enrollmentManager -> notificationManager "[A] If valid (enough capacity, prereqs fulfilled), signals for UI confirmation."
-            enrollmentManager -> notificationManager "[B] If invlaid (time frame full), signals for error.
-            
-            
+            enrollmentManager -> notificationManager "[B] If invalid (time frame full), signals for error.
+
             notificationManager -> student "Sends notification about enrollment."
             notificationManager -> mailingService "Optionally, sends e-mail confirming status."
             
