@@ -312,6 +312,26 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             autoLayout
         }
 
+        dynamic enrollmentSystem "EnrollmentPeriodSettingContainerView" "Dynamic diagram showing container flow for an administrator changing the enrollment period dates." {
+            administrator -> dashboard "Opens dashboard, selects enrollment configuration page"
+
+            dashboard -> enrollmentManager "Requests current enrollment period dates"
+            enrollmentManager -> enrollmentDB "Retrieves current enrollment period dates"
+            enrollmentManager -> dashboard "Provides current dates"
+
+            administrator -> dashboard "Modifies enrollment period dates and submits changes"
+            dashboard -> enrollmentManager "Sends updated enrollment period dates"
+
+            enrollmentManager -> enrollmentDB "Validates and saves new enrollment period dates"
+
+            dashboard -> administrator "Displays updated enrollment period information"
+
+            enrollmentManager -> logger "Logs enrollment period date changes"
+            logger -> logDB "Writes change event"
+
+            autoLayout
+        }
+
         deployment enrollmentSystem "Development" "DevelopmentDeployment" {
             include *
             autoLayout
