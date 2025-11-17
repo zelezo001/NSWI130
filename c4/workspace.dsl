@@ -288,6 +288,30 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             autoLayout
         }
 
+        dynamic enrollmentSystem "ManualEnrollmentFromQueueContainerView" "Dynamic diagram showing container flow for a teacher manually enrolling a student from the queue." {
+            teacher -> dashboard "Opens dashboard, views students in queue for a subject"
+            dashboard -> enrollmentManager "Requests list of students in queue"
+
+            enrollmentManager -> enrollmentDB "Retrieves students in queue"
+            enrollmentManager -> dashboard "Provides queue list"
+
+            teacher -> dashboard "Selects a student to enroll from the queue"
+            dashboard -> enrollmentManager "Sends manual enrollment request"
+
+            enrollmentManager -> enrollmentDB "Validates request, expands capacity, enrolls student"
+            enrollmentManager -> logger "Logs manual enrollment event"
+
+            enrollmentManager -> notificationManager "Requests notifications for enrollment"
+            notificationManager -> student "Notifies student of successful enrollment"
+            notificationManager -> teacher "Notifies teacher of successful manual enrollment"
+            notificationManager -> mailingService "Optionally, forwards the notifications to mailing service"
+
+            enrollmentManager -> dashboard "Updates dashboard view"
+            dashboard -> teacher "Displays updated queue and enrollment status"
+
+            autoLayout
+        }
+
         deployment enrollmentSystem "Development" "DevelopmentDeployment" {
             include *
             autoLayout
