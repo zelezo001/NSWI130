@@ -2,6 +2,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
     model {
         scheduleModule = softwareSystem "Schedule Module" "Manages course schedules, classroom assignments, time slots, and academic calendar." "Existing System"
+        mailingService = softwareSystem "Mailing Service" "External e-mail handling service." "Existing System"
         enrollmentSystem = softwareSystem "Enrollment System" "Manages course enrollments, class capacities, prerequisites validation, and enrollment periods for students and teachers." {
 
             # Enrollment system databases
@@ -32,10 +33,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     manualEnrollmentHandler = component "Manual Enrollment Handler" "Handles teacher-initiated enrollment from queue with capacity expansion."
                 }
 
-                group "Database communicator - Acts as a single point of connection to the subject database." {
-                    scheduleTableGetter = component "Schedule Getter" "Fetches the subject table from the subject system."
-                    scheduleTeacherGetter = component "Teacher Schedule Getter" "Fetches all subjects for a given teacher in the current semester."
-                }
+                scheduleDbCommunicator = component "Schedule Database Communicator" "Acts as a single point of connection to the subject database." 
 
                 group "Configuration manager - admin controls" {
                     currentEnrollmentDatesManager = component "Current Enrollment Dates Manager" "Manages the enrollment dates for the current period"
@@ -134,6 +132,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         // currentEnrollmentDatesManager -> enrollmentManager "Provides current enrollmentDates"
         // pastEnrollmentDatesGetter -> enrollmentConfigurationRepository "Asks for the dates for past enrollments"
         // enrollmentConfigurationRepository -> enrollmentDB "Reads and writes information about enrollment configuration"
+        
+        scheduleDbCommunicator -> scheduleModule "Retrieves and processes external schedule info."
 
         # relationships between external systems and Enrollment System
         enrollmentSystem -> scheduleModule "Retrieves course schedules, time conflicts, and room availability from"
@@ -191,6 +191,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         notificationManager -> logger "Logs notification events"
 
         notificationManager -> dashboard "Sends system status updates"
+        notificationManager -> mailingService "Requests e-mail distribution for important notices."
 
         # authentication and authorization relationships
         enrollmentSystem -> accessControl "Authenticates and authorizes users"
@@ -241,8 +242,28 @@ workspace "School Enrollment System" "This workspace documents the architecture 
     }
 
     views {
-        dynamic * {
-            student -> enrollmentSystem "blobst"
+        dynamic enrollmentSystem "StudentEnrollsContainerView" "Flow of container interactions during a student's enrollment to a subject." {
+            student -> dashboard "Opens their dashboard, searches for a subject to-enroll by name/ID/etc."
+            dashboard -> enrollmentManager "Asks for a list of subjects."
+            enrollmentManager -> scheduleModule "Requests subject list from the schedule module."
+            enrollmentManager -> dashboard "Updates list of subjects."
+            dashboard -> student "Displays subject list."
+            student -> dashboard "Selects desired subject."
+            dashboard -> enrollmentManager "Requests time-slot data for given subject."
+            enrollmentManager -> scheduleModule "Requests up-to-date information for given subject."
+            
+            student -> dashboard "Selects lecture at a time frame they want to attend."
+            dashboard -> enrollmentManager "Asks for valdiation of request."
+            enrollmentManager -> enrollmentDB "Writes successful enrollment to the module database."
+            enrollmentManager -> logger "Logs enrollment attempt."
+
+            enrollmentManager -> notificationManager "[A] If valid (enough capacity, prereqs fulfilled), signals for UI confirmation."
+            enrollmentManager -> notificationManager "[B] If invlaid (time frame full), signals for error.
+            
+            
+            notificationManager -> student "Sends notification about enrollment."
+            notificationManager -> mailingService "Optionally, sends e-mail confirming status."
+            
             autoLayout
         }
 
