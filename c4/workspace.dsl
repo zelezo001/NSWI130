@@ -331,6 +331,26 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             autoLayout
         }
+        
+        dynamic enrollmentSystem "EnrollmentLimitNumberOfEnrollmentsContainerView" "Dynamic diagram showing container flow for an administrator setting enrollment limit for a course." {
+            administrator -> dashboard "Opens dashboard, selects enrollment configuration page"
+
+            dashboard -> enrollmentManager "Requests current enrollment limit for the subject"
+            enrollmentManager -> scheduleModule "Retrieves current enrollment limit from schedule module"
+            enrollmentManager -> dashboard "Provides current enrollment limit"
+
+            administrator -> dashboard "Sets new enrollment limit and submits changes"
+            dashboard -> enrollmentManager "Sends updated enrollment limit"
+
+            enrollmentManager -> scheduleModule "Validates and updates enrollment limit in schedule module"
+
+            dashboard -> administrator "Displays updated enrollment limit information"
+
+            enrollmentManager -> logger "Logs enrollment limit changes"
+            logger -> logDB "Writes change event"
+
+            autoLayout
+        }
 
         deployment enrollmentSystem "Development" "DevelopmentDeployment" {
             include *
