@@ -17,10 +17,10 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     ruleEnforcer = component "Rule Enforcer" "Enforces enrollment rules like mandatory lecture-exercise pairing and enrollment attempt limits."
                 }
                 enrollmentHistoryTracker = component "Enrollment History Tracker" "Tracks and stores enrollment history for students."
-                alternativeOfferService = component "Alternative Offer Service" "Provides alternative ticket options when primary choice is full."
+                
 
                 group "Subject Analyzer - Filters subjects and provides subject/time slot recommendations." {
-                    subjectSorter = component "Sorter" "Sorts provided subjects based on given criteria."
+                    subjectSorter = component "Subject Sorter" "Sorts provided subjects based on given criteria."
                     subjectSuggestor = component "Subject Suggestor" "Suggests subjects for empty time slots in the users' enrolled schedule."
                     alternativeSuggestor = component "Alternative suggestor" "For an unavailable time slot of a subject, gives free time slots that don't overlap with the users' schedule."
                 }
@@ -88,12 +88,13 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         ## relationships of Enrollment System containers
 
-        //scheduleDbCommunicator -> scheduleModule "Reads from schedule database"
-        //subjectAnalyzer -> scheduleDbCommunicator "Processes raw schedule data"
 
-        ### relationships of Subject Analyzer components
-
-        //
+        ### relationships of Subject Analyzer group
+        subjectSorter -> scheduleDbCommunicator "Sorts lists of subjects provided by the schedule module."
+        subjectSuggestor -> scheduleDbCommunicator "Gets full subject list to compare options."
+        subjectSuggestor -> enrollmentDB "Requests student's current enrollment schedule to evaluate free slots."
+        alternativeSuggestor -> scheduleDbCommunicator "Requests subject schedules to find an alternative free slot."
+       
         //        ### relationships of Queue Manager components
         //        queueProcessor -> queuePositionManager "Manages queue positions through"
         //        queueProcessor -> queueCapacityValidator "Validates capacity before adding to queue"
@@ -124,8 +125,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         //cancellationHandler -> enrollmentDB "Removes enrollment record"
         //cancellationHandler -> enrollmentHistoryTracker "Logs cancellation action"
         //cancellationHandler -> queueManager "Triggers automatic enrollment from queue"
-        //cancellationHandler -> alternativeOfferService "Gets alternative tickets for modification"
-        //alternativeOfferService -> subjectAnalyzer "Gets available alternative tickets"
+        enrollmentRequestProcessor -> alternativeSuggestor "Gets available alternative tickets"
         enrollmentHistoryTracker -> logDB "Writes enrollment events to log"
         ### relationships of Enrollment Configuration Manager components
         //currentEnrollmentDatesManager -> enrollmentConfigurationRepository "Reads and writes enrollment dates for the current period"
