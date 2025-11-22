@@ -17,7 +17,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     ruleEnforcer = component "Rule Enforcer" "Enforces enrollment rules like mandatory lecture-exercise pairing and enrollment attempt limits."
                 }
                 enrollmentHistoryTracker = component "Enrollment History Tracker" "Tracks and stores enrollment history for students."
-                
+
 
                 group "Subject Analyzer - Filters subjects and provides subject/time slot recommendations." {
                     subjectSorter = component "Subject Sorter" "Sorts provided subjects based on given criteria."
@@ -33,7 +33,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     manualEnrollmentHandler = component "Manual Enrollment Handler" "Handles teacher-initiated enrollment from queue with capacity expansion."
                 }
 
-                scheduleDbCommunicator = component "Schedule Database Communicator" "Acts as a single point of connection to the subject database." 
+                scheduleDbCommunicator = component "Schedule Database Communicator" "Acts as a single point of connection to the subject database."
 
                 group "Configuration manager - admin controls" {
                     currentEnrollmentDatesManager = component "Current Enrollment Dates Manager" "Manages the enrollment dates for the current period"
@@ -94,7 +94,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         subjectSuggestor -> scheduleDbCommunicator "Gets full subject list to compare options."
         subjectSuggestor -> enrollmentDB "Requests student's current enrollment schedule to evaluate free slots."
         alternativeSuggestor -> scheduleDbCommunicator "Requests subject schedules to find an alternative free slot."
-       
+
         ### relationships of Queue Manager components
         queueProcessor -> queuePositionManager "Manages queue positions through"
         queueProcessor -> queueCapacityValidator "Validates capacity before adding to queue"
@@ -132,7 +132,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         // currentEnrollmentDatesManager -> enrollmentManager "Provides current enrollmentDates"
         // pastEnrollmentDatesGetter -> enrollmentConfigurationRepository "Asks for the dates for past enrollments"
         // enrollmentConfigurationRepository -> enrollmentDB "Reads and writes information about enrollment configuration"
-        
+
         scheduleDbCommunicator -> scheduleModule "Retrieves and processes external schedule info."
 
         # relationships between external systems and Enrollment System
@@ -201,45 +201,83 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         accessControl -> enrollmentSystem "Provides authentication and authorization services"
 
         deploymentEnvironment "Development" {
+            deploymentNode "Users" "" "" {
+            }
+
             deploymentNode "Developer Computer" "" "" {
-                deploymentNode "Docker" "" "" {
-                    containerInstance dashboard
-                    containerInstance enrollmentManager
-                    containerInstance notificationManager
-                    containerInstance logger
-                    containerInstance enrollmentArchiver
-                    containerInstance enrollmentDB
-                    containerInstance logDB
-                    containerInstance enrollmentArchiveDB
+                deploymentNode "SQL Databases Container" "" "Docker" {
+                    deploymentNode "SQL Databases" "" "PostgreSQL server" {
+                        containerInstance enrollmentDB
+                        containerInstance logDB
+                    }
+                }
+
+                deploymentNode "Object Storage Container" "" "Docker" {
+                    deploymentNode "Object storage" "" "Minio" {
+                        containerInstance enrollmentArchiveDB
+                    }
+                }
+
+                deploymentNode "Dashboard Server Container" "" "Docker" {
+                    deploymentNode "Dashboard Server" "" "Nginx" {
+                        containerInstance dashboard
+                    }
+                }
+
+                deploymentNode "Monorepo Development build" {
+                    deploymentNode "Enrollment manager" "" ".NET runtime" {
+                        containerInstance enrollmentManager
+                    }
+
+                    deploymentNode "Notification manager" "" ".NET runtime" {
+                        containerInstance notificationManager
+                    }
+
+                    deploymentNode "Logger" "" ".NET runtime" {
+                        containerInstance logger
+                    }
+
+                    deploymentNode "Archiver" "" ".NET runtime" {
+                        containerInstance enrollmentArchiver
+                    }
                 }
             }
         }
 
         deploymentEnvironment "Production" {
-            deploymentNode "Web Application" "" "Server" {
-                containerInstance dashboard
+            deploymentNode "Users" "" "" {
             }
 
-            deploymentNode "Application" "" "Server" {
-                containerInstance enrollmentManager
-            }
+            deploymentNode "AWS" "" "" {
+                deploymentNode "Web Application" "" "AWS EC2 instance, Nginx" {
+                    containerInstance dashboard
+                }
 
-            deploymentNode "Notifications" "" "Server" {
-                containerInstance notificationManager
-            }
+                deploymentNode "Compute engine" "" "AWS Fargate" {
+                    deploymentNode "Core container, scalable" {
+                        deploymentNode "Core" "" ".NET runtime" {
+                            containerInstance enrollmentManager
+                        }
+                    }
 
-            deploymentNode "Background Jobs" "" "Server" {
-                containerInstance logger
-                containerInstance enrollmentArchiver
-            }
+                    deploymentNode "Background Jobs" "" ".NET runtime, AWS lambdas" {
+                        containerInstance logger
+                        containerInstance enrollmentArchiver
+                    }
+                }
 
-            deploymentNode "Database Tier" "" {
-                containerInstance enrollmentDB
-                containerInstance logDB
-            }
+                deploymentNode "Notifications" "" "AWS EC2 instance, .NET runtime" {
+                    containerInstance notificationManager
+                }
 
-            deploymentNode "Archive Storage" "" "Object storage" {
-                containerInstance enrollmentArchiveDB
+                deploymentNode "Database Tier" "" "AWS RDS, PostgreSQL" {
+                    containerInstance enrollmentDB
+                    containerInstance logDB
+                }
+
+                deploymentNode "Archive Storage" "" "AWS S3 object storage" {
+                    containerInstance enrollmentArchiveDB
+                }
             }
         }
     }
@@ -256,7 +294,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             enrollmentManager -> scheduleModule "Requests up-to-date information for given subject."
             enrollmentManager -> dashboard "Provides available time slots for given subject."
             dashboard -> student "Displays available time slots."
-            
+
             student -> dashboard "Selects lecture at a time frame they want to attend."
             dashboard -> enrollmentManager "Asks for validation of request."
             enrollmentManager -> enrollmentDB "Writes successful enrollment to the module database."
@@ -267,7 +305,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             notificationManager -> student "Sends notification about enrollment."
             notificationManager -> mailingService "Optionally, sends e-mail confirming status."
-            
+
             autoLayout
         }
 
@@ -331,7 +369,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             autoLayout
         }
-        
+
         dynamic enrollmentSystem "EnrollmentLimitNumberOfEnrollmentsContainerView" "Dynamic diagram showing container flow for an administrator setting enrollment limit for a course." {
             administrator -> dashboard "Opens dashboard, selects enrollment configuration page"
 
