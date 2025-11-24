@@ -1,6 +1,9 @@
-# Jako rozvrhář chci mít možnost rozvrhnout cvičení/přednášku a přiřadit jí místnost/čas abych mohl efektivně tvořit rozvrhy.
+# Tvorba rozvrhu rozvrhářem
 
-## Detailně:
+## User story
+Jako rozvrhář chci mít možnost rozvrhnout cvičení/přednášku a přiřadit jí místnost/čas abych mohl efektivně tvořit rozvrhy.
+
+## Interakce mezi uživatelem a systémem
 
 1. Uživatel si otevře SIS (nebo rozvrhovou aplikaci) a a zvolí "tvorba nového rozvrhového lístku".
 2. Systém zobrazí formulář pro vyhledání předmětu.
@@ -20,13 +23,22 @@
     2. Systém ověří, že slot je opravdu volný. V případě, že se lístek překrývá vyžádá si od uživatele potvrzení.
     3. Systém uloží do databáze vytvořené rozvrhové lístky.
 
-## Požadavky:
+## Responsibilities:
 
-- Systém musí umět vyhledávat mezi cvičeními/přednáškami podle jejich kódu
-  a podle vlastností předmětu (kód, název, katedra, fakulta).
+### Business
 - Systém musí znát fakulty/katedry na škole.
-- Systém musí držet seznam všech místností.
-- Systém si musí pamatovat kde a kdy jsou rozvrh. lístky rozvrženy.
+- Systém musí umět rozvrhout do všech dostupných místností po škole v časech jejich dostupnosti.
+- Systém musí umožnit variabilní délku rozvrhových lístků (např. po slotech).
+- Systém musí umožnit rozvrhovat lístky na v každý den (včetně víkendů).
+
+### Technické:
 - Systém musí umět hledat v rozvrhových lístcích podle místnosti.
-- Systém musí umět efektivně ověřit kolizi mezi rozvrhovými lístky.
-- Systém musí umožnit variabilní délku rozvrhových lístků (např. po slotech)
+- Systém musí umět vyhledávat mezi cvičeními/přednáškami podle jejich kódu.
+  a podle vlastností předmětu (kód, název, katedra, fakulta).
+- Systém si musí pamatovat kde a kdy jsou rozvrhové lístky rozvrženy.
+- Systém musí být schopný ověřit všechny vstupy uživatele.
+
+### Kvalitativní:
+- Systém musí umět uporoznit uživatele na kolizi mezi rozvrhovými lístky.
+- Systém musí zvládnout rozvrhnutí velkého množství rozvrhových lístků.
+- Systém musí být schopný efektivně a přehledně zaplněnost jedné místnosti po celý semestr.
