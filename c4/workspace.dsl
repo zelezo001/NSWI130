@@ -43,7 +43,6 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             }
 
-
             notificationManager = container "Notification Manager" "Sends notifications to users"
 
             enrollmentDB = container "Enrollment Database" "Stores enrollments of students to tickets and queue" "" "Database"
@@ -96,6 +95,10 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         alternativeSuggestor -> scheduleDbCommunicator "Requests subject schedules to find an alternative free slot."
 
         ### relationships of Queue Manager components
+        enrollmentRequestProcessor -> queueProcessor "Adds/removes from the queue"
+        enrollmentRequestProcessor -> manualEnrollmentHandler "Removes particular student from the queue"
+        enrollmentRequestProcessor -> automaticEnrollmentHandler "Triggers automatic enrollment"
+
         queueProcessor -> queuePositionManager "Manages queue positions through"
         queueProcessor -> queueCapacityValidator "Validates capacity before adding to queue"
         queueProcessor -> enrollmentDB "Reads and writes queue entries"
@@ -177,7 +180,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         student -> enrolledSubjectsViewer "Views currently enrolled subjects"
         enrolledSubjectsViewer -> enrollmentManager "Reads currently enrolled subjects"
         student -> alternativeViewer "Views suggested alternative subjects"
-        alternativeViewer -> alternativeSuggestor "Reads suggested alternative subjects"
+        alternativeViewer -> enrollmentManager "Reads suggested alternative subjects"
         logViewer -> changeLog "Reads event logs for display"
 
         # notification manager relationships
@@ -194,6 +197,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         notificationManager -> logger "Logs notification events"
 
         notificationManager -> dashboard "Sends system status updates"
+        dashboard -> enrollmentRequestProcessor "Sends API requests"
         notificationManager -> mailingService "Requests e-mail distribution for important notices."
 
         # authentication and authorization relationships
