@@ -5,6 +5,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         mailingService = softwareSystem "Mailing Service" "External e-mail handling service." "Existing System"
         enrollmentSystem = softwareSystem "Enrollment System" "Manages course enrollments, class capacities, prerequisites validation, and enrollment periods for students and teachers." {
 
+            !docs docs
             # Enrollment system databases
             logDB = container "Enrollment Event Log Database" "Stores logs of changes in enrollment." "" "Database"
 
@@ -74,7 +75,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         # actors
         student = person "Student" "Enrolls in courses, views enrollment status, and manages their class schedule."
         teacher = person "Teacher" "Views class rosters, manages course capacities, and approves special enrollment requests."
-        administrator = person "Administrator" "Configures enrollment periods, manages course offerings, and handles enrollment exceptions."
+        administrator = person "Administrator" "Configures enrollment periods, manages course offerings."
 
         # relationships between Enrollment System and the outside
         student -> enrollmentSystem "Enrolls in courses, drops classes, and views enrollment history"
