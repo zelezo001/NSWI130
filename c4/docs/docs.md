@@ -1,4 +1,4 @@
-# Docs
+# C4 Documentation
 
 ## Introduction
 
