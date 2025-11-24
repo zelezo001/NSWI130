@@ -36,9 +36,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                 scheduleDbCommunicator = component "Schedule Database Communicator" "Acts as a single point of connection to the subject database."
 
                 group "Configuration manager - admin controls" {
-                    currentEnrollmentDatesManager = component "Current Enrollment Dates Manager" "Manages the enrollment dates for the current period"
-                    pastEnrollmentDatesGetter = component "Past Enrollment Dates Getter" "Gets the enrollment dates for past enrollment periods"
-                    enrollmentConfigurationRepository = component "Enrollment Configuration Repository" "Stores configurations for all study periods"
+                    enrollemntConfigurationManager = component "Enrollment Configuration Manager" "Provides administrative functions to set and update enrollment configurations."
                 }
 
             }
@@ -116,7 +114,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentRequestProcessor -> capacityValidator "Validates ticket capacity"
         enrollmentRequestProcessor -> prerequisitesChecker "Checks prerequisites"
         enrollmentRequestProcessor -> ruleEnforcer "Enforces enrollment rules"
-        enrollmentRequestProcessor -> currentEnrollmentDatesManager "Checks if enrollment period is active"
+        enrollmentRequestProcessor -> enrollemntConfigurationManager "Checks if enrollment period is active"
         enrollmentRequestProcessor -> enrollmentDB "Records successful enrollment"
         enrollmentRequestProcessor -> enrollmentHistoryTracker "Logs enrollment action"
         //enrollmentRequestProcessor -> queueManager "Adds student to queue if capacity full"
@@ -131,10 +129,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentRequestProcessor -> alternativeSuggestor "Gets available alternative tickets"
         enrollmentHistoryTracker -> logDB "Writes enrollment events to log"
         ### relationships of Enrollment Configuration Manager components
-        //currentEnrollmentDatesManager -> enrollmentConfigurationRepository "Reads and writes enrollment dates for the current period"
-        // currentEnrollmentDatesManager -> enrollmentManager "Provides current enrollmentDates"
-        // pastEnrollmentDatesGetter -> enrollmentConfigurationRepository "Asks for the dates for past enrollments"
-        // enrollmentConfigurationRepository -> enrollmentDB "Reads and writes information about enrollment configuration"
+        enrollemntConfigurationManager -> enrollmentDB "Reads and writes enrollment configuration
 
         scheduleDbCommunicator -> scheduleModule "Retrieves and processes external schedule info."
 
@@ -388,11 +383,15 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         dynamic enrollmentSystem "EnrollmentLimitNumberOfEnrollmentsContainerView" "Dynamic diagram showing container flow for an administrator setting enrollment limit for a course." {
             administrator -> dashboard "Opens dashboard, selects enrollment configuration page"
-
-            dashboard -> enrollmentManager "Requests current enrollment limit for the subject"
-            enrollmentManager -> scheduleModule "Retrieves current enrollment limit from schedule module"
+            administrator -> dashboard "Searches for subject to set enrollment limit"
+            dashboard -> enrollmentManager "Retrieves subject list"
+            administrator -> dashboard "Choose subject to edit"
+            dashboard -> enrollmentManager "Retrieves current subject"
+            administrator -> dashboard "Views current enrollment limit"
+            dashboard -> enrollmentManager "Requests current enrollment limit"
+            enrollmentManager -> enrollmentDB "Retrieves current enrollment limit"
             enrollmentManager -> dashboard "Provides current enrollment limit"
-
+            
             administrator -> dashboard "Sets new enrollment limit and submits changes"
             dashboard -> enrollmentManager "Sends updated enrollment limit"
 
