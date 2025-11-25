@@ -61,6 +61,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                 enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in." "HTML+Javascript" "Web Front-End"
                 alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots." "HTML+Javascript" "Web Front-End
             }
+            staticContent = container "Static Content" "HTML, JS, CSS, etc." "" "Directory"
             enrollmentArchiver = container "Enrollment Archiver" "Archives past enrollment data for long-term storage and compliance."
             enrollmentArchiveDB = container "Enrollment archive" "Stores past enrollments" "" "Database"
         }
@@ -77,6 +78,9 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         student = person "Student" "Enrolls in courses, views enrollment status, and manages their class schedule."
         teacher = person "Teacher" "Views class rosters, manages course capacities, and approves special enrollment requests."
         administrator = person "Administrator" "Configures enrollment periods, manages course offerings."
+
+        student -> staticContent "Loads UI from"
+        staticContent -> dashboard "Delivers"
 
         # relationships between Enrollment System and the outside
         student -> enrollmentSystem "Enrolls in courses, drops classes, and views enrollment history"
@@ -224,10 +228,14 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     }
                 }
 
-                deploymentNode "Dashboard Server Container" "" "Docker" {
-                    deploymentNode "Dashboard Server" "" "Nginx" {
-                        containerInstance dashboard
+                deploymentNode "Static Files Container" "" "Docker" {
+                    deploymentNode "Web/File Server" "" "eg. Nginx" {
+                        containerInstance staticContent
                     }
+                }
+
+                deploymentNode "Web Browser" "" "" {
+                    containerInstance dashboard
                 }
 
                 deploymentNode "Monorepo Development build" {
@@ -251,14 +259,13 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         }
 
         deploymentEnvironment "Production" {
-            deploymentNode "Users" "" "" {
+            deploymentNode "User's laptop" "" "" {
+                deploymentNode "Web browser" "" "" {
+                    containerInstance dashboard
+                }
             }
 
             deploymentNode "AWS" "" "" {
-                deploymentNode "Web Application" "" "AWS EC2 instance, Nginx" {
-                    containerInstance dashboard
-                }
-
                 deploymentNode "Compute engine" "" "AWS Fargate" {
                     deploymentNode "Core container, scalable" {
                         deploymentNode "Core" "" ".NET runtime" {
@@ -281,8 +288,14 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     containerInstance logDB
                 }
 
-                deploymentNode "Archive Storage" "" "AWS S3 object storage" {
-                    containerInstance enrollmentArchiveDB
+                deploymentNode "Object storage" "" "AWS S3 object storage" {
+                    deploymentNode "Enrollment archive storage" "" "S3 bucket" {
+                        containerInstance enrollmentArchiveDB
+                    }
+
+                    deploymentNode "Static content storage" "" "S3 bucket" {
+                        containerInstance staticContent
+                    }
                 }
             }
         }
@@ -398,7 +411,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             dashboard -> enrollmentManager "Requests current enrollment limit"
             enrollmentManager -> enrollmentDB "Retrieves current enrollment limit"
             enrollmentManager -> dashboard "Provides current enrollment limit"
-            
+
             administrator -> dashboard "Sets new enrollment limit and submits changes"
             dashboard -> enrollmentManager "Sends updated enrollment limit"
 
@@ -461,6 +474,10 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             element "Database" {
                 shape Cylinder
+            }
+
+            element "Directory" {
+                shape Folder
             }
         }
     }
