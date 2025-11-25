@@ -1,4 +1,4 @@
-# Jako garant chci vyrobit předmět protože chci přednášet studentům
+# Jako garant chci vyrobit předmět, protože chci přednášet studentům
 
 ## Scénáře:
 
@@ -6,23 +6,21 @@
 
 ## Detailně:
 
-- Garant otevře modul "Předměty"
-- Vybere akci "Vytvořit předmět"
-- Systém zobrazí formulář
-- Garant vyplní údaje (název, kód, popis, kredity)
-
-- Garant odešle formulář
-- Systém přijme požadavek
-- Systém zpracuje data: 
-  - Validuje formát a úplnost
-  - Ověří unikátnost kódu
-  - Vygeneruje UID (prefix + increment)
-- Při chybě validace:
-  - Vrátí chybovou zprávu
-- Při úspěchu:
-  - Uloží předmět do databáze
-  - Vrátí potvrzení
-  - Zobrazí detail předmětu
+1. Garant otevře modul "Předměty"
+2. Vybere akci "Vytvořit předmět"
+3. Systém zobrazí formulář
+4. Garant vyplní údaje (název, kód, popis, kredity)
+5. Garant odešle formulář
+6. Systém přijme požadavek
+7. Systém zpracuje data: 
+    - validuje formát a úplnost
+    - ověří unikátnost kódu
+    - vygeneruje UID (prefix + increment)
+8. Při chybě validace vrátí chybovou zprávu
+9. Při úspěchu:
+    - uloží předmět do databáze
+    - vrátí potvrzení
+    - zobrazí detail předmětu
 
 ## Požadavky
 

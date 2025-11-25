@@ -1,4 +1,4 @@
-# Jako garant chci upravit předmět protože jsem něco napsal špatně
+# Jako garant chci upravit předmět, protože jsem něco napsal špatně
 
 ## Scénáře:
 
@@ -6,25 +6,23 @@
 
 ## Detailně:
 
-- Garant otevře modul "Předměty"
-- Systém zobrazí list existujících předmětů
-- Garant vybere "Upravit předmět" vedle předmětu který chce smazat
-- Systém zobrazí formulář vyplněný daty z DB
-- Garant upraví formulář
-
-- Garant odešle formulář
-- Systém přijme požadavek
-- Systém zpracuje data: 
-  - Validuje formát a úplnost
-  - Ověří unikátnost kódu
-  - Vygeneruje UID (prefix + increment)
-- Při chybě validace:
-  - Vrátí chybovou zprávu
-- Při úspěchu:
-  - Uloží předmět do databáze
-  - Vrátí potvrzení
-  - Zobrazí detail předmětu
-  - Notifikuje zapsané studenty
+1. Garant otevře modul "Předměty"
+2. Systém zobrazí list existujících předmětů
+3. Garant vybere "Upravit předmět" vedle předmětu který chce smazat
+4. Systém zobrazí formulář vyplněný daty z DB
+5. Garant upraví formulář
+6. Garant odešle formulář
+7. Systém přijme požadavek
+8. Systém zpracuje data: 
+    - validuje formát a úplnost
+    - ověří unikátnost kódu
+    - vygeneruje UID (prefix + increment)
+9. Při chybě validace vrátí chybovou zprávu
+10. Při úspěchu:
+    - uloží předmět do databáze
+    - vrátí potvrzení
+    - zobrazí detail předmětu
+    - notifikuje zapsané studenty
 
 ## Požadavky
 

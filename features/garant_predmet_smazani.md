@@ -1,4 +1,4 @@
-# Jako garant chci smazat předmět protože už nemám čas ho přednášet
+# Jako garant chci smazat předmět, protože už nemám čas ho přednášet
 
 ## Scénáře:
 
@@ -6,16 +6,16 @@
 
 ## Detailně:
 
-- Garant otevře modul "Předměty"
-- Systém zobrazí list existujících předmětů
-- Garant vybere "Smazat předmět" vedle předmětu který chce smazat
-- Systém ověří že interakce nebyla omyl ("Jste si jistý/á?")
-- Pokud garant nepotvrdí, systém akci odmítne
-- Jinak systém:
-  - označí předmět jako smazaný
-  - odepíše všechny studenty
-  - pošle notifikaci studentům
-  - ohlásí úspěch
+1. Garant otevře modul "Předměty"
+2. Systém zobrazí list existujících předmětů
+3. Garant vybere "Smazat předmět" vedle předmětu který chce smazat
+4. Systém ověří že interakce nebyla omyl ("Jste si jistý/á?")
+5. Pokud garant nepotvrdí, systém akci odmítne
+6. Jinak systém:
+    - označí předmět jako smazaný
+    - odepíše všechny studenty
+    - pošle notifikaci studentům
+    - ohlásí úspěch
 
 ## Požadavky:
 
