@@ -30,13 +30,13 @@ Cílem našeho projektu bylo navrhout část SISu starající se o správu před
 - Systém musí umět smazat předmět.
 - Systém musí umět při mazání předmětu uvést do konsistentího stavu
 - Systém musí umět uporoznit uživatele na kolizi mezi rozvrhovými lístky.
-- Systém musí být schopen ověřit validitu zadaných dat.
 - Systém musí umět porovnat časový slot jedné akce se sadou existujících akcí.
 - Systém musí spolehlivě identifikovat překryvy pro více zdrojů najednou (místnost, osoba).
 - Systém musí umět zabránit uložení akce, která způsobuje kolizi.
 - Systém musí umožnit vynucené uložení kolidující akce pro uživatele s dostatečným oprávněním.
+- Systém musí pro nové předměty generovat unikátní ID.
 
-[//]: # (Možná na klasický BE, využívá rozvrhovátko)
+[//]: # (  Možná na klasický BE, využívá rozvrhovátko)
 - Systém musí umět hledat v rozvrhových lístcích podle místnosti.
 - Systém musí umět vyhledávat mezi předmety podle jejich kódu.
   a podle vlastností předmětu (kód, název, katedra, fakulta).
@@ -60,8 +60,8 @@ Cílem našeho projektu bylo navrhout část SISu starající se o správu před
   - Public část je read-only a lze ji do budoucna škálovat bez potřeby škálovat admin.
     - Nyní by to mělo jít bez zásahu do architektury.
   - Public část nepotřebuje autorizovat uživatele.
-  - Na public část lze použít read oriented protokoly (graphQL).
+  - Public část nepotřebuje write přístup k databázím, což zlepší bezpečnost (a škálovatelnost).
 - Rozdělení databází:
-  - Rozvrhové sloty nejsou v gestci naší části a může ji do ní zapisovat někdo jiný (např. správa budov UK).
+  - Rozvrhové sloty nejsou v gesci naší části a může ji do ní zapisovat někdo jiný (např. správa budov UK).
   - Ne všechny předměty budou pocházet z UK (meziuniverzitní dohody) a proto je potřeba separatovat 
   rozvrhy do vlastní DB.
