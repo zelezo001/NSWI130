@@ -5,11 +5,7 @@
 1. Jako garant předmětu chci definovat požadavky na rozvrhnutí (např. preference časů a místnosti), aby rozvrhář mohl
    vytvořit kvalitní rozvrh.
 
-#### Učitel
 
-9. Jako učitel chci smazat předmět, protože už nemám čas ho přednášet.
-10. Jako učitel chci vyrobit předět, protože nechci přednášet v prázdné místnosti.
-11. Jako učitel chci upravit předět, protože něco napsal špatně.
 
 #### Rozvrhář
 
@@ -33,9 +29,14 @@
 7. Jako student/učitel/host chci zobrazit existující rozvrh pro předmět, místnost, vyučujícího nebo svůj osobní rozvrh,
    neboť chci vidět příslušné rozvržené entity.
 8. Jako student/učitel chci být automatcky notifikován o změně v mém rozvrhu (změna času, místnosti, zrušení hodiny).
-
-12. Jako student/učitel chci exportovat rozvrh do osobního kalendáře, protože chci mít všechny budoucí události na
+9. Jako student/učitel chci exportovat rozvrh do osobního kalendáře, protože chci mít všechny budoucí události na
     jednom místě.
+
+#### Učitel
+
+10. Jako učitel chci smazat předmět, protože už nemám čas ho přednášet.
+11. Jako učitel chci vyrobit předět, protože nechci přednášet v prázdné místnosti.
+12. Jako učitel chci upravit předět, protože něco napsal špatně.
 
 ## Oblasti
 
