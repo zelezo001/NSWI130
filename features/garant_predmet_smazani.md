@@ -1,22 +1,27 @@
-# garant chce smazat předmět PROTOŽE už nemá čas ho přednášet
+# Jako garant chci smazat předmět protože už nemám čas ho přednášet
+
+## Scénáře:
+
+- Smazání existujícího předmětu
 
 ## Detailně:
 
-- učitel si otevře sis
-- vybere 'předměty'
-- vybere konkrétní předmět
-- systém ukáže vyplnění formulář
-- odešle "smazat" formulář nebo sudo formulář
-- pokud neodeslal sudo, pošle zpátky chybu
-- systém "smaže" rozvrhové lístky předmětu:
-    - vyrobí novou revizi s vypnoutou existencí
-    - odepíše všechny studenty
-    - pošle studentům notifikaci
-- systém vyrobí novou revizi s vypnoutou existencí
-- systém pošle zpátky ack
+- Garant otevře modul "Předměty"
+- Systém zobrazí list existujících předmětů
+- Garant vybere "Smazat předmět" vedle předmětu který chce smazat
+- Systém ověří že interakce nebyla omyl ("Jste si jistý/á?")
+- Pokud garant nepotvrdí, systém akci odmítne
+- Jinak systém:
+  - označí předmět jako smazaný
+  - odepíše všechny studenty
+  - pošle notifikaci studentům
+  - ohlásí úspěch
 
 ## Požadavky:
 
-- Systém musí umět vyhledávat mezi předměty podle jejich kódu, názvu a podle relace k vyhledávajícímu ("předmět, co garantuju").
-- Systém musí umět uložit zmizení předmětu, odepsat studenty.
+- Ověření oprávnění garanta
+- Potvrzení destruktivní akce
+- Vypisování/filtrování všech předmětů
+- Notifikace uživatelů
+- Verzování záznamů v databázi
 
