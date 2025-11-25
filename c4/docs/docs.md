@@ -59,7 +59,7 @@ This section maps key system responsibilities for each key feature to specific c
 - notification: Notification Manager
 - data persistence: Enrollment Request Processor, Enrollment History Tracker
 - user interface: Dashboard
-- error handling: Error Handler
+- error handling: Enrollment Request Processor
 - data consistency: Rule Enforcer
 - alternative offer: Subject Suggestor, Alternative Suggestor
 
@@ -68,7 +68,7 @@ This section maps key system responsibilities for each key feature to specific c
 - authorization: Authentication and authorization API
 - data persistence: Enrollment Configuration Manager
 - notification: Notification manager
-- error handling: Error Handler
+- error handling: Enrollment Request Processor
 - user interface: Dashboard
 - logging: Logger
 
@@ -79,7 +79,7 @@ This section maps key system responsibilities for each key feature to specific c
 - notification: Notification Manager
 - validation: Queue Capacity Validator
 - (de)activation: Enrollment Configuration Manager
-- error handling: Error Handler
+- error handling: Enrollment Request Processor
 - user interface: Dashboard
 - logging: Logger
 
@@ -89,6 +89,6 @@ This section maps key system responsibilities for each key feature to specific c
 - data validation: Enrollment Configuration Manager
 - data persistence: Enrollment Configuration Manager
 - notification: Notification Manager
-- error handling: Error Handler
+- error handling: Enrollment Request Processor
 - user interface: Dashboard
 - logging: Logger
