@@ -1,26 +1,33 @@
-# garant chce vyrobit předmět PROTOŽE nechce přednášet prázdné místnosti
+# Jako garant chci vyrobit předmět protože chci přednášet studentům
+
+## Scénáře:
+
+- Vytvoření zcela nového předmětu
 
 ## Detailně:
 
-- učitel si otevře systém
-- vybere 'předměty'
-- vybere vyrobit předmět
-- systém ukáže formulář
-    - zodpovědnost zobrazování dat
-- vyplní formulář
-- odešle formulář
-    - komunikační zodpovědnost
-- systém zkontroluje údaje
-    - Validační zodpovědnost
-- pokud bylo něco špatně, pošle zpátky chybu
-- jinak pošle zpátky ack
-- vygeneruje UID předmětu (prefix+increment)
-- zapíše do databáze
-    - zodpovědnost ukladání dat
+- Garant otevře modul "Předměty"
+- Vybere akci "Vytvořit předmět"
+- Systém zobrazí formulář
+- Garant vyplní údaje (název, kód, popis, kredity)
+
+- Garant odešle formulář
+- Systém přijme požadavek
+- Systém zpracuje data: 
+  - Validuje formát a úplnost
+  - Ověří unikátnost kódu
+  - Vygeneruje UID (prefix + increment)
+- Při chybě validace:
+  - Vrátí chybovou zprávu
+- Při úspěchu:
+  - Uloží předmět do databáze
+  - Vrátí potvrzení
+  - Zobrazí detail předmětu
 
 ## Požadavky
 
-- Systém musí umět zobrazovat formuláře
-- Systém musí umět komunikovat s uživatelem
-- Systém musí umět validovat údaje
-- Systém musí umět perzistentně ukládat data
+- Ověření oprávnění garanta
+- Dynamické formuláře s validací
+- Generování unikátních ID
+- Validace povinných polí a formátů
+- Atomicita operace (UID + uložení)

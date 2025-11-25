@@ -1,24 +1,36 @@
-# garant chce upravit předmět PROTOŽE něco napsal špatně
+# Jako garant chci upravit předmět protože jsem něco napsal špatně
+
+## Scénáře:
+
+- Úprava existujícího předmětu
 
 ## Detailně:
 
-- učitel si otevře sis
-- vybere 'předměty'
-- vybere konkrétní předmět
-- systém ukáže vyplněný formulář
-- učitel upraví formulář
-- odešle formulář nebo odešle sudo formulář
-- systém zkontroluje údaje
-- pokud bylo něco špatně, pošle zpátky chybu
-- pokud upravil chráněné vlastnosti a neodeslal sudo, pošle zpátky chybu
-- jinak pošle zpátky ack
-- zapíše do předmětu referenci na předchodí revizi
-- zapíše novou revizi předmětu do databáze
-- notifikuje zapsané studenty a možná další?
+- Garant otevře modul "Předměty"
+- Systém zobrazí list existujících předmětů
+- Garant vybere "Upravit předmět" vedle předmětu který chce smazat
+- Systém zobrazí formulář vyplněný daty z DB
+- Garant upraví formulář
+
+- Garant odešle formulář
+- Systém přijme požadavek
+- Systém zpracuje data: 
+  - Validuje formát a úplnost
+  - Ověří unikátnost kódu
+  - Vygeneruje UID (prefix + increment)
+- Při chybě validace:
+  - Vrátí chybovou zprávu
+- Při úspěchu:
+  - Uloží předmět do databáze
+  - Vrátí potvrzení
+  - Zobrazí detail předmětu
+  - Notifikuje zapsané studenty
 
 ## Požadavky
 
-- Systém musí umět zobrazovat předvyplněný formuláře
-- Systém musí umět komunikovat s uživatelem
-- Systém musí umět validovat údaje
-- Systém musí umět číst perzistentně uložená data
+- Ověření oprávnění garanta
+- Čtení předmětů
+- Dynamické formuláře s validací
+- Generování unikátních ID
+- Validace povinných polí a formátů
+- Atomicita operace (UID + uložení)
