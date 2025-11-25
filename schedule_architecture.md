@@ -35,8 +35,8 @@
 #### Učitel
 
 10. Jako učitel chci smazat předmět, protože už nemám čas ho přednášet.
-11. Jako učitel chci vyrobit předět, protože nechci přednášet v prázdné místnosti.
-12. Jako učitel chci upravit předět, protože něco napsal špatně.
+11. Jako učitel chci vyrobit předmět, protože nechci přednášet v prázdné místnosti.
+12. Jako učitel chci upravit předmět, protože něco napsal špatně.
 
 ## Oblasti
 
