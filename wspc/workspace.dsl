@@ -25,6 +25,8 @@ workspace "NSWI130" {
 
         sch = softwareSystem "Rozvrhy" {
 
+            !docs "docs/softwareSystem.md"
+
             sis_fe = web "SIS frontend" {
                 timetable_front = web_comp "Zobrazení rozvrhu" "" "HTML+JS"
                 course_provider_front = web_comp "Zobrazení/listování předmětů" "" "HTML+JS"
@@ -68,9 +70,9 @@ workspace "NSWI130" {
                 timetable_notifications = component "Správce notifikací o rozvrhu"
             }
 
-            scheduleDB = db "scheduleDB"
-            courseDB = db courseDB
-            timeslotDB = db timeslotDB
+            scheduleDB = db "Databáze rozvrhů"
+            courseDB = db "Databáze předmětů"
+            timeslotDB = db "Databáze rozvrhových slotů"
 
             scheduler_front = web "Rozvrhovadlo" "" "HTML+JS"
 

@@ -1,0 +1,2745 @@
+{
+  "configuration" : { },
+  "description" : "Description",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedDate" : "2025-11-25T10:09:20Z",
+  "model" : {
+    "deploymentNodes" : [ {
+      "containerInstances" : [ {
+        "containerId" : "10",
+        "deploymentGroups" : [ "Default" ],
+        "environment" : "Produkce",
+        "id" : "98",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "1251c2e9-c9d2-4b58-9b6c-9c7775631167"
+        },
+        "relationships" : [ {
+          "description" : "Odesílá požadavky uživatele",
+          "destinationId" : "112",
+          "id" : "113",
+          "linkedRelationshipId" : "72",
+          "sourceId" : "98"
+        } ],
+        "tags" : "Container Instance"
+      } ],
+      "environment" : "Produkce",
+      "id" : "97",
+      "instances" : "1",
+      "name" : "Prohlížeč admina",
+      "properties" : {
+        "structurizr.dsl.identifier" : "854f0b1d-c906-490a-ab47-81c533b41b23"
+      },
+      "tags" : "Element,Deployment Node"
+    }, {
+      "containerInstances" : [ {
+        "containerId" : "32",
+        "deploymentGroups" : [ "Default" ],
+        "environment" : "Produkce",
+        "id" : "100",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "0a8d84ae-b831-4c1f-a318-d1f2e8878235"
+        },
+        "relationships" : [ {
+          "description" : "Čte předměty",
+          "destinationId" : "112",
+          "id" : "114",
+          "linkedRelationshipId" : "66",
+          "sourceId" : "100"
+        } ],
+        "tags" : "Container Instance"
+      } ],
+      "environment" : "Produkce",
+      "id" : "99",
+      "instances" : "1",
+      "name" : "Prohlížeč rozvrháře",
+      "properties" : {
+        "structurizr.dsl.identifier" : "85128971-a954-480c-b27e-365c2e52768e"
+      },
+      "tags" : "Element,Deployment Node"
+    }, {
+      "containerInstances" : [ {
+        "containerId" : "7",
+        "deploymentGroups" : [ "Default" ],
+        "environment" : "Produkce",
+        "id" : "102",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "f6f8a3db-b116-446d-94e7-38faa4a15cf9"
+        },
+        "relationships" : [ {
+          "description" : "Hledá / čte předměty",
+          "destinationId" : "120",
+          "id" : "121",
+          "linkedRelationshipId" : "44",
+          "sourceId" : "102"
+        } ],
+        "tags" : "Container Instance"
+      } ],
+      "environment" : "Produkce",
+      "id" : "101",
+      "instances" : "1",
+      "name" : "Prohlížeč uživatele",
+      "properties" : {
+        "structurizr.dsl.identifier" : "b74c9c14-977c-44fc-b8ec-75ad6b7c7827"
+      },
+      "tags" : "Element,Deployment Node"
+    }, {
+      "children" : [ {
+        "children" : [ {
+          "children" : [ {
+            "containerInstances" : [ {
+              "containerId" : "29",
+              "deploymentGroups" : [ "Default" ],
+              "environment" : "Produkce",
+              "id" : "107",
+              "instanceId" : 1,
+              "properties" : {
+                "structurizr.dsl.identifier" : "eb951b6d-f4db-4d3c-80d3-660e9c84a002"
+              },
+              "tags" : "Container Instance"
+            }, {
+              "containerId" : "30",
+              "deploymentGroups" : [ "Default" ],
+              "environment" : "Produkce",
+              "id" : "108",
+              "instanceId" : 1,
+              "properties" : {
+                "structurizr.dsl.identifier" : "000d553e-8780-4ec9-a793-399ad484cc92"
+              },
+              "tags" : "Container Instance"
+            }, {
+              "containerId" : "31",
+              "deploymentGroups" : [ "Default" ],
+              "environment" : "Produkce",
+              "id" : "109",
+              "instanceId" : 1,
+              "properties" : {
+                "structurizr.dsl.identifier" : "431bb9a9-e774-4905-8f61-d8740a213520"
+              },
+              "tags" : "Container Instance"
+            } ],
+            "environment" : "Produkce",
+            "id" : "106",
+            "instances" : "1",
+            "name" : "Relational DB server",
+            "properties" : {
+              "structurizr.dsl.identifier" : "c6613b5b-d318-44fb-ad73-a08c7308a636"
+            },
+            "tags" : "Element,Deployment Node",
+            "technology" : "PostgreSQL 18.0.0"
+          } ],
+          "environment" : "Produkce",
+          "id" : "105",
+          "instances" : "1",
+          "name" : "Databases",
+          "properties" : {
+            "structurizr.dsl.identifier" : "45b99acf-00ac-42c1-bb0b-1f896c2cf259"
+          },
+          "tags" : "Element,Deployment Node",
+          "technology" : "Docker container"
+        }, {
+          "children" : [ {
+            "containerInstances" : [ {
+              "containerId" : "19",
+              "deploymentGroups" : [ "Default" ],
+              "environment" : "Produkce",
+              "id" : "112",
+              "instanceId" : 1,
+              "properties" : {
+                "structurizr.dsl.identifier" : "9d83b6d1-0269-4ce2-84d0-63b302ffdd34"
+              },
+              "relationships" : [ {
+                "description" : "Čte data z",
+                "destinationId" : "107",
+                "id" : "115",
+                "linkedRelationshipId" : "92",
+                "sourceId" : "112"
+              }, {
+                "description" : "Čte data z",
+                "destinationId" : "108",
+                "id" : "116",
+                "linkedRelationshipId" : "94",
+                "sourceId" : "112"
+              }, {
+                "description" : "Čte data z",
+                "destinationId" : "109",
+                "id" : "117",
+                "linkedRelationshipId" : "96",
+                "sourceId" : "112"
+              } ],
+              "tags" : "Container Instance"
+            } ],
+            "environment" : "Produkce",
+            "id" : "111",
+            "instances" : "1",
+            "name" : ".NET 9 runtime",
+            "properties" : {
+              "structurizr.dsl.identifier" : "15f4ee30-4749-41f4-b4ad-b4585cb1d0cd"
+            },
+            "tags" : "Element,Deployment Node"
+          } ],
+          "environment" : "Produkce",
+          "id" : "110",
+          "instances" : "1",
+          "name" : "Admin backend",
+          "properties" : {
+            "structurizr.dsl.identifier" : "cf9e6f44-2427-49b1-8801-22a786c71409"
+          },
+          "tags" : "Element,Deployment Node",
+          "technology" : "Docker container"
+        }, {
+          "children" : [ {
+            "containerInstances" : [ {
+              "containerId" : "13",
+              "deploymentGroups" : [ "Default" ],
+              "environment" : "Produkce",
+              "id" : "120",
+              "instanceId" : 1,
+              "properties" : {
+                "structurizr.dsl.identifier" : "5af27313-b203-47f4-af99-517ee1d30d8a"
+              },
+              "relationships" : [ {
+                "description" : "Čte data z",
+                "destinationId" : "107",
+                "id" : "122",
+                "linkedRelationshipId" : "53",
+                "sourceId" : "120"
+              }, {
+                "description" : "Čte data z",
+                "destinationId" : "108",
+                "id" : "123",
+                "linkedRelationshipId" : "55",
+                "sourceId" : "120"
+              }, {
+                "description" : "Čte data z",
+                "destinationId" : "109",
+                "id" : "124",
+                "linkedRelationshipId" : "57",
+                "sourceId" : "120"
+              } ],
+              "tags" : "Container Instance"
+            } ],
+            "environment" : "Produkce",
+            "id" : "119",
+            "instances" : "1",
+            "name" : ".NET 9 runtime",
+            "properties" : {
+              "structurizr.dsl.identifier" : "79fa933c-1c5e-461f-8782-2a9a6e0ec1e4"
+            },
+            "tags" : "Element,Deployment Node"
+          } ],
+          "environment" : "Produkce",
+          "id" : "118",
+          "instances" : "1",
+          "name" : "Backend",
+          "properties" : {
+            "structurizr.dsl.identifier" : "d5a3192a-010e-41ea-bb0f-fbd9847d6c20"
+          },
+          "tags" : "Element,Deployment Node",
+          "technology" : "Docker container"
+        } ],
+        "environment" : "Produkce",
+        "id" : "104",
+        "instances" : "1",
+        "name" : "Container orchestration system",
+        "properties" : {
+          "structurizr.dsl.identifier" : "4b89c426-4934-4adb-a653-fc35a3096b66"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Kubernetes"
+      } ],
+      "environment" : "Produkce",
+      "id" : "103",
+      "instances" : "1",
+      "name" : "Hardware",
+      "properties" : {
+        "structurizr.dsl.identifier" : "3734314e-5717-4b03-8e26-eaabba75acf2"
+      },
+      "tags" : "Element,Deployment Node"
+    }, {
+      "children" : [ {
+        "containerInstances" : [ {
+          "containerId" : "10",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Development prostředí",
+          "id" : "127",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "7e590b78-222c-4f64-b6de-b4993e770903"
+          },
+          "relationships" : [ {
+            "description" : "Odesílá požadavky uživatele",
+            "destinationId" : "137",
+            "id" : "138",
+            "linkedRelationshipId" : "72",
+            "sourceId" : "127"
+          } ],
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "7",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Development prostředí",
+          "id" : "128",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "31aac8a7-f8c9-41db-bfc6-0d56a3572b9b"
+          },
+          "relationships" : [ {
+            "description" : "Hledá / čte předměty",
+            "destinationId" : "145",
+            "id" : "146",
+            "linkedRelationshipId" : "44",
+            "sourceId" : "128"
+          } ],
+          "tags" : "Container Instance"
+        }, {
+          "containerId" : "32",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Development prostředí",
+          "id" : "129",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "51f07210-8297-4727-a32c-2c0dbb3f0382"
+          },
+          "relationships" : [ {
+            "description" : "Čte předměty",
+            "destinationId" : "137",
+            "id" : "139",
+            "linkedRelationshipId" : "66",
+            "sourceId" : "129"
+          } ],
+          "tags" : "Container Instance"
+        } ],
+        "environment" : "Development prostředí",
+        "id" : "126",
+        "instances" : "1",
+        "name" : "Prohlížeč vývojáře",
+        "properties" : {
+          "structurizr.dsl.identifier" : "f1a8bdc1-ac96-42fd-8e82-7a017cd7a1dc"
+        },
+        "tags" : "Element,Deployment Node"
+      }, {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "29",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Development prostředí",
+            "id" : "132",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "0ab1c7ca-26b5-4eb2-87dd-861c31ebf11d"
+            },
+            "tags" : "Container Instance"
+          }, {
+            "containerId" : "30",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Development prostředí",
+            "id" : "133",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "5eefb6ca-8a52-4b53-a72e-e8e2fe2c82eb"
+            },
+            "tags" : "Container Instance"
+          }, {
+            "containerId" : "31",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Development prostředí",
+            "id" : "134",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "93ce39a9-ffc0-43a5-b8e4-79cb20c0ce66"
+            },
+            "tags" : "Container Instance"
+          } ],
+          "environment" : "Development prostředí",
+          "id" : "131",
+          "instances" : "1",
+          "name" : "Relational DB server",
+          "properties" : {
+            "structurizr.dsl.identifier" : "54fd8a8b-c685-4f50-a2f6-e5e754432a13"
+          },
+          "tags" : "Element,Deployment Node",
+          "technology" : "PostgreSQL 18.0.0"
+        } ],
+        "environment" : "Development prostředí",
+        "id" : "130",
+        "instances" : "1",
+        "name" : "Databases",
+        "properties" : {
+          "structurizr.dsl.identifier" : "640621b9-158e-4caf-9c28-e4b85d388d02"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Docker container"
+      }, {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "19",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Development prostředí",
+            "id" : "137",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "c1cc4210-54e7-454b-9adf-0008ea75ac7e"
+            },
+            "relationships" : [ {
+              "description" : "Čte data z",
+              "destinationId" : "132",
+              "id" : "140",
+              "linkedRelationshipId" : "92",
+              "sourceId" : "137"
+            }, {
+              "description" : "Čte data z",
+              "destinationId" : "133",
+              "id" : "141",
+              "linkedRelationshipId" : "94",
+              "sourceId" : "137"
+            }, {
+              "description" : "Čte data z",
+              "destinationId" : "134",
+              "id" : "142",
+              "linkedRelationshipId" : "96",
+              "sourceId" : "137"
+            } ],
+            "tags" : "Container Instance"
+          } ],
+          "environment" : "Development prostředí",
+          "id" : "136",
+          "instances" : "1",
+          "name" : ".NET 9 runtime",
+          "properties" : {
+            "structurizr.dsl.identifier" : "203a5100-3026-461f-93db-7bfa52c02205"
+          },
+          "tags" : "Element,Deployment Node"
+        } ],
+        "environment" : "Development prostředí",
+        "id" : "135",
+        "instances" : "1",
+        "name" : "Admin backend",
+        "properties" : {
+          "structurizr.dsl.identifier" : "81fa10dd-a000-449e-829b-f1ca0fb546ad"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Docker container"
+      }, {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "13",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Development prostředí",
+            "id" : "145",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "02b57757-3fa9-4e64-b059-65dd897acdb5"
+            },
+            "relationships" : [ {
+              "description" : "Čte data z",
+              "destinationId" : "132",
+              "id" : "147",
+              "linkedRelationshipId" : "53",
+              "sourceId" : "145"
+            }, {
+              "description" : "Čte data z",
+              "destinationId" : "133",
+              "id" : "148",
+              "linkedRelationshipId" : "55",
+              "sourceId" : "145"
+            }, {
+              "description" : "Čte data z",
+              "destinationId" : "134",
+              "id" : "149",
+              "linkedRelationshipId" : "57",
+              "sourceId" : "145"
+            } ],
+            "tags" : "Container Instance"
+          } ],
+          "environment" : "Development prostředí",
+          "id" : "144",
+          "instances" : "1",
+          "name" : ".NET 9 runtime",
+          "properties" : {
+            "structurizr.dsl.identifier" : "7f1c48a6-e0af-4fd3-ba35-2934e3dd7112"
+          },
+          "tags" : "Element,Deployment Node"
+        } ],
+        "environment" : "Development prostředí",
+        "id" : "143",
+        "instances" : "1",
+        "name" : "Backend",
+        "properties" : {
+          "structurizr.dsl.identifier" : "6a775b6d-52ff-42cd-9200-68ab5d7a0929"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Docker container"
+      } ],
+      "environment" : "Development prostředí",
+      "id" : "125",
+      "instances" : "1",
+      "name" : "Počítač vývojáře",
+      "properties" : {
+        "structurizr.dsl.identifier" : "058bd01d-aab5-4ac9-b39e-49240b639c0c"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "Arch linux"
+    } ],
+    "people" : [ {
+      "id" : "1",
+      "name" : "Student",
+      "properties" : {
+        "structurizr.dsl.identifier" : "student"
+      },
+      "relationships" : [ {
+        "description" : "Hledá předměty",
+        "destinationId" : "9",
+        "id" : "33",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Hledá předměty",
+        "destinationId" : "7",
+        "id" : "34",
+        "linkedRelationshipId" : "33",
+        "sourceId" : "1"
+      }, {
+        "description" : "Hledá předměty",
+        "destinationId" : "6",
+        "id" : "35",
+        "linkedRelationshipId" : "33",
+        "sourceId" : "1"
+      }, {
+        "description" : "Kouká na rozvrh",
+        "destinationId" : "8",
+        "id" : "36",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "id" : "2",
+      "name" : "Učitel",
+      "properties" : {
+        "structurizr.dsl.identifier" : "teacher"
+      },
+      "relationships" : [ {
+        "description" : "Hledá předměty",
+        "destinationId" : "9",
+        "id" : "37",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Hledá předměty",
+        "destinationId" : "7",
+        "id" : "38",
+        "linkedRelationshipId" : "37",
+        "sourceId" : "2"
+      }, {
+        "description" : "Hledá předměty",
+        "destinationId" : "6",
+        "id" : "39",
+        "linkedRelationshipId" : "37",
+        "sourceId" : "2"
+      }, {
+        "description" : "Kouká na rozvrh",
+        "destinationId" : "8",
+        "id" : "40",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Vytváří předmět",
+        "destinationId" : "11",
+        "id" : "58",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Vytváří předmět",
+        "destinationId" : "10",
+        "id" : "59",
+        "linkedRelationshipId" : "58",
+        "sourceId" : "2"
+      }, {
+        "description" : "Upravuje předmět",
+        "destinationId" : "11",
+        "id" : "60",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Maže předmět",
+        "destinationId" : "11",
+        "id" : "61",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Upravuje/maže rozvrhové lístky",
+        "destinationId" : "12",
+        "id" : "62",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "id" : "3",
+      "name" : "Rozvrhář",
+      "properties" : {
+        "structurizr.dsl.identifier" : "scheduler"
+      },
+      "relationships" : [ {
+        "description" : "Tvoří rozvrh",
+        "destinationId" : "32",
+        "id" : "63",
+        "sourceId" : "3",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Tvoří rozvrh",
+        "destinationId" : "6",
+        "id" : "64",
+        "linkedRelationshipId" : "63",
+        "sourceId" : "3"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "documentation" : { },
+      "id" : "4",
+      "name" : "Notifkační služba",
+      "properties" : {
+        "structurizr.dsl.identifier" : "notifications"
+      },
+      "tags" : "Element,Software System"
+    }, {
+      "documentation" : { },
+      "id" : "5",
+      "name" : "Enrollments",
+      "properties" : {
+        "structurizr.dsl.identifier" : "enrollments"
+      },
+      "tags" : "Element,Software System"
+    }, {
+      "containers" : [ {
+        "components" : [ {
+          "documentation" : { },
+          "id" : "8",
+          "name" : "Zobrazení rozvrhu",
+          "properties" : {
+            "structurizr.dsl.identifier" : "timetable_front"
+          },
+          "relationships" : [ {
+            "description" : "Čte rozvrhové lístky",
+            "destinationId" : "14",
+            "id" : "45",
+            "sourceId" : "8",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Čte rozvrhové lístky",
+            "destinationId" : "13",
+            "id" : "46",
+            "linkedRelationshipId" : "45",
+            "sourceId" : "8"
+          } ],
+          "tags" : "Element,Component,web",
+          "technology" : "HTML+JS"
+        }, {
+          "documentation" : { },
+          "id" : "9",
+          "name" : "Zobrazení/listování předmětů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "course_provider_front"
+          },
+          "relationships" : [ {
+            "description" : "Hledá / čte předměty",
+            "destinationId" : "15",
+            "id" : "41",
+            "sourceId" : "9",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Hledá / čte předměty",
+            "destinationId" : "13",
+            "id" : "42",
+            "linkedRelationshipId" : "41",
+            "sourceId" : "9"
+          } ],
+          "tags" : "Element,Component,web",
+          "technology" : "HTML+JS"
+        } ],
+        "documentation" : { },
+        "id" : "7",
+        "name" : "SIS frontend",
+        "properties" : {
+          "structurizr.dsl.identifier" : "sis_fe"
+        },
+        "relationships" : [ {
+          "description" : "Hledá / čte předměty",
+          "destinationId" : "15",
+          "id" : "43",
+          "linkedRelationshipId" : "41",
+          "sourceId" : "7"
+        }, {
+          "description" : "Hledá / čte předměty",
+          "destinationId" : "13",
+          "id" : "44",
+          "linkedRelationshipId" : "41",
+          "sourceId" : "7"
+        }, {
+          "description" : "Čte rozvrhové lístky",
+          "destinationId" : "14",
+          "id" : "47",
+          "linkedRelationshipId" : "45",
+          "sourceId" : "7"
+        } ],
+        "tags" : "Element,Container,web"
+      }, {
+        "components" : [ {
+          "documentation" : { },
+          "id" : "11",
+          "name" : "Správa předmětů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "course_manager_front"
+          },
+          "relationships" : [ {
+            "description" : "Odesílá požadavky uživatele",
+            "destinationId" : "20",
+            "id" : "69",
+            "sourceId" : "11",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Odesílá požadavky uživatele",
+            "destinationId" : "19",
+            "id" : "70",
+            "linkedRelationshipId" : "69",
+            "sourceId" : "11"
+          } ],
+          "tags" : "Element,Component,web",
+          "technology" : "HTML+JS"
+        }, {
+          "documentation" : { },
+          "id" : "12",
+          "name" : "Správa rozvrhových lístků",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ticket_manager_front"
+          },
+          "relationships" : [ {
+            "description" : "Odesílá požadavky uživatele",
+            "destinationId" : "21",
+            "id" : "77",
+            "sourceId" : "12",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Odesílá požadavky uživatele",
+            "destinationId" : "19",
+            "id" : "78",
+            "linkedRelationshipId" : "77",
+            "sourceId" : "12"
+          } ],
+          "tags" : "Element,Component,web",
+          "technology" : "HTML+JS"
+        } ],
+        "documentation" : { },
+        "id" : "10",
+        "name" : "SIS admin frontend",
+        "properties" : {
+          "structurizr.dsl.identifier" : "sis_admin_fe"
+        },
+        "relationships" : [ {
+          "description" : "Odesílá požadavky uživatele",
+          "destinationId" : "20",
+          "id" : "71",
+          "linkedRelationshipId" : "69",
+          "sourceId" : "10"
+        }, {
+          "description" : "Odesílá požadavky uživatele",
+          "destinationId" : "19",
+          "id" : "72",
+          "linkedRelationshipId" : "69",
+          "sourceId" : "10"
+        }, {
+          "description" : "Odesílá požadavky uživatele",
+          "destinationId" : "21",
+          "id" : "79",
+          "linkedRelationshipId" : "77",
+          "sourceId" : "10"
+        } ],
+        "tags" : "Element,Container,web"
+      }, {
+        "components" : [ {
+          "documentation" : { },
+          "id" : "14",
+          "name" : "API kontroler pro čtení rozvrhů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "timetable_provider"
+          },
+          "relationships" : [ {
+            "description" : "Čte rozvrhové lístky",
+            "destinationId" : "16",
+            "id" : "49",
+            "sourceId" : "14",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Čte časoprostor",
+            "destinationId" : "18",
+            "id" : "50",
+            "sourceId" : "14",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Načte metadata předmětu",
+            "destinationId" : "17",
+            "id" : "51",
+            "sourceId" : "14",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "15",
+          "name" : "API kontroler pro čtení předmětů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "course_provider"
+          },
+          "relationships" : [ {
+            "description" : "Čte předměty",
+            "destinationId" : "17",
+            "id" : "48",
+            "sourceId" : "15",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "16",
+          "name" : "Adresář rozvrhových lístků",
+          "properties" : {
+            "structurizr.dsl.identifier" : "simple_ticket_repository"
+          },
+          "relationships" : [ {
+            "description" : "Čte data z",
+            "destinationId" : "29",
+            "id" : "52",
+            "sourceId" : "16",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "17",
+          "name" : "Adresář předmětů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "simple_course_repository"
+          },
+          "relationships" : [ {
+            "description" : "Čte data z",
+            "destinationId" : "30",
+            "id" : "54",
+            "sourceId" : "17",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "18",
+          "name" : "Adresář místností/časových slotů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "simple_timeslot_repository"
+          },
+          "relationships" : [ {
+            "description" : "Čte data z",
+            "destinationId" : "31",
+            "id" : "56",
+            "sourceId" : "18",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        } ],
+        "documentation" : { },
+        "id" : "13",
+        "name" : "SIS backend",
+        "properties" : {
+          "structurizr.dsl.identifier" : "sis_be"
+        },
+        "relationships" : [ {
+          "description" : "Čte data z",
+          "destinationId" : "29",
+          "id" : "53",
+          "linkedRelationshipId" : "52",
+          "sourceId" : "13"
+        }, {
+          "description" : "Čte data z",
+          "destinationId" : "30",
+          "id" : "55",
+          "linkedRelationshipId" : "54",
+          "sourceId" : "13"
+        }, {
+          "description" : "Čte data z",
+          "destinationId" : "31",
+          "id" : "57",
+          "linkedRelationshipId" : "56",
+          "sourceId" : "13"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "components" : [ {
+          "documentation" : { },
+          "id" : "20",
+          "name" : "API kontroler správy předmětů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "course_admin_controller"
+          },
+          "relationships" : [ {
+            "description" : "Provádí změnu v předmětech",
+            "destinationId" : "23",
+            "id" : "73",
+            "sourceId" : "20",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "21",
+          "name" : "API kontroler správy rozvrhových lístků",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ticket_admin_controller"
+          },
+          "relationships" : [ {
+            "description" : "Provádí změny nad rozvrhovými lístky",
+            "destinationId" : "24",
+            "id" : "80",
+            "sourceId" : "21",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "22",
+          "name" : "API kontroler pro časové sloty",
+          "properties" : {
+            "structurizr.dsl.identifier" : "timeslot_admin_controller"
+          },
+          "relationships" : [ {
+            "description" : "Načítá časové sloty dle API požadavků",
+            "destinationId" : "27",
+            "id" : "68",
+            "sourceId" : "22",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "23",
+          "name" : "Správce předmětů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "course_manager"
+          },
+          "relationships" : [ {
+            "description" : "Ukládá změny",
+            "destinationId" : "26",
+            "id" : "74",
+            "sourceId" : "23",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Maže lístky předmětu",
+            "destinationId" : "24",
+            "id" : "75",
+            "sourceId" : "23",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "24",
+          "name" : "Správce rozvrhových lístků",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ticket_manager"
+          },
+          "relationships" : [ {
+            "description" : "Získává dostupné sloty",
+            "destinationId" : "27",
+            "id" : "81",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Ukládá změny",
+            "destinationId" : "25",
+            "id" : "82",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Posílá eventy o změně",
+            "destinationId" : "28",
+            "id" : "83",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Žádá o odepsání studentů při mazání lístku",
+            "destinationId" : "5",
+            "id" : "84",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "25",
+          "name" : "Uložení/Historizace rozvrhových lístků",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ticket_repository"
+          },
+          "relationships" : [ {
+            "description" : "Čte data z",
+            "destinationId" : "29",
+            "id" : "91",
+            "sourceId" : "25",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "26",
+          "name" : "Uložení/Historizace předmětů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "course_repository"
+          },
+          "relationships" : [ {
+            "description" : "Čte data z",
+            "destinationId" : "30",
+            "id" : "93",
+            "sourceId" : "26",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "27",
+          "name" : "Adresář místností/časových slotů",
+          "properties" : {
+            "structurizr.dsl.identifier" : "timeslot_repository"
+          },
+          "relationships" : [ {
+            "description" : "Čte data z",
+            "destinationId" : "31",
+            "id" : "95",
+            "sourceId" : "27",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "id" : "28",
+          "name" : "Správce notifikací o rozvrhu",
+          "properties" : {
+            "structurizr.dsl.identifier" : "timetable_notifications"
+          },
+          "relationships" : [ {
+            "description" : "Ȟledá, koho se notifikace o změně rozvrhu týká",
+            "destinationId" : "5",
+            "id" : "87",
+            "sourceId" : "28",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Posílá notifikaci o změně rozvrhu",
+            "destinationId" : "4",
+            "id" : "88",
+            "sourceId" : "28",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        } ],
+        "documentation" : { },
+        "id" : "19",
+        "name" : "SIS admin backend",
+        "properties" : {
+          "structurizr.dsl.identifier" : "sis_admin_be"
+        },
+        "relationships" : [ {
+          "description" : "Žádá o odepsání studentů při mazání lístku",
+          "destinationId" : "5",
+          "id" : "85",
+          "linkedRelationshipId" : "84",
+          "sourceId" : "19"
+        }, {
+          "description" : "Posílá notifikaci o změně rozvrhu",
+          "destinationId" : "4",
+          "id" : "89",
+          "linkedRelationshipId" : "88",
+          "sourceId" : "19"
+        }, {
+          "description" : "Čte data z",
+          "destinationId" : "29",
+          "id" : "92",
+          "linkedRelationshipId" : "91",
+          "sourceId" : "19"
+        }, {
+          "description" : "Čte data z",
+          "destinationId" : "30",
+          "id" : "94",
+          "linkedRelationshipId" : "93",
+          "sourceId" : "19"
+        }, {
+          "description" : "Čte data z",
+          "destinationId" : "31",
+          "id" : "96",
+          "linkedRelationshipId" : "95",
+          "sourceId" : "19"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "documentation" : { },
+        "id" : "29",
+        "name" : "Databáze rozvrhů",
+        "properties" : {
+          "structurizr.dsl.identifier" : "scheduleDB"
+        },
+        "tags" : "Element,Container,db"
+      }, {
+        "documentation" : { },
+        "id" : "30",
+        "name" : "Databáze předmětů",
+        "properties" : {
+          "structurizr.dsl.identifier" : "courseDB"
+        },
+        "tags" : "Element,Container,db"
+      }, {
+        "documentation" : { },
+        "id" : "31",
+        "name" : "Databáze rozvrhových slotů",
+        "properties" : {
+          "structurizr.dsl.identifier" : "timeslotDB"
+        },
+        "tags" : "Element,Container,db"
+      }, {
+        "documentation" : { },
+        "id" : "32",
+        "name" : "Rozvrhovadlo",
+        "properties" : {
+          "structurizr.dsl.identifier" : "scheduler_front"
+        },
+        "relationships" : [ {
+          "description" : "Čte předměty",
+          "destinationId" : "20",
+          "id" : "65",
+          "sourceId" : "32",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Čte předměty",
+          "destinationId" : "19",
+          "id" : "66",
+          "linkedRelationshipId" : "65",
+          "sourceId" : "32"
+        }, {
+          "description" : "Čte časové sloty",
+          "destinationId" : "22",
+          "id" : "67",
+          "sourceId" : "32",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Upravuje rozvrh",
+          "destinationId" : "21",
+          "id" : "76",
+          "sourceId" : "32",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,web",
+        "technology" : "HTML+JS"
+      } ],
+      "documentation" : {
+        "sections" : [ {
+          "content" : "# Rozvrhy\n\nCílem našeho projektu bylo navrhout část SISu starající se o správu předmětů a rozvrhů.\n\n## Rozdělení zodpovědností\n\n## Architektonické rozhodnutí\n\n- Rozdělení BE na admin/public:\n  - Do budoucna lze admin skrýt do privátní sítě.\n  - Public část je read-only a lze ji do budoucna škálovat bez potřeby škálovat admin.\n    - Nyní by to mělo jít bez zásahu do architektury.\n  - Public část nepotřebuje autorizovat uživatele.\n  - Na public část lze použít read oriented protokoly (graphQL).\n- Rozdělení databází:\n  - Rozvrhové sloty nejsou v gestci naší části a může ji do ní zapisovat někdo jiný (např. správa budov UK).\n  - Ne všechny předměty budou pocházet z UK (meziuniverzitní dohody) a proto je potřeba separatovat \n  rozvrhy do vlastní DB.",
+          "format" : "Markdown",
+          "order" : 1,
+          "title" : ""
+        } ]
+      },
+      "id" : "6",
+      "name" : "Rozvrhy",
+      "properties" : {
+        "structurizr.dsl.identifier" : "sch"
+      },
+      "relationships" : [ {
+        "description" : "Žádá o odepsání studentů při mazání lístku",
+        "destinationId" : "5",
+        "id" : "86",
+        "linkedRelationshipId" : "84",
+        "sourceId" : "6"
+      }, {
+        "description" : "Posílá notifikaci o změně rozvrhu",
+        "destinationId" : "4",
+        "id" : "90",
+        "linkedRelationshipId" : "88",
+        "sourceId" : "6"
+      } ],
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "NSWI130",
+  "properties" : {
+    "structurizr.inspection.error" : "177",
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "13",
+      "elements" : [ {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Component-001",
+      "name" : "Component View: Rozvrhy - SIS backend",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "43"
+      }, {
+        "id" : "47"
+      }, {
+        "id" : "48"
+      }, {
+        "id" : "49"
+      }, {
+        "id" : "50"
+      }, {
+        "id" : "51"
+      }, {
+        "id" : "52"
+      }, {
+        "id" : "54"
+      }, {
+        "id" : "56"
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "7",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Component-002",
+      "name" : "Component View: Rozvrhy - SIS frontend",
+      "order" : 4,
+      "relationships" : [ {
+        "id" : "33"
+      }, {
+        "id" : "36"
+      }, {
+        "id" : "37"
+      }, {
+        "id" : "40"
+      }, {
+        "id" : "42"
+      }, {
+        "id" : "46"
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "19",
+      "elements" : [ {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Component-003",
+      "name" : "Component View: Rozvrhy - SIS admin backend",
+      "order" : 5,
+      "relationships" : [ {
+        "id" : "65"
+      }, {
+        "id" : "67"
+      }, {
+        "id" : "68"
+      }, {
+        "id" : "71"
+      }, {
+        "id" : "73"
+      }, {
+        "id" : "74"
+      }, {
+        "id" : "75"
+      }, {
+        "id" : "76"
+      }, {
+        "id" : "79"
+      }, {
+        "id" : "80"
+      }, {
+        "id" : "81"
+      }, {
+        "id" : "82"
+      }, {
+        "id" : "83"
+      }, {
+        "id" : "84"
+      }, {
+        "id" : "87"
+      }, {
+        "id" : "88"
+      }, {
+        "id" : "91"
+      }, {
+        "id" : "93"
+      }, {
+        "id" : "95"
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "10",
+      "elements" : [ {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "19",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Component-004",
+      "name" : "Component View: Rozvrhy - SIS admin frontend",
+      "order" : 6,
+      "relationships" : [ {
+        "id" : "58"
+      }, {
+        "id" : "60"
+      }, {
+        "id" : "61"
+      }, {
+        "id" : "62"
+      }, {
+        "id" : "70"
+      }, {
+        "id" : "78"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "course_deletion",
+      "styles" : {
+        "elements" : [ {
+          "background" : "#f1f1f1",
+          "shape" : "RoundedBox",
+          "tag" : "Container"
+        }, {
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "shape" : "Window",
+          "stroke" : "#ffc0cb",
+          "tag" : "app"
+        }, {
+          "shape" : "Cylinder",
+          "tag" : "db"
+        }, {
+          "shape" : "WebBrowser",
+          "stroke" : "#ffc0cb",
+          "tag" : "web"
+        } ],
+        "relationships" : [ {
+          "position" : 15,
+          "tag" : "Relationship"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "19",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "generatedKey" : true,
+      "key" : "Container-001",
+      "name" : "Container View: Rozvrhy",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "34"
+      }, {
+        "id" : "38"
+      }, {
+        "id" : "44"
+      }, {
+        "id" : "53"
+      }, {
+        "id" : "55"
+      }, {
+        "id" : "57"
+      }, {
+        "id" : "59"
+      }, {
+        "id" : "63"
+      }, {
+        "id" : "66"
+      }, {
+        "id" : "72"
+      }, {
+        "id" : "85"
+      }, {
+        "id" : "89"
+      }, {
+        "id" : "92"
+      }, {
+        "id" : "94"
+      }, {
+        "id" : "96"
+      } ],
+      "softwareSystemId" : "6"
+    } ],
+    "deploymentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "125",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "126",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "127",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "128",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "129",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "130",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "131",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "132",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "133",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "134",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "135",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "136",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "137",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "143",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "144",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "145",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "environment" : "Development prostředí",
+      "generatedKey" : true,
+      "key" : "Deployment-001",
+      "name" : "Deployment View: Rozvrhy - Development prostředí",
+      "order" : 7,
+      "relationships" : [ {
+        "id" : "138"
+      }, {
+        "id" : "139"
+      }, {
+        "id" : "140"
+      }, {
+        "id" : "141"
+      }, {
+        "id" : "142"
+      }, {
+        "id" : "146"
+      }, {
+        "id" : "147"
+      }, {
+        "id" : "148"
+      }, {
+        "id" : "149"
+      } ],
+      "softwareSystemId" : "6"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "97",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "98",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "99",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "100",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "101",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "102",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "103",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "104",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "105",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "106",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "107",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "108",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "109",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "110",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "111",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "112",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "118",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "119",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "120",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "environment" : "Produkce",
+      "generatedKey" : true,
+      "key" : "Deployment-002",
+      "name" : "Deployment View: Rozvrhy - Produkce",
+      "order" : 8,
+      "relationships" : [ {
+        "id" : "113"
+      }, {
+        "id" : "114"
+      }, {
+        "id" : "115"
+      }, {
+        "id" : "116"
+      }, {
+        "id" : "117"
+      }, {
+        "id" : "121"
+      }, {
+        "id" : "122"
+      }, {
+        "id" : "123"
+      }, {
+        "id" : "124"
+      } ],
+      "softwareSystemId" : "6"
+    } ],
+    "dynamicViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Uživatel hledá a vybírá předmět",
+      "elementId" : "13",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "search_course",
+      "name" : "Dynamic View: Rozvrhy - SIS backend",
+      "order" : 9,
+      "relationships" : [ {
+        "description" : "Otevře 'Předměty'",
+        "id" : "33",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "Požádá o seznam",
+        "id" : "41",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "Načte data",
+        "id" : "48",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Čte databázi",
+        "id" : "54",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "Vrátí data",
+        "id" : "54",
+        "order" : "5",
+        "response" : true
+      }, {
+        "description" : "Vrátí seznam",
+        "id" : "48",
+        "order" : "6",
+        "response" : true
+      }, {
+        "description" : "Vrátí výsledky",
+        "id" : "41",
+        "order" : "7",
+        "response" : true
+      }, {
+        "description" : "Zobrazí seznam předmětů",
+        "id" : "33",
+        "order" : "8",
+        "response" : true
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Uživatel má vybraný předmět a chce vidět jeho rozvrh",
+      "elementId" : "13",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "view_course_schedule",
+      "name" : "Dynamic View: Rozvrhy - SIS backend",
+      "order" : 10,
+      "relationships" : [ {
+        "description" : "Klikne 'Zobrazit rozvrh'",
+        "id" : "36",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "Zobrazí rozvrh uživateli",
+        "id" : "36",
+        "order" : "2",
+        "response" : true
+      }, {
+        "description" : "Požádá o rozvrh (pomocí courseID)",
+        "id" : "45",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Vrátí agregovaný rozvrh",
+        "id" : "45",
+        "order" : "4",
+        "response" : true
+      }, {
+        "description" : "Načte rozvrhové lístky",
+        "id" : "49",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "Načte časoprostor",
+        "id" : "50",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "Načte metadata předmětu",
+        "id" : "51",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "Čte místnosti/časy",
+        "id" : "56",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "Vrátí data",
+        "id" : "56",
+        "order" : "9",
+        "response" : true
+      }, {
+        "description" : "Čte podrobnosti",
+        "id" : "54",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "Vrátí data",
+        "id" : "54",
+        "order" : "11",
+        "response" : true
+      }, {
+        "description" : "Čte rozvrh z databáze",
+        "id" : "52",
+        "order" : "12",
+        "response" : false
+      }, {
+        "description" : "Vrátí data",
+        "id" : "52",
+        "order" : "13",
+        "response" : true
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Rozvrhář se pokouší umístit novou přednášku do času a místnosti, které jsou již obsazené",
+      "elementId" : "19",
+      "elements" : [ {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "collisision_detection",
+      "name" : "Dynamic View: Rozvrhy - SIS admin backend",
+      "order" : 11,
+      "relationships" : [ {
+        "description" : "Zadává údaje o nové rozvrhové akci (učitel, místnost, čas)",
+        "id" : "63",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "API požadavek na vytvoření rozvrhového lístku",
+        "id" : "76",
+        "order" : "2",
+        "response" : false
+      }, {
+        "id" : "80",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Ověřuje platnost místnosti a časového slotu",
+        "id" : "81",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "Čte místnosti/časy",
+        "id" : "95",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "Vrátí data",
+        "id" : "95",
+        "order" : "6",
+        "response" : true
+      }, {
+        "description" : "Vrací výsledek validace slotu",
+        "id" : "81",
+        "order" : "7",
+        "response" : true
+      }, {
+        "description" : "Vyžádá existující lístky pro daného učitele NEBO místnost v daném čase",
+        "id" : "82",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "Dotaz na existující záznamy",
+        "id" : "91",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "Vrací nalezené (kolidující) lístky",
+        "id" : "91",
+        "order" : "10",
+        "response" : true
+      }, {
+        "description" : "Předává nalezené lístky",
+        "id" : "82",
+        "order" : "11",
+        "response" : true
+      }, {
+        "description" : "Vrací varování o kolizi (akce nebyla uložena)",
+        "id" : "76",
+        "order" : "12",
+        "response" : true
+      }, {
+        "description" : "Zobrazí varování o kolizi",
+        "id" : "63",
+        "order" : "13",
+        "response" : true
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Rozvržení předmětu (bez kontroly kolize)",
+      "elementId" : "19",
+      "elements" : [ {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "schedulling",
+      "name" : "Dynamic View: Rozvrhy - SIS admin backend",
+      "order" : 12,
+      "relationships" : [ {
+        "description" : "Rozvrhář rozvrhává předmět",
+        "id" : "63",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "FE si načítá data o předmětech",
+        "id" : "65",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "Vrací informace o předmětech",
+        "id" : "65",
+        "order" : "3",
+        "response" : true
+      }, {
+        "description" : "FE si načítá data o časových slotech",
+        "id" : "67",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "Vrací dostupné časových sloty",
+        "id" : "67",
+        "order" : "5",
+        "response" : true
+      }, {
+        "description" : "API požadavek na vytvoření rozvrhových lístků dle zadaných parametrů",
+        "id" : "76",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "Předává zpracované API požadavky na rozvrh",
+        "id" : "80",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "Ověřuje existenci slotů",
+        "id" : "81",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "Čte místnosti/časy",
+        "id" : "95",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "Vrátí data",
+        "id" : "95",
+        "order" : "10",
+        "response" : true
+      }, {
+        "description" : "Vrací existující sloty",
+        "id" : "81",
+        "order" : "11",
+        "response" : true
+      }, {
+        "description" : "Vytváří rozvrhové lístky",
+        "id" : "82",
+        "order" : "12",
+        "response" : false
+      }, {
+        "description" : "Ukládá lístky do databáze",
+        "id" : "91",
+        "order" : "13",
+        "response" : false
+      }, {
+        "description" : "Vrací informaci o vytvořených lístcích",
+        "id" : "91",
+        "order" : "14",
+        "response" : true
+      }, {
+        "description" : "Předává vytvořené lístky",
+        "id" : "82",
+        "order" : "15",
+        "response" : true
+      }, {
+        "description" : "Vrací informaci o úspěšnosti akce",
+        "id" : "76",
+        "order" : "16",
+        "response" : true
+      }, {
+        "description" : "Přijímá výsledek",
+        "id" : "63",
+        "order" : "17",
+        "response" : true
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Učitel vytváří nový předmět",
+      "elementId" : "19",
+      "elements" : [ {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "create_course",
+      "name" : "Dynamic View: Rozvrhy - SIS admin backend",
+      "order" : 13,
+      "relationships" : [ {
+        "description" : "Otevře 'Vytvořit předmět'",
+        "id" : "58",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "Zobrazí formulář",
+        "id" : "58",
+        "order" : "2",
+        "response" : true
+      }, {
+        "description" : "Odešle vyplněný formulář",
+        "id" : "58",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Odesílá data přes API",
+        "id" : "69",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "Předává požadavek",
+        "id" : "73",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "Ukládá předmět",
+        "id" : "74",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "Zapisuje data",
+        "id" : "93",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "Potvrzuje zápis",
+        "id" : "93",
+        "order" : "8",
+        "response" : true
+      }, {
+        "description" : "Potvrzuje uložení",
+        "id" : "74",
+        "order" : "9",
+        "response" : true
+      }, {
+        "description" : "Potvrzuje uložení",
+        "id" : "73",
+        "order" : "10",
+        "response" : true
+      }, {
+        "description" : "Odesílá API odpověď",
+        "id" : "69",
+        "order" : "11",
+        "response" : true
+      }, {
+        "description" : "Zobrazí potvrzení",
+        "id" : "58",
+        "order" : "12",
+        "response" : true
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Učitel upravuje existující předmět",
+      "elementId" : "19",
+      "elements" : [ {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "edit_course",
+      "name" : "Dynamic View: Rozvrhy - SIS admin backend",
+      "order" : 14,
+      "relationships" : [ {
+        "description" : "Otevře 'Předměty'",
+        "id" : "37",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "Požádá o seznam",
+        "id" : "41",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "Načte data",
+        "id" : "48",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Čte databázi",
+        "id" : "54",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "Vrátí data",
+        "id" : "54",
+        "order" : "5",
+        "response" : true
+      }, {
+        "description" : "Vrátí seznam",
+        "id" : "48",
+        "order" : "6",
+        "response" : true
+      }, {
+        "description" : "Vrátí výsledky",
+        "id" : "41",
+        "order" : "7",
+        "response" : true
+      }, {
+        "description" : "Zobrazí seznam předmětů",
+        "id" : "37",
+        "order" : "8",
+        "response" : true
+      }, {
+        "description" : "Otevře úpravu předmětu",
+        "id" : "58",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "Požádá o data",
+        "id" : "69",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "Požádá o data",
+        "id" : "73",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "Načte data",
+        "id" : "74",
+        "order" : "12",
+        "response" : false
+      }, {
+        "description" : "Čte databázi",
+        "id" : "93",
+        "order" : "13",
+        "response" : false
+      }, {
+        "description" : "Vrací data",
+        "id" : "93",
+        "order" : "14",
+        "response" : true
+      }, {
+        "description" : "Vrací data",
+        "id" : "74",
+        "order" : "15",
+        "response" : true
+      }, {
+        "description" : "Vrací data",
+        "id" : "73",
+        "order" : "16",
+        "response" : true
+      }, {
+        "description" : "Předává požadavek",
+        "id" : "69",
+        "order" : "17",
+        "response" : true
+      }, {
+        "description" : "Zobrazí vyplněný formulář",
+        "id" : "58",
+        "order" : "18",
+        "response" : true
+      }, {
+        "description" : "Odešle vyplněný formulář",
+        "id" : "58",
+        "order" : "19",
+        "response" : false
+      }, {
+        "description" : "Odesílá data přes API",
+        "id" : "69",
+        "order" : "20",
+        "response" : false
+      }, {
+        "description" : "Předává požadavek",
+        "id" : "73",
+        "order" : "21",
+        "response" : false
+      }, {
+        "description" : "Ukládá předmět",
+        "id" : "74",
+        "order" : "22",
+        "response" : false
+      }, {
+        "description" : "Zapisuje data",
+        "id" : "93",
+        "order" : "23",
+        "response" : false
+      }, {
+        "description" : "Potvrzuje zápis",
+        "id" : "93",
+        "order" : "24",
+        "response" : true
+      }, {
+        "description" : "Potvrzuje uložení",
+        "id" : "74",
+        "order" : "25",
+        "response" : true
+      }, {
+        "description" : "Potvrzuje vytvoření",
+        "id" : "73",
+        "order" : "26",
+        "response" : true
+      }, {
+        "description" : "Odpovídá kladně na API dotaz",
+        "id" : "69",
+        "order" : "27",
+        "response" : true
+      }, {
+        "description" : "Zobrazí potvrzení",
+        "id" : "58",
+        "order" : "28",
+        "response" : true
+      } ]
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Učitel maže předmět, protože mu na něj nikdo nechodí",
+      "elementId" : "19",
+      "elements" : [ {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "course_deletion",
+      "name" : "Dynamic View: Rozvrhy - SIS admin backend",
+      "order" : 15,
+      "relationships" : [ {
+        "description" : "Klikne na Smazat Předmět (a potvrdí)",
+        "id" : "58",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "Požádá o smazání všech paralelek předmětu",
+        "id" : "75",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "Požádá o odepsání všech studentů z předmětu",
+        "id" : "84",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Vrátí, že odepsáno",
+        "id" : "84",
+        "order" : "4",
+        "response" : true
+      }, {
+        "description" : "Žádá o smazání lístku",
+        "id" : "82",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "Smaže lístek",
+        "id" : "91",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "Vrátí, že smazáno",
+        "id" : "91",
+        "order" : "7",
+        "response" : true
+      }, {
+        "description" : "Vrátí, že smazáno",
+        "id" : "82",
+        "order" : "8",
+        "response" : true
+      }, {
+        "description" : "Vrátí, že smazáno",
+        "id" : "75",
+        "order" : "9",
+        "response" : true
+      }, {
+        "description" : "Potvrzuje smazání",
+        "id" : "73",
+        "order" : "10",
+        "response" : true
+      }, {
+        "description" : "Vrátí přes api, že smazáno",
+        "id" : "69",
+        "order" : "11",
+        "response" : true
+      }, {
+        "description" : "Ozmámí učiteli, že je předmět smazán",
+        "id" : "58",
+        "order" : "12",
+        "response" : true
+      }, {
+        "description" : "Pošle event o odepsání studentů",
+        "id" : "87",
+        "order" : "13",
+        "response" : true
+      }, {
+        "description" : "Pošle žádosti o rozeslání notifikací",
+        "id" : "88",
+        "order" : "14",
+        "response" : false
+      } ]
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "generatedKey" : true,
+      "key" : "SystemContext-001",
+      "name" : "System Context View: Rozvrhy",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "35"
+      }, {
+        "id" : "39"
+      }, {
+        "id" : "64"
+      }, {
+        "id" : "86"
+      }, {
+        "id" : "90"
+      } ],
+      "softwareSystemId" : "6"
+    } ]
+  }
+}
