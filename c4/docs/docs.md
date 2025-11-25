@@ -33,3 +33,62 @@ It passes requests to the **Enrollment Manager**, which is the largest container
 The user is informed about the behaviour of the system through separate **Notification Manager** service with optional connection to external mailing service. It is separated due to it's different characteristics and possibility for separate debugging. When the notification server fails, the enrollments still succeed. Important events are also captured by **Logger** service which writes to a database to store historical data. This service can be accessed independently of the enrollment manager to show event logs for monitoring the behaviour of the system which is useful to actors other than the enrollment manager.
 
 **Enrollment Archiver** runs periodic jobs to move finalized data into long-term storage, separate from the Logger's continuous real-time recording. This separation prevents resource-intensive archival operations from competing with live enrollment processing.
+
+## Assignment of Responsibilities
+
+This section maps key system responsibilities for each key feature to specific containers and components in the C4 architecture model. Each responsibility is assigned to maintain clear accountability and avoid duplication of logic.
+
+### Enrollment
+
+- user info: Authentication and authorization API
+- data collection: Schedule Database Communicator
+- validation: Rule Enforcer, Capacity Validator
+- data management: Schedule Database Communicator
+- alert responsibility: Notification Manager
+- user interface: Dashboard
+- rule-enforcing: Rule Enforcer, Prerequisites Checker
+- subject sorting: Subject Sorter
+- queue: Automatic Enrollment Handler, Queue Position Manager
+
+### Changes and cancellation of enrollment
+
+- authorization and validation: Authentication and authorization API
+- data retrieval: Schedule Database Communicator
+- capacity management: Capacity Validator
+- queue processing: Automatic Enrollment Handler, Queue Position Manager
+- notification: Notification Manager
+- data persistence: Enrollment Request Processor, Enrollment History Tracker
+- user interface: Dashboard
+- error handling: Error Handler
+- data consistency: Rule Enforcer
+- alternative offer: Subject Suggestor, Alternative Suggestor
+
+### Enrollment limits
+
+- authorization: Authentication and authorization API
+- data persistence: Enrollment Configuration Manager
+- notification: Notification manager
+- error handling: Error Handler
+- user interface: Dashboard
+- logging: Logger
+
+### Queue
+
+- authentication and authorization: Authentication and authorization API
+- data persistence: Manual Enrollment Handler, Automatic Enrollment Handler
+- notification: Notification Manager
+- validation: Queue Capacity Validator
+- (de)activation: Enrollment Configuration Manager
+- error handling: Error Handler
+- user interface: Dashboard
+- logging: Logger
+
+### Enrollment Period Configuration
+
+- authorization: Authentication and authorization API
+- data validation: Enrollment Configuration Manager
+- data persistence: Enrollment Configuration Manager
+- notification: Notification Manager
+- error handling: Error Handler
+- user interface: Dashboard
+- logging: Logger

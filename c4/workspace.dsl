@@ -59,8 +59,9 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
                 logViewer = component "Change History Viewer" "Displays the history of system changes and enrollment events (read from Logger)." "HTML+Javascript" "Web Front-End"
                 enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in." "HTML+Javascript" "Web Front-End"
-                alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots." "HTML+Javascript" "Web Front-End
+                alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots." "HTML+Javascript" "Web Front-End"
             }
+            
             staticContent = container "Static Content" "HTML, JS, CSS, etc." "" "Directory"
             enrollmentArchiver = container "Enrollment Archiver" "Archives past enrollment data for long-term storage and compliance."
             enrollmentArchiveDB = container "Enrollment archive" "Stores past enrollments" "" "Database"
@@ -173,8 +174,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentHistory -> logDB "Writes enrollment events"
 
         # dashboard relationships
-        student -> dashboard "Views their current list of enrolled subjects"
-        student -> dashboard "Views suggested alternative subjects for time conflicts"
+        student -> dashboard "Views list of enrolled subjects and suggested alternatives"
 
         administrator -> dashboard "Views system status and change logs"
 
