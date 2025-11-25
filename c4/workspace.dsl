@@ -53,12 +53,13 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             }
             dashboard = container "Dashboard" "Provides an administrative overview of the enrollment system status and activities." "HTML+Javascript" "Web Front-End" {
                 queueItemsHTML = component "Queue Items HTML" "Displays a table of subjects for which the user is registered in a queue." "HTML+Javascript" "Web Front-End"
-                studentsInQueueHTML = component "Queueud Students HTML" "Displays a table of students which are in queue for a given ticket." "HTML+Javascript" "Web Front-End"
-                // enrollmentConfigurationHTML = component "Enrollment Configuration HTML" "Allows viewing parameters for enrollment periods and changing them for the current one" "HTML+Javascript" "Web Front-End"
+                studentsInQueueHTML = component "Queued Students HTML" "Displays a table of students which are in queue for a given ticket." "HTML+Javascript" "Web Front-End"
+                enrollmentConfigurationHTML = component "Enrollment Configuration HTML" "Allows viewing parameters for enrollment periods and changing them for the current one" "HTML+Javascript" "Web Front-End"
+                taughtSubjectsHTML = component "Taught Subjects Viewer" "Displays a list of subjects taught by the teacher." "HTML+Javascript" "Web Front-End"
 
-                logViewer = component "Change History Viewer" "Displays the history of system changes and enrollment events (read from Logger)."
-                enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in."
-                alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots."
+                logViewer = component "Change History Viewer" "Displays the history of system changes and enrollment events (read from Logger)." "HTML+Javascript" "Web Front-End"
+                enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in." "HTML+Javascript" "Web Front-End"
+                alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots." "HTML+Javascript" "Web Front-End
             }
             enrollmentArchiver = container "Enrollment Archiver" "Archives past enrollment data for long-term storage and compliance."
             enrollmentArchiveDB = container "Enrollment archive" "Stores past enrollments" "" "Database"
@@ -173,8 +174,13 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         administrator -> dashboard "Views system status and change logs"
 
+        administrator -> enrollmentConfigurationHTML "Views and modifies enrollment period settings"
+        enrollmentConfigurationHTML -> enrollmentManager "Reads and writes enrollment period settings"
+        teacher -> taughtSubjectsHTML "Views subjects they teach"
+        taughtSubjectsHTML -> enrollmentManager "Reads subjects taught by the teacher"
         student -> enrolledSubjectsViewer "Views currently enrolled subjects"
         enrolledSubjectsViewer -> enrollmentManager "Reads currently enrolled subjects"
+        administrator -> logViewer "Views change history and enrollment event logs"
         student -> alternativeViewer "Views suggested alternative subjects"
         alternativeViewer -> enrollmentManager "Reads suggested alternative subjects"
         logViewer -> changeLog "Reads event logs for display"
