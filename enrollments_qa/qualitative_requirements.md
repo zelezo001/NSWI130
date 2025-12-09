@@ -31,3 +31,13 @@ New feature requires change in the Enrollment Database schema => Developer modif
   - External [Schedule Module] changes its API => Developer implements the changes (adapt to new API) => [Schedule Database Communicator] => Changes are localized only within the 'Schedule Database Communicator' component with no major impact to core logic
 - Architecture change:
   - none; The architecture already isolates external dependencies on schedule module via the Schedule Database Communicator
+
+# Usability
+Student with visual impairment => Attempts to enroll in courses using screen reader => [Dashboard] => Successfully complete enrollment process => Within same time as sighted users
+- Architecture changes:
+  - Add WCAG 2.1 AA compliance to Dashboard components with semantic HTML and ARIA labels
+
+# Testability
+Developer => Needs to verify complex queue enrollment scenario => [Queue Manager, Enrollment Manager] => Automated test executes with clear pass/fail results => Within 30 seconds
+- Architecture changes:
+  - Add dependency injection and test interfaces to enable component isolation and mocking of external systems
