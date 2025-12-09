@@ -18,6 +18,8 @@ New feature requires change in the Enrollment Database schema => Developer modif
 - Architecture change:
   - add anticorruption layer between Enrollment Manager components and the Enrollment Database
 
+# Reliability
+- Scenario: Notifications are requested => [Notifcation Module] => [E-mail sender] => E-mails is send => 99 % of e-mails are delivered without being blocked by spam filters (by major e-mail providers/school provided inboxes). 
 # Security
 - Scenario:
   - Student => Disputes enrollment failure => [Enrollment Event Log Database] => Administrator requests event history =>  Logs with timestamps and failure reasons retrieved withing 5 minutes
