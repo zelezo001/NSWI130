@@ -4,13 +4,13 @@ Student => Unable to read their enrolled subjects => [ Enrollment Manager ] => M
   - read-only backup instance(s) of Enrollment Manager
 
 # Performance
-1000 enrollment requests from students => Unable to enroll within 1 second => [ Enrollment Manager ] => Process all => With average latency below 1s
+1000 enrollment requests per second from students => Unable to enroll within 1 second => [ Enrollment Manager ] => Process all => With average latency below 1s
 - Architecture change:
   - scalable Enrollment Manager:
     - add load balancer, split subjects between instances, split read requests from enroll/deroll requests
 
 # Performance
-- Scenario: Enrollment archiver -- periodically reads data --> Enrollment event log database -- all events archived --> with maximum of twelve hours delay
+- Scenario: Enrollment archiver -- periodically reads (stochastic) 20000 events/hour data --> Enrollment event log database -- all events archived --> with maximum of twelve hours delay
 - Architecture change: none
 
 # Modifiability
