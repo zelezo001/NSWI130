@@ -28,6 +28,8 @@ New feature requires change in the Enrollment Database schema => Developer modif
 
 # Reliability
 - Scenario: Notifications are requested => [Notifcation Module] => [E-mail sender] => E-mails is send => 99 % of e-mails are delivered without being blocked by spam filters (by major e-mail providers/school provided inboxes).
+- Architecture change:
+  - none
 
 # Security
 - Scenario:
