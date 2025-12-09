@@ -9,6 +9,10 @@ Student => Unable to read their enrolled subjects => [ Enrollment Manager ] => M
   - scalable Enrollment Manager:
     - add load balancer, split subjects between instances, split read requests from enroll/deroll requests
 
+# Performance
+- Scenario: Enrollment archiver -- periodically reads data --> Enrollment event log database -- all events archived --> with maximum of twelve hours delay
+- Architecture change: none
+
 # Modifiability
 - Scenario: New notification channel is support is requested => Developer implements support of channel =>  [Notifcation Module] => Concrete notification channels are encapsuled inside 'Notifcation Module', no need to modify core logic
 - Architecture change: none; 
@@ -18,8 +22,13 @@ New feature requires change in the Enrollment Database schema => Developer modif
 - Architecture change:
   - add anticorruption layer between Enrollment Manager components and the Enrollment Database
 
+# Modifiability
+- Scenario: Enrollment validators -- needs to preprocess data --> Students Database Handler -- supports adding data preprocessing --> one month of development and testing
+- Architecture change: add Students Database Handler between Enrollment validators and Students Database
+
 # Reliability
-- Scenario: Notifications are requested => [Notifcation Module] => [E-mail sender] => E-mails is send => 99 % of e-mails are delivered without being blocked by spam filters (by major e-mail providers/school provided inboxes). 
+- Scenario: Notifications are requested => [Notifcation Module] => [E-mail sender] => E-mails is send => 99 % of e-mails are delivered without being blocked by spam filters (by major e-mail providers/school provided inboxes).
+
 # Security
 - Scenario:
   - Student => Disputes enrollment failure => [Enrollment Event Log Database] => Administrator requests event history =>  Logs with timestamps and failure reasons retrieved withing 5 minutes
