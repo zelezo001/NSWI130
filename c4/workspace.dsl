@@ -41,6 +41,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                 }
 
             }
+            
+            enrollmentManagerLB = container "Enrollment Manager load balancer" "Splits requests based on subject or read-only request"
 
             notificationManager = container "Notification Manager" "Sends notifications to users"
 
@@ -68,6 +70,9 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         }
         accessControl = softwareSystem "Authentication and authorization API" "Manages user authentication and authorization." "Existing System"
         studentsDB = softwareSystem "Students Database" "Stores information about students" "Existing System"
+
+        # enrollment manager lb
+        enrollmentManagerLB -> enrollmentRequestProcessor "Forwards load-balanced requests"
 
         # archiver
 
@@ -109,10 +114,10 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         queueProcessor -> enrollmentDB "Reads and writes queue entries"
         queuePositionManager -> enrollmentDB "Updates student positions in queue"
         automaticEnrollmentHandler -> queuePositionManager "Gets first student from queue"
-        # automaticEnrollmentHandler -> enrollmentManager "Requests enrollment for student"
+        # automaticEnrollmentHandler -> enrollmentManagerLB "Requests enrollment for student"
         automaticEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for enrolled student"
         manualEnrollmentHandler -> queuePositionManager "Gets selected student from queue"
-        # manualEnrollmentHandler -> enrollmentManager "Requests enrollment with capacity expansion"
+        # manualEnrollmentHandler -> enrollmentManagerLB "Requests enrollment with capacity expansion"
         manualEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for manually enrolled student"
         queueNotificationCoordinator -> notificationManager "Sends queue-related notifications"
         queueCapacityValidator -> scheduleDbCommunicator "Checks maximum queue capacity settings"
@@ -144,8 +149,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentSystem -> scheduleModule "Retrieves course schedules, time conflicts, and room availability from"
         scheduleModule -> enrollmentSystem "Notifies about schedule changes to"
 
-        queueItemsHTML -> enrollmentManager "Makes API calls to"
-        studentsInQueueHTML -> enrollmentManager "Makes API calls to"
+        queueItemsHTML -> enrollmentManagerLB "Makes API calls to"
+        studentsInQueueHTML -> enrollmentManagerLB "Makes API calls to"
         //queueManager -> queueItemsHTML "Gives data about items in queue"
         //queueManager -> notificationManager "Makes requests upon removing and adding to queue"
 
@@ -179,14 +184,14 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         administrator -> dashboard "Views system status and change logs"
 
         administrator -> enrollmentConfigurationHTML "Views and modifies enrollment period settings"
-        enrollmentConfigurationHTML -> enrollmentManager "Reads and writes enrollment period settings"
+        enrollmentConfigurationHTML -> enrollmentManagerLB "Reads and writes enrollment period settings"
         teacher -> taughtSubjectsHTML "Views subjects they teach"
-        taughtSubjectsHTML -> enrollmentManager "Reads subjects taught by the teacher"
+        taughtSubjectsHTML -> enrollmentManagerLB "Reads subjects taught by the teacher"
         student -> enrolledSubjectsViewer "Views currently enrolled subjects"
-        enrolledSubjectsViewer -> enrollmentManager "Reads currently enrolled subjects"
+        enrolledSubjectsViewer -> enrollmentManagerLB "Reads currently enrolled subjects"
         administrator -> logViewer "Views change history and enrollment event logs"
         student -> alternativeViewer "Views suggested alternative subjects"
-        alternativeViewer -> enrollmentManager "Reads suggested alternative subjects"
+        alternativeViewer -> enrollmentManagerLB "Reads suggested alternative subjects"
         logViewer -> changeLog "Reads event logs for display"
 
         # notification manager relationships
@@ -198,12 +203,12 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         notificationManager -> administrator "Sends critical system alerts"
 
         //notificationManager -> queueManager "Receives queue-related notification requests"
-        notificationManager -> enrollmentManager "Receives enrollment confirmation notifications"
+        notificationManager -> enrollmentManagerLB "Receives enrollment confirmation notifications"
         // notificationManager -> enrollmentConfigurationManager "Sends enrollment period change alerts"
         notificationManager -> logger "Logs notification events"
 
         notificationManager -> dashboard "Sends system status updates"
-        dashboard -> enrollmentRequestProcessor "Sends API requests"
+        enrollmentManager -> dashboard "Sends enrollment updates"
         notificationManager -> mailingService "Requests e-mail distribution for important notices."
 
         # authentication and authorization relationships
@@ -229,8 +234,9 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                 }
 
                 deploymentNode "Static Files Container" "" "Docker" {
-                    deploymentNode "Web/File Server" "" "eg. Nginx" {
+                    deploymentNode "Web/File Server" "" "nginx" {
                         containerInstance staticContent
+                        containerInstance enrollmentManagerLB
                     }
                 }
 
@@ -239,7 +245,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                 }
 
                 deploymentNode "Monorepo Development build" {
-                    deploymentNode "Enrollment manager" "" ".NET runtime" {
+                    deploymentNode "Enrollment manager (single instance)" "" ".NET runtime" {
                         containerInstance enrollmentManager
                     }
 
@@ -267,6 +273,9 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             deploymentNode "AWS" "" "" {
                 deploymentNode "Compute engine" "" "AWS Fargate" {
+                    deploymentNode "Application Load Balancer" {
+                      containerInstance enrollmentManagerLB
+                    }
                     deploymentNode "Core container, scalable" {
                         deploymentNode "Core" "" ".NET runtime" {
                             containerInstance enrollmentManager
@@ -304,18 +313,21 @@ workspace "School Enrollment System" "This workspace documents the architecture 
     views {
         dynamic enrollmentSystem "StudentEnrollsContainerView" "Flow of container interactions during a student's enrollment to a subject." {
             student -> dashboard "Opens their dashboard, searches for a subject to-enroll by name/ID/etc."
-            dashboard -> enrollmentManager "Asks for a list of subjects."
+            dashboard -> enrollmentManagerLB "Asks for a list of subjects."
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
             enrollmentManager -> scheduleModule "Requests subject list from the schedule module."
             enrollmentManager -> dashboard "Updates list of subjects."
             dashboard -> student "Displays subject list."
             student -> dashboard "Selects desired subject."
-            dashboard -> enrollmentManager "Requests time-slot data for given subject."
+            dashboard -> enrollmentManagerLB "Requests time-slot data for given subject."
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
             enrollmentManager -> scheduleModule "Requests up-to-date information for given subject."
             enrollmentManager -> dashboard "Provides available time slots for given subject."
             dashboard -> student "Displays available time slots."
 
             student -> dashboard "Selects lecture at a time frame they want to attend."
-            dashboard -> enrollmentManager "Asks for validation of request."
+            dashboard -> enrollmentManagerLB "Asks for validation of request."
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
             enrollmentManager -> enrollmentDB "Writes successful enrollment to the module database."
             enrollmentManager -> logger "Logs enrollment attempt."
 
@@ -330,7 +342,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         dynamic enrollmentSystem "StudentCancelsEnrollment_ContainerView" "Dynamic diagram showing container flow for a student cancelling an enrollment." {
             student -> dashboard "Open dashboard, selects cancel enrollment and submits request"
-            dashboard -> enrollmentManager "Sends cancellation request"
+            dashboard -> enrollmentManagerLB "Sends cancellation request"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
 
             {
                 {
@@ -359,13 +372,16 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         dynamic enrollmentSystem "ManualEnrollmentFromQueueContainerView" "Dynamic diagram showing container flow for a teacher manually enrolling a student from the queue." {
             teacher -> dashboard "Opens dashboard, views students in queue for a subject"
-            dashboard -> enrollmentManager "Requests list of students in queue"
+            dashboard -> enrollmentManagerLB "Requests list of students in queue"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
 
             enrollmentManager -> enrollmentDB "Retrieves students in queue"
             enrollmentManager -> dashboard "Provides queue list"
 
             teacher -> dashboard "Selects a student to enroll from the queue"
-            dashboard -> enrollmentManager "Sends manual enrollment request"
+            dashboard -> enrollmentManagerLB "Sends manual enrollment request"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
+
 
             enrollmentManager -> enrollmentDB "Validates request, expands capacity, enrolls student"
             enrollmentManager -> logger "Logs manual enrollment event"
@@ -384,12 +400,16 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         dynamic enrollmentSystem "EnrollmentPeriodSettingContainerView" "Dynamic diagram showing container flow for an administrator changing the enrollment period dates." {
             administrator -> dashboard "Opens dashboard, selects enrollment configuration page"
 
-            dashboard -> enrollmentManager "Requests current enrollment period dates"
+            dashboard -> enrollmentManagerLB "Requests current enrollment period dates"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
+
             enrollmentManager -> enrollmentDB "Retrieves current enrollment period dates"
             enrollmentManager -> dashboard "Provides current dates"
 
             administrator -> dashboard "Modifies enrollment period dates and submits changes"
-            dashboard -> enrollmentManager "Sends updated enrollment period dates"
+            dashboard -> enrollmentManagerLB "Sends updated enrollment period dates"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
+
 
             enrollmentManager -> enrollmentDB "Validates and saves new enrollment period dates"
 
@@ -404,16 +424,24 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         dynamic enrollmentSystem "EnrollmentLimitNumberOfEnrollmentsContainerView" "Dynamic diagram showing container flow for an administrator setting enrollment limit for a course." {
             administrator -> dashboard "Opens dashboard, selects enrollment configuration page"
             administrator -> dashboard "Searches for subject to set enrollment limit"
-            dashboard -> enrollmentManager "Retrieves subject list"
+            dashboard -> enrollmentManagerLB "Retrieves subject list"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
+
             administrator -> dashboard "Choose subject to edit"
-            dashboard -> enrollmentManager "Retrieves current subject"
+            dashboard -> enrollmentManagerLB "Retrieves current subject"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
+
             administrator -> dashboard "Views current enrollment limit"
-            dashboard -> enrollmentManager "Requests current enrollment limit"
+            dashboard -> enrollmentManagerLB "Requests current enrollment limit"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
+
             enrollmentManager -> enrollmentDB "Retrieves current enrollment limit"
             enrollmentManager -> dashboard "Provides current enrollment limit"
 
             administrator -> dashboard "Sets new enrollment limit and submits changes"
-            dashboard -> enrollmentManager "Sends updated enrollment limit"
+            dashboard -> enrollmentManagerLB "Sends updated enrollment limit"
+            enrollmentManagerLB -> enrollmentManager "Forwards request"
+
 
             enrollmentManager -> scheduleModule "Validates and updates enrollment limit in schedule module"
 
@@ -470,6 +498,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             element "Web Front-End" {
                 shape WebBrowser
+                stroke #ffc0cb
             }
 
             element "Database" {
@@ -478,6 +507,18 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
             element "Directory" {
                 shape Folder
+            }
+            
+            
+            element Container {
+                shape RoundedBox
+                background #f1f1f1
+                color #000000
+            }
+            
+            
+            relationship Relationship {
+                position 15
             }
         }
     }
