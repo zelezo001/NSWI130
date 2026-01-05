@@ -18,6 +18,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     ruleEnforcer = component "Rule Enforcer" "Enforces enrollment rules like mandatory lecture-exercise pairing and enrollment attempt limits."
                 }
                 enrollmentHistoryTracker = component "Enrollment History Tracker" "Tracks and stores enrollment history for students."
+                studentsDbCommunicator = component "Students Database Communicator" "Acts as a single point of connection to the students database."
 
 
                 group "Subject Analyzer - Filters subjects and provides subject/time slot recommendations." {
@@ -131,15 +132,16 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentRequestProcessor -> enrollmentHistoryTracker "Logs enrollment action"
         //enrollmentRequestProcessor -> queueManager "Adds student to queue if capacity full"
         // capacityValidator -> scheduleDbCommunicator "Checks current ticket capacity"
-        prerequisitesChecker -> studentsDB "Gets student's completed subjects"
+        prerequisitesChecker -> studentsDbCommunicator "Gets student's completed subjects"
         // prerequisitesChecker -> scheduleDbCommunicator "Gets subject prerequisites"
         // ruleEnforcer -> scheduleDbCommunicator "Gets subject-specific rules"
-        ruleEnforcer -> studentsDB "Gets student enrollment history"
+        ruleEnforcer -> studentsDbCommunicator "Gets student enrollment history"
         //cancellationHandler -> enrollmentDB "Removes enrollment record"
         //cancellationHandler -> enrollmentHistoryTracker "Logs cancellation action"
         //cancellationHandler -> queueManager "Triggers automatic enrollment from queue"
         enrollmentRequestProcessor -> alternativeSuggestor "Gets available alternative tickets"
         enrollmentHistoryTracker -> logDB "Writes enrollment events to log"
+        studentsDbCommunicator -> studentsDB "Retrieves and preprocesses necessary data"
         ### relationships of Enrollment Configuration Manager components
         enrollemntConfigurationManager -> enrollmentDB "Reads and writes enrollment configuration
 
