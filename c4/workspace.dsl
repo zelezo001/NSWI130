@@ -9,7 +9,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             # Enrollment system databases
             logDB = container "Enrollment Event Log Database" "Stores logs of changes in enrollment." "" "Database"
 
-            enrollmentManager = container "Enrollment Manager" "Manages enrollments and cancellations" {
+            enrollmentManager = container "Enrollment Manager" "Manages enrollments and cancellations. Uses dependency injection for testability." {
                 enrollmentRequestProcessor = component "Enrollment Request Processor" "Processes student enrollment requests and coordinates the enrollment flow."
                 //cancellationHandler = component "Cancellation Handler" "Handles enrollment cancellations and modifications."
                 group "Enrollment Validators - Validates various conditions before enrollment." {
@@ -25,7 +25,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     subjectSuggestor = component "Subject Suggestor" "Suggests subjects for empty time slots in the users' enrolled schedule."
                     alternativeSuggestor = component "Alternative suggestor" "For an unavailable time slot of a subject, gives free time slots that don't overlap with the users' schedule."
                 }
-                group "Queue Manager - Manages operations related to the queue." {
+                group "Queue Manager - Manages operations related to the queue. Supports test interfaces for component isolation." {
                     queuePositionManager = component "Queue Position Manager" "Manages student positions in the queue and maintains queue order."
                     queueProcessor = component "Queue Processor" "Processes queue operations like adding, removing, and validating queue entries."
                     automaticEnrollmentHandler = component "Automatic Enrollment Handler" "Automatically enrolls the first student from queue when capacity becomes available."
@@ -44,7 +44,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
             
             enrollmentManagerLB = container "Enrollment Manager load balancer" "Splits requests based on subject or read-only request"
 
-            notificationManager = container "Notification Manager" "Sends notifications to users"
+            notificationManager = container "Notification Manager" "Sends notifications to users. Ensures notifications are accessible with clear, descriptive text suitable for screen readers and assistive technologies."
 
             enrollmentDB = container "Enrollment Database" "Stores enrollments of students to tickets and queue" "" "Database"
 
@@ -53,15 +53,15 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                 enrollmentHistory = component "Subject enrollment History" "Tracks and manages records of all student subject (un)enrollments."
 
             }
-            dashboard = container "Dashboard" "Provides an administrative overview of the enrollment system status and activities." "HTML+Javascript" "Web Front-End" {
-                queueItemsHTML = component "Queue Items HTML" "Displays a table of subjects for which the user is registered in a queue." "HTML+Javascript" "Web Front-End"
-                studentsInQueueHTML = component "Queued Students HTML" "Displays a table of students which are in queue for a given ticket." "HTML+Javascript" "Web Front-End"
-                enrollmentConfigurationHTML = component "Enrollment Configuration HTML" "Allows viewing parameters for enrollment periods and changing them for the current one" "HTML+Javascript" "Web Front-End"
-                taughtSubjectsHTML = component "Taught Subjects Viewer" "Displays a list of subjects taught by the teacher." "HTML+Javascript" "Web Front-End"
+            dashboard = container "Dashboard" "Provides an administrative overview of the enrollment system status and activities. Implements WCAG 2.1 AA compliance with semantic HTML and ARIA labels for accessibility." "HTML+Javascript" "Web Front-End" {
+                queueItemsHTML = component "Queue Items HTML" "Displays a table of subjects for which the user is registered in a queue. Uses semantic HTML table elements and ARIA labels for screen reader support." "HTML+Javascript" "Web Front-End"
+                studentsInQueueHTML = component "Queued Students HTML" "Displays a table of students which are in queue for a given ticket. Uses semantic HTML table elements and ARIA labels for screen reader support." "HTML+Javascript" "Web Front-End"
+                enrollmentConfigurationHTML = component "Enrollment Configuration HTML" "Allows viewing parameters for enrollment periods and changing them for the current one. Implements ARIA landmarks and form labels for accessibility." "HTML+Javascript" "Web Front-End"
+                taughtSubjectsHTML = component "Taught Subjects Viewer" "Displays a list of subjects taught by the teacher. Uses semantic HTML and ARIA labels for screen reader support." "HTML+Javascript" "Web Front-End"
 
-                logViewer = component "Change History Viewer" "Displays the history of system changes and enrollment events (read from Logger)." "HTML+Javascript" "Web Front-End"
-                enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in." "HTML+Javascript" "Web Front-End"
-                alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots." "HTML+Javascript" "Web Front-End"
+                logViewer = component "Change History Viewer" "Displays the history of system changes and enrollment events (read from Logger). Uses semantic HTML and ARIA live regions for dynamic content updates." "HTML+Javascript" "Web Front-End"
+                enrolledSubjectsViewer = component "Enrolled Subjects Viewer" "Displays the list of subjects a student is currently enrolled in. Uses semantic HTML and ARIA labels for screen reader support." "HTML+Javascript" "Web Front-End"
+                alternativeViewer = component "Alternative Subject Viewer" "Displays suggested alternative subjects for unavailable time slots. Uses semantic HTML and ARIA labels for screen reader support." "HTML+Javascript" "Web Front-End"
             }
             
             staticContent = container "Static Content" "HTML, JS, CSS, etc." "" "Directory"
