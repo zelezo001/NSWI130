@@ -7,3 +7,6 @@ This repository contains the architecture of Enrollment System which is discusse
 - [Enrollment limits](features/Omezeni_poctu_zapisu.md)
 - [Queue](features/Fronta.md)
 - [Enrollment period configuration](features/Povoleni_zapisoveho_obdobi.md)
+
+# QA
+- [Quality requirements](enrollments_qa/qualitative_requirements.md)
