@@ -41,6 +41,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
                     enrollemntConfigurationManager = component "Enrollment Configuration Manager" "Provides administrative functions to set and update enrollment configurations."
                 }
 
+                enrollmentDBCommunicator = component "Enrollment Database Communicator" "Acts as a single point of connection to the enrollment database."
+
             }
             
             enrollmentManagerLB = container "Enrollment Manager load balancer" "Splits requests based on subject or read-only request"
@@ -72,6 +74,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         accessControl = softwareSystem "Authentication and authorization API" "Manages user authentication and authorization." "Existing System"
         studentsDB = softwareSystem "Students Database" "Stores information about students" "Existing System"
 
+        enrollmentDBCommunicator -> enrollmentDB "Retrieves and preprocesses necessary data"
+
         # enrollment manager lb
         enrollmentManagerLB -> enrollmentRequestProcessor "Forwards load-balanced requests"
 
@@ -102,7 +106,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         ### relationships of Subject Analyzer group
         subjectSorter -> scheduleDbCommunicator "Sorts lists of subjects provided by the schedule module."
         subjectSuggestor -> scheduleDbCommunicator "Gets full subject list to compare options."
-        subjectSuggestor -> enrollmentDB "Requests student's current enrollment schedule to evaluate free slots."
+        subjectSuggestor -> enrollmentDBCommunicator "Requests student's current enrollment schedule to evaluate free slots."
         alternativeSuggestor -> scheduleDbCommunicator "Requests subject schedules to find an alternative free slot."
 
         ### relationships of Queue Manager components
@@ -112,8 +116,8 @@ workspace "School Enrollment System" "This workspace documents the architecture 
 
         queueProcessor -> queuePositionManager "Manages queue positions through"
         queueProcessor -> queueCapacityValidator "Validates capacity before adding to queue"
-        queueProcessor -> enrollmentDB "Reads and writes queue entries"
-        queuePositionManager -> enrollmentDB "Updates student positions in queue"
+        queueProcessor -> enrollmentDBCommunicator "Reads and writes queue entries"
+        queuePositionManager -> enrollmentDBCommunicator "Updates student positions in queue"
         automaticEnrollmentHandler -> queuePositionManager "Gets first student from queue"
         # automaticEnrollmentHandler -> enrollmentManagerLB "Requests enrollment for student"
         automaticEnrollmentHandler -> queueNotificationCoordinator "Triggers notification for enrolled student"
@@ -128,7 +132,7 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         enrollmentRequestProcessor -> prerequisitesChecker "Checks prerequisites"
         enrollmentRequestProcessor -> ruleEnforcer "Enforces enrollment rules"
         enrollmentRequestProcessor -> enrollemntConfigurationManager "Checks if enrollment period is active"
-        enrollmentRequestProcessor -> enrollmentDB "Records successful enrollment"
+        enrollmentRequestProcessor -> enrollmentDBCommunicator "Records successful enrollment"
         enrollmentRequestProcessor -> enrollmentHistoryTracker "Logs enrollment action"
         //enrollmentRequestProcessor -> queueManager "Adds student to queue if capacity full"
         // capacityValidator -> scheduleDbCommunicator "Checks current ticket capacity"
@@ -136,14 +140,14 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         // prerequisitesChecker -> scheduleDbCommunicator "Gets subject prerequisites"
         // ruleEnforcer -> scheduleDbCommunicator "Gets subject-specific rules"
         ruleEnforcer -> studentsDbCommunicator "Gets student enrollment history"
-        //cancellationHandler -> enrollmentDB "Removes enrollment record"
+        //cancellationHandler -> enrollmentDBCommunicator "Removes enrollment record"
         //cancellationHandler -> enrollmentHistoryTracker "Logs cancellation action"
         //cancellationHandler -> queueManager "Triggers automatic enrollment from queue"
         enrollmentRequestProcessor -> alternativeSuggestor "Gets available alternative tickets"
         enrollmentHistoryTracker -> logDB "Writes enrollment events to log"
         studentsDbCommunicator -> studentsDB "Retrieves and preprocesses necessary data"
         ### relationships of Enrollment Configuration Manager components
-        enrollemntConfigurationManager -> enrollmentDB "Reads and writes enrollment configuration
+        enrollemntConfigurationManager -> enrollmentDBCommunicator "Reads and writes enrollment configuration
 
         scheduleDbCommunicator -> scheduleModule "Retrieves and processes external schedule info."
 
@@ -161,11 +165,11 @@ workspace "School Enrollment System" "This workspace documents the architecture 
         //queueManager -> studentsDB "Reads information about students"
 
         //queueManager -> scheduleDbCommunicator "Reads information about tickets"
-        //queueManager -> enrollmentDB "Reads and writes info about students' in-queue tickets"
+        //queueManager -> enrollmentDBCommunicator "Reads and writes info about students' in-queue tickets"
 
         // enrollmentConfigurationHTML -> currentEnrollmentDatesManager "Makes API calls to"
         // enrollmentConfigurationManager -> enrollmentConfigurationHTML "Gives current enrollment dates"
-        // enrollmentConfigurationManager -> enrollmentDB "Reads and writes enrollment configuration"
+        // enrollmentConfigurationManager -> enrollmentDBCommunicator "Reads and writes enrollment configuration"
 
         //enrollmentManager -> queueManager "Sends requests to add to queue/remove to queue"
         //enrollmentConfigurationManager -> queueManager "Turns on/off based on changes"
